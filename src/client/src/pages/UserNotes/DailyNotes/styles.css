@@ -1,0 +1,17 @@
+
+
+
+.daily-note-body-input {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+}
+
+.daily-note-menu-item {
+
+}
+
+.daily-note-menu-item:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}

@@ -1,0 +1,27 @@
+
+
+
+
+.note-body-input {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+}
+
+.note-menu-item {
+
+}
+
+.note-menu-item:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 1px 20px;
+    display: inline-block;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+    border-radius: border-box;
+}

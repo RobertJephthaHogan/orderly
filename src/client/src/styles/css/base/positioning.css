@@ -1,0 +1,43 @@
+
+
+.overflow-x-scroll {
+    overflow-x: auto !important;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.content-center {
+    justify-content: center;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.algn-l {
+    left: 0px;
+}
+
+.algn-r {
+    right: 0px;
+}
+
+
+.dfcc {
+    display: flex;
+    justify-content: center;
+}
+
+.vc {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}

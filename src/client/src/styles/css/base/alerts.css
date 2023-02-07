@@ -1,0 +1,39 @@
+.large-alert {
+    max-width: 27rem;
+    text-align: left;
+    border-radius: 4px;
+    /* background-color: #FFFFFF; */
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.15);
+  }
+  
+  .large-alert-container {
+    text-align: left;
+    padding-top: 5rem;
+    padding-left: 0;
+  }
+  
+  .large-alert-container .ant-message-notice-content {
+    /* background: transparent; */
+    box-shadow: none;
+  }
+  
+  .large-alert__icon {
+    /* color: #1890FF; */
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .large-alert-container .ant-alert-message {
+    /* color: rgba(0,0,0,0.85); */
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    margin-bottom: .6rem;
+  }
+  
+  .large-alert-container .ant-alert-description {
+    /* color: rgba(0,0,0,0.65); */
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 22px;
+  }

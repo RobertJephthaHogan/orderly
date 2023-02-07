@@ -1,0 +1,116 @@
+
+
+.projects-top-bar {
+    width: 100%;
+    padding: 10px;
+}
+
+.banner {
+    border: 1px solid #dfdfdf
+}
+
+.divider {
+    border-bottom: 1px solid #dfdfdf ;
+    width: 100%;
+}
+
+.tab-sectoin {
+    width: 100%;
+}
+
+.tab-select {
+    width: 100%;
+    display: flex;
+}
+
+.tab-option {
+    width: 100%;
+}
+
+.tab-option:hover {
+    cursor: pointer;
+}
+
+.aactive {
+    border: 1px solid #dfdfdf;
+    border-bottom: none;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.inactive {
+    border: 1px solid #dfdfdf;
+    background-color: #f7f7f7;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.tab-panel-area {
+    width: 100%;
+}
+
+.top-bar-wrapper {
+    width: 100%;
+    padding: 10px;
+}
+
+.top-bar {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+}
+
+.body-wrapper {
+
+}
+
+.body-content {
+    display: flex;
+}
+
+.projects-menu-wrapper {
+    width: 30%;
+    border: 1px solid #dfdfdf;
+    margin-right: 10px;
+}
+
+.projects-display-wrapper {
+    width: 70%;
+    border: 1px solid #dfdfdf;
+    padding: 10px;
+}
+
+.project-section {
+    border: 1px solid #dfdfdf;
+    padding: 10px;
+    margin: 10px;
+}
+
+.pmenu-item:hover {
+    cursor: pointer;
+    background-color: #f5f5f5;
+    box-shadow: 5px ;
+}
+
+.projects-editor-wrapper {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    padding: 10px;
+}
+
+.projects-editor-tasks {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    padding: 10px;
+    margin: 10px;
+}
+
+.projects-editor-events {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    padding: 10px;
+    margin: 10px;
+}
+
+.project-input-row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}

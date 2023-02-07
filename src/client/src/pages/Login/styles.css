@@ -1,0 +1,49 @@
+
+
+
+.login_component {
+    width: 100%;
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login_access_panel {
+    width:300px;
+    height:200px;
+    border: 1px solid white;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login_button_text {
+    color: rgb(255, 255, 255);
+}
+
+.login_title_text{
+    color: rgb(255, 255, 255);
+}
+
+.forgot_password_text {
+    color: #ffffff;
+    font-size: 10px;
+
+}
+
+.forgot_password_text:hover {
+    cursor: pointer;
+}
+
+.submit_login {
+    
+}
+
+.submit_login:hover {
+    cursor: pointer;
+}

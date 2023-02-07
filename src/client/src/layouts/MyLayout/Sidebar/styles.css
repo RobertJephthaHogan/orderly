@@ -1,0 +1,29 @@
+
+
+
+
+
+.sidebar {
+    height: 100vh;
+    border: 1px solid #c3c3c3;
+}
+
+.sidebar-title {
+    text-align: center;
+    border: 1px solid;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top:10px;
+    align-items: center;
+}
+
+.sidebar-title-wrapper {
+    align-items: center;
+    text-align: center;
+}
+
+.sidebar-divider {
+    border-bottom: 1px solid #b3b3b3;
+    /* margin-top: 15px;
+    margin-bottom: 15px; */
+}

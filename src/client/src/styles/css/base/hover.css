@@ -1,0 +1,14 @@
+
+
+
+.loh-10 {
+
+}
+
+
+.loh-10:hover {
+    transition: box-shadow .34s;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+

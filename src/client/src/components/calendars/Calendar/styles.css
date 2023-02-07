@@ -1,0 +1,80 @@
+
+
+.calendar {
+
+}
+
+.calendar-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.calendar-header-left {
+    padding:10px 20px;
+    display:flex;
+    width: 50%;
+}
+
+.calendar-header-right {
+    padding:10px 20px;
+    display:flex;
+    width: 50%;
+    justify-content: end;
+}
+
+.tf-btn {
+
+}
+
+.tf-btn:hover {
+    cursor: pointer;
+    background-color: #f1f1f1ca;
+}
+
+.timeframe-radio {
+    display: flex;
+    border-radius: 4px;
+}
+
+.timeframe-week {
+    border-radius: 4px 0px 0px 4px;
+    border: 1px solid #d3d3d3;
+}
+
+.timeframe-month {
+    border: 1px solid #d3d3d3;
+}
+
+.timeframe-year {
+    border-radius: 0px 4px 4px 0px;
+    border: 1px solid #d3d3d3;
+}
+
+.timeframe-text {
+    margin: 5px;
+}
+
+.active {
+    border: 1px solid #e4faff !important;
+}
+
+.year-select {
+    margin-right: 10px
+}
+
+.date-selector-area {
+}
+
+.month-date-select-wrapper {
+    display: flex;
+}
+.week-date-select-wrapper {
+    display: flex;
+}
+
+.date-display-area {
+    border: 1px solid #d3d3d3;
+    padding: 5px;
+    border-radius: 4px;
+}

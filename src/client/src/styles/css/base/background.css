@@ -1,0 +1,28 @@
+
+
+
+.bg-black {
+    background-color: black;
+}
+
+.bg-grey {
+    background-color: #e8eded;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+
+.spin__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    z-index: 999999;
+    background-color: #00000021;
+    pointer-events: all;
+}

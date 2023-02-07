@@ -1,0 +1,75 @@
+
+
+.year-view-wrapper {
+    padding: 20px;
+}
+
+.month-view-wrapper {
+    padding: 20px;
+}
+
+.week-view-wrapper {
+    padding: 20px;
+}
+
+.year-view {
+    border: 1px solid #ccc;
+
+}
+
+.month-view {
+    border: 1px solid #ccc;
+
+}
+
+.week-view {
+    border: 1px solid #ccc;
+}
+
+.week-view-body {
+    width: 100%;
+    display: flex;
+}
+
+.year-view-row { 
+    width: 100%;
+    display: flex;
+}
+
+.month-cell {
+    border: 1px solid #ccc;
+    width:100%;
+    height:100px
+}
+
+.month-cell:hover {
+    cursor: pointer;
+    background-color: #f1f1f1ca;
+}
+
+.day-cell {
+    min-height: 50px;
+}
+
+.day-cell:hover {
+    cursor: pointer;
+    background-color: #f1f1f1ca;
+}
+
+.active-monthly-day-cell {
+    background-color: #d0fbffca;
+}
+
+.event-chip-wrapper {
+   
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.event-chip {
+    border: 1px solid #f1f1f1;
+    max-width: 75px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

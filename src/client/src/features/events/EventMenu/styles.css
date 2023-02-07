@@ -1,0 +1,24 @@
+
+
+
+
+
+.evt-category-menu-item {
+
+}
+
+.evt-category-menu-item:hover {
+    cursor: pointer;
+    background-color: #efefefa1;
+}
+
+.evt-row {
+    margin-left: 2em;
+    margin-right: 1em;
+}
+
+
+.evt-row:hover {
+    cursor: pointer;
+    background-color: #efefefa1;
+}
