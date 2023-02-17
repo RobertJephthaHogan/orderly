@@ -10,6 +10,8 @@ import taskActions from "../../redux/actions/tasks";
 import userActions from "../../redux/actions/user";
 import { store } from "../../redux/store";
 import { userService } from "../../services/user.service";
+import bg from '../../assets/images/bg.jpg'
+import fc from '../../assets/images/filing_cabinet.png'
 import './styles.css'
 
 
@@ -46,73 +48,50 @@ const Homepage : React.FC = () => {
     return (
         <div className='homepage'>
             <div className="homepage_landing_section" >
-                <div className="w-100 flex space-between">
-                    <div className="h-100 ">
-                        <div className=' w-100 flex vc content-center'>
-                            <div className="homepage_title_content">
-                                {
-                                    currentUser?._id ? (
-                                        <div className="homepage_access_panel">
-                                            <div className="flex content-center w-100">
-                                                {`Hello ${currentUser?.data?.firstName}`}
-                                            </div>
-                                            <div className="flex content-center w-100">
-                                                <button
-                                                    onClick={() => navigate('/dashboard')}
-                                                    className="hp-btn"
-                                                >
-                                                    Dashboard
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div 
-                                            className="homepage_access_panel"
-                                        >
-                                            <div className="flex content-center w-100 pt-3">
-                                                <span className="homepage_title_text mb-2">Please Enter Credentials.</span>
-                                            </div>
-                                            <div className="flex content-center">
-                                                <form onSubmit={onSubmitLogin}>
-                                                    <div className="pb-1 flex">
-                                                        <input
-                                                            name="email"
-                                                            id="email"
-                                                            type="text"
-                                                            value={loginInfo?.email}
-                                                            onChange={(e) => handleLoginInfoChange(e?.target?.value, 'username')}
-                                                            className='mr-1'
-                                                        >  
-                                                        </input>
-                                                        <UserOutlined style={{color:'white'}}/>
-                                                    </div>
-                                                    <div className="pb-1 flex">
-                                                        <input
-                                                            name="password"
-                                                            id="password"
-                                                            type="text"
-                                                            value={loginInfo?.password}
-                                                            onChange={(e) => handleLoginInfoChange(e?.target?.value, 'password')}
-                                                            className='mr-1'
-                                                        >
-                                                        </input>
-                                                        <LockOutlined style={{color:'white'}}/>
-                                                    </div>
-                                                    <div className="flex space-between">
-                                                        <button className="submit_login" type="submit">
-                                                            Submit
-                                                        </button>
-                                                        <div>
-                                                            <span className="forgot_password_text">Forgot Password?</span>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    )
-                                }
-                            </div>
+                <div className=' w-100 flex vc content-center'>
+                    <div className="homepage_title_content">
+                        <span className="intro-mini-font">
+                            Welcome to 
+                        </span>
+                        <span className="my-name">
+                            Orderly
+                        </span>
+                        <span className="intro-content">
+                            Helping manage tasks, events, projects, and 
+                        </span>
+                        <div className="landing-controls">
+                            <Button 
+                                onClick={() => navigate('/login')} 
+                                type="primary" 
+                            >
+                                Login
+                            </Button>
+                            <Button 
+                                onClick={() => navigate('/signup')} 
+                                type="primary" 
+                                className="ml-2"
+                            >
+                                Sign Up
+                            </Button>
+                            <Button 
+                                onClick={() => navigate('/dashboard')} 
+                                type="primary" 
+                                className="ml-2"
+                            >
+                                Dashboard
+                            </Button>
                         </div>
+                    </div>
+                    <div className="flex jc-c">
+                        <img
+                            alt="example"
+                            src={fc}
+                            style={{
+                                marginLeft: '100px',
+                                width: '275px',
+                                height: '230px'
+                            }}
+                        />
                     </div>
                 </div>
             </div>

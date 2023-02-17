@@ -38,7 +38,7 @@ class Settings(BaseSettings):
 
 async def initiate_database():
     client = AsyncIOMotorClient(Settings().DATABASE_URL)
-    await init_beanie(database=client.control_panel,
+    await init_beanie(database=client.orderly,
                         document_models=[ 
                             User, 
                             Task, 

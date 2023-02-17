@@ -44,7 +44,7 @@ export const MyLayoutSidebar : React.FC<Props> = ({
                 !isSidebarCollapsed 
                 ? (
                     <div className='sidebar-title-wrapper'>
-                        <h3>Control Panel</h3>
+                        <h3>Orderly</h3>
                     </div>
                 ) : (
                     <div className='sidebar-title-wrapper pt-1'>
