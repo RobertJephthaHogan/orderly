@@ -5,6 +5,7 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 0.5rem;
+    align-items: center;
 }
 
 .submit-btn {
@@ -14,4 +15,12 @@
 .field-label {
     font-size: 12px;
     font-weight: 700;
+}
+
+.sub-text {
+
+}
+
+.sub-text:hover {
+    cursor: pointer;
 }

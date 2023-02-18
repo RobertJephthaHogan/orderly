@@ -18,3 +18,35 @@
 .fill-r {
     flex-grow: 1 !important;
 }
+
+.fl-gr-1 {
+    flex-grow: 1;
+}
+
+.jc-s {
+    justify-content: start;
+}
+
+.jc-c {
+    justify-content: center;
+}
+
+.jc-e {
+    justify-content: end;
+}
+
+.jc-sb {
+    justify-content: space-between;
+}
+
+.jc-sa {
+    justify-content: space-around;
+}
+
+.jc-se {
+    justify-content: space-evenly;
+}
+
+.fdc {
+    flex-direction: column;
+}
