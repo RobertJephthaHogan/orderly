@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { priorities } from '../../../data/priorities'
 import { projectCategories } from '../../../data/projectCategories'
-import { projectService } from '../../../services/projects.service'
+import { projectService } from '../../../services'
 
 
 

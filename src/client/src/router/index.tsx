@@ -6,8 +6,8 @@ import ProtectedRoutes from './ProtectedRoutes'
 
 import Homepage from "../pages/Homepage"
 import UserTasks from "../pages/UserTasks"
-import { SignUp } from "../pages/SignUp"
-import { Login } from "../pages/Login"
+import Login from "../pages/Login"
+import SignUp from "../pages/SignUp"
 import { About } from "../pages/About"
 import { UserProjects } from "../pages/UserProjects"
 import { MyLayout } from "../layouts/MyLayout"

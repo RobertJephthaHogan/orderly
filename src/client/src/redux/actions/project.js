@@ -1,5 +1,5 @@
 import * as types from '../types'
-import { projectService } from '../../services/projects.service'
+import { projectService } from '../../services/project.service'
 
 
 
