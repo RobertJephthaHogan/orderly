@@ -27,6 +27,7 @@ export const UserEvents : React.FC = () => {
         const st = groupByProperty(userEvents, 'category')
         const returnedTarget = Object.assign({All: userEvents}, st);
         setSortedEvents(returnedTarget)
+        setEventsToDisplay(userEvents)
     }, [userEvents])
 
     const setEvent = (evt: any) => {

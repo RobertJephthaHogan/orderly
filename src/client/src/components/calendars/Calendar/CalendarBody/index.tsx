@@ -218,15 +218,13 @@ const MonthView : React.FC<Props> = ({
                 <div className='flex w-100' key={`week${week.toString()}`}>
                     {
                         week?.[1].map((day:any) => {
-
                             let eventsOnThisDay : any = []
                             events?.forEach((evt: any) => {
-                                if (new Date(evt?.startTime)?.toJSON() == day?.toJSON()) {
+                                if (new Date(evt?.startTime)?.toJSON().split('T')[0] == day?.toJSON().split('T')[0]) {
                                     eventsOnThisDay.push(evt)
                                 }
                             }) 
                             const eventsToRender = eventsOnThisDay?.map((evt: any) => {
-
                                 return (
                                     <div 
                                         key={evt?.id}

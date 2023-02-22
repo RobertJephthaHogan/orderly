@@ -57,7 +57,7 @@ const Homepage : React.FC = () => {
                             Orderly
                         </span>
                         <span className="intro-content">
-                            Helping manage tasks, events, projects, and 
+                            Helping manage tasks, events, projects, and other stuff.
                         </span>
                         <div className="landing-controls">
                             <Button 
