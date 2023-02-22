@@ -1,3 +1,4 @@
+import { Tag } from 'antd'
 import { useEffect, useState } from 'react'
 import './styles.css'
 
@@ -225,16 +226,58 @@ const MonthView : React.FC<Props> = ({
                                 }
                             }) 
                             const eventsToRender = eventsOnThisDay?.map((evt: any) => {
-                                return (
-                                    <div 
-                                        key={evt?.id}
-                                        className='event-chip-wrapper'
-                                    >
-                                        <div className='event-chip'>
-                                            {evt?.title}
+                                console.log('evt', evt)
+                                if (evt?.category == 'Meeting') {
+                                    console.log('meeting')
+                                    return (
+                                        <div 
+                                            key={evt?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <div className='meeting-chip'>
+                                                {evt?.title}
+                                            </div>
                                         </div>
-                                    </div>
-                                )
+                                    )
+                                } else if (evt?.category == 'Birthday') {
+                                    console.log('birthday')
+                                    return (
+                                        <div 
+                                            key={evt?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <Tag color="blue" >blue example</Tag>
+                                            <div className='birthday-chip'>
+                                                {evt?.title}
+                                            </div>
+                                        </div>
+                                    )
+                                } else if (evt?.category == 'Work') {
+                                    console.log('work')
+                                    return (
+                                        <div 
+                                            key={evt?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <div className='work-chip'>
+                                                {evt?.title}
+                                            </div>
+                                        </div>
+                                    )
+                                } else {
+                                    console.log('elsed')
+                                    return (
+                                        <div 
+                                            key={evt?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <div className='event-chip'>
+                                                {evt?.title}
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                
                             }) || []
 
 
