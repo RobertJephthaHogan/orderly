@@ -7,6 +7,7 @@ import { Calendar } from '../../components/calendars/Calendar'
 import { EventMenu } from '../../features/events/EventMenu'
 import { EventForm } from '../../components/forms/EventForm'
 import './styles.css'
+import NewEventForm from '../../components/forms/NewEventForm'
 
 
 
@@ -56,6 +57,10 @@ export const UserEvents : React.FC = () => {
                         existingEvent={selectedEvent}
                         formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
                     />
+                    {/* <NewEventForm
+                        existingEvent={selectedEvent}
+                        formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
+                    /> */}
                 </div>
             </div>
             <div className='w-100 flex p-2'>

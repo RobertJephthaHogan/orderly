@@ -1,3 +1,4 @@
+import { Button, Input } from 'antd'
 import { ObjectID } from 'bson'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -149,6 +150,14 @@ export const EventForm : React.FC<Props> = ({
                             onChange={(e) => handleEventInfoChange(e?.target?.value, 'title')}
                             className='mr-1 text-field'
                         />
+                        {/* <Input
+                            name="title"
+                            id="event-form-title"
+                            type="text"
+                            placeholder='Event Title'
+                            onChange={(e) => handleEventInfoChange(e?.target?.value, 'title')}
+                            className='mr-1 text-field'
+                        /> */}
                     </div>
                     <div className="input-div-50">
                         <input
@@ -159,6 +168,14 @@ export const EventForm : React.FC<Props> = ({
                             onChange={(e) => handleEventInfoChange(e?.target?.value, 'description')}
                             className='mr-1 text-field'
                         />
+                        {/* <Input
+                            name="description"
+                            id="event-form-description"
+                            type="text"
+                            placeholder='Event Description'
+                            onChange={(e) => handleEventInfoChange(e?.target?.value, 'description')}
+                            className='mr-1 text-field'
+                        /> */}
                     </div>
                     <div className="input-div-20">
                         <select 
@@ -204,9 +221,16 @@ export const EventForm : React.FC<Props> = ({
                     </div>
                 </div>
                 <div className="flex space-between">
-                    <button className="submit-evt" type="submit">
-                        Submit
-                    </button>
+                    <Button 
+                        className="submit-evt" 
+                        onClick={onFinish}
+                    >
+                        {
+                            formOperation == 'add'
+                            ? 'Submit New'
+                            : 'Submit Edit'
+                        }
+                    </Button>
                 </div>
             </form>
         </div>
