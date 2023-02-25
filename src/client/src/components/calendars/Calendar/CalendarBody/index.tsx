@@ -226,9 +226,9 @@ const MonthView : React.FC<Props> = ({
                                 }
                             }) 
                             const eventsToRender = eventsOnThisDay?.map((evt: any) => {
-                                console.log('evt', evt)
+                                //console.log('evt', evt)
                                 if (evt?.category == 'Meeting') {
-                                    console.log('meeting')
+                                    //console.log('meeting')
                                     return (
                                         <div 
                                             key={evt?.id}
@@ -240,20 +240,19 @@ const MonthView : React.FC<Props> = ({
                                         </div>
                                     )
                                 } else if (evt?.category == 'Birthday') {
-                                    console.log('birthday')
+                                    //console.log('birthday')
                                     return (
                                         <div 
                                             key={evt?.id}
                                             className='event-chip-wrapper'
                                         >
-                                            <Tag color="blue" >blue example</Tag>
                                             <div className='birthday-chip'>
                                                 {evt?.title}
                                             </div>
                                         </div>
                                     )
                                 } else if (evt?.category == 'Work') {
-                                    console.log('work')
+                                    //console.log('work')
                                     return (
                                         <div 
                                             key={evt?.id}

@@ -16,6 +16,7 @@ export const UserEvents : React.FC = () => {
     const [sortedEvents, setSortedEvents] = useState<any>({})
     const [selectedEvent, setSelectedEvent] = useState<any>()
     const [selectedCategory, setSelectedCategory] = useState<any>()
+    const [selectedDate, setSelectedDate] = useState<any>()
     const [eventsToDisplay, setEventsToDisplay] = useState<any>()
 
 
@@ -36,6 +37,11 @@ export const UserEvents : React.FC = () => {
 
     const setCategory = (category: any) => {
         setEventsToDisplay(category?.children)
+    }
+
+    const setDate = (value: any) => {
+        console.log('onCellSelect', value)
+        setSelectedDate(value)
     }
 
 
@@ -71,6 +77,7 @@ export const UserEvents : React.FC = () => {
                 <div className='bordered right-bar'>
                     <Calendar
                         eventsToDisplay={eventsToDisplay}
+                        onCellSelect={setDate}
                     />
                 </div>
             </div>

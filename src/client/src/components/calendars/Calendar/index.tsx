@@ -6,10 +6,12 @@ import './styles.css'
 
 type Props = {
     eventsToDisplay?: any
+    onCellSelect?: any
 }
 
 export const Calendar : React.FC<Props> = ({
-    eventsToDisplay
+    eventsToDisplay,
+    onCellSelect
 }) => {
 
     const [activeTimeframe, setActiveTimeframe] = useState<any>('tf-month')
@@ -75,7 +77,9 @@ export const Calendar : React.FC<Props> = ({
     }
 
     const onDateSelect = (data: any) => {
+        console.log('selected date:', data)
         setSelectedDay(data)
+        onCellSelect(data)
     }
 
 
@@ -83,8 +87,6 @@ export const Calendar : React.FC<Props> = ({
         <div className="calendar">
             <CalendarHeader
                 activeTimeframe={activeTimeframe}
-                monthOptions={monthOptions}
-                yearOptions={yearOptions}
                 onTimeframeSelect={onTimeframeSelect}
                 selectedDay={selectedDay}
                 onDateSelect={onDateSelect}

@@ -1,11 +1,10 @@
+import { Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { indexMonthMap, monthIndexMap } from '../../../../data/monthIndexMap'
 import './styles.css'
 
 type Props = {
     activeTimeframe?: any
-    monthOptions?: any
-    yearOptions?: any
     onTimeframeSelect?: any
     selectedDay?:any
     onDateSelect?: any
@@ -13,8 +12,6 @@ type Props = {
 
 export const CalendarHeader : React.FC<Props> = ({
     activeTimeframe,
-    monthOptions,
-    yearOptions,
     onTimeframeSelect,
     selectedDay,
     onDateSelect
@@ -22,6 +19,8 @@ export const CalendarHeader : React.FC<Props> = ({
 
     const [selectedYear, setSelectedYear] = useState<any>(selectedDay.getYear() + 1900)
     const [selectedMonth, setSelectedMonth] = useState<any>(indexMonthMap[selectedDay.getMonth()])
+    const [monthOptions, setMonthOptions] = useState<any>()
+    const [yearOptions, setYearOptions] = useState<any>()
 
 
     useEffect(() => {
@@ -32,20 +31,68 @@ export const CalendarHeader : React.FC<Props> = ({
 
     const onSelectedYearChange = (data: any) => {
         setSelectedYear(data?.target?.value)
-        const newDate = new Date(selectedDay.setFullYear(data?.target?.value))
+        //const newDate = new Date(selectedDay.setFullYear(data?.target?.value)) // when using normal html select
+        const newDate = new Date(selectedDay.setFullYear(data))
         onDateSelect(newDate)
     }
 
     const onSelectedMonthChange = (data: any) => {
-        const newDate = new Date(selectedDay.setMonth(monthIndexMap[data?.target?.value]))
+        console.log('data', data)
+        const newDate = new Date(selectedDay.setMonth(monthIndexMap[data])) // for antd select
+        //const newDate = new Date(selectedDay.setMonth(monthIndexMap[data?.target?.value])) // for normal select
         onDateSelect(newDate)
     }
+
+    const generateMonthOptions = () => {
+        if (!monthOptions?.length) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'November', 'December']
+            const menu = months?.map((month: any) => {
+                return (
+                    {
+                        value: month,
+                        label: month,
+                    }
+                )
+            })  || []
+            setMonthOptions(menu)
+        }
+    }
+
+    const generateYearOptions = () => {
+        if (!yearOptions?.length) {
+            const yrs = generateArrayOfYears()
+            const menu = yrs?.map((yr: any) => {
+                return (
+                    {
+                        value: yr,
+                        label: yr,
+                    }
+                )
+            })  || []
+            setYearOptions(menu)
+        } 
+    }
+
+    const generateArrayOfYears = () => {
+        const min = new Date().getFullYear() - 50
+        const max = min + 150
+        const years = []
+        for (let i = min; i <= max; i++) {
+          years.push(i)
+        }
+        return years
+    }
+
+    useEffect(() => {
+        generateMonthOptions()
+        generateYearOptions()
+    }, [])
 
     return (
         <>
             <div className="calendar-header pt-1">
                 <div className="calendar-header-left">
-                    <div className='date-display-area'>
+                    {/* <div className='date-display-area'>
                         <span>Today is :</span>
                         <div>
                             {new Date().toString().split('GMT')[0]}
@@ -56,7 +103,7 @@ export const CalendarHeader : React.FC<Props> = ({
                         <div>
                             {selectedDay.toString().split('GMT')[0]}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="calendar-header-right">
@@ -65,22 +112,18 @@ export const CalendarHeader : React.FC<Props> = ({
                             activeTimeframe === "tf-week" ? (
                                 <div className='week-date-select-wrapper'>
                                     <div className='month-select'>
-                                        <select 
-                                            name="month"
+                                        <Select 
                                             onChange={onSelectedMonthChange}
                                             value={selectedMonth}
-                                        >
-                                            {monthOptions}
-                                        </select>
+                                            options={monthOptions}
+                                        />
                                     </div>
                                     <div className='year-select ml-1'>
-                                        <select 
-                                            name="year"
-                                            value={selectedYear}
+                                        <Select 
                                             onChange={onSelectedYearChange}
-                                        >
-                                            {yearOptions}
-                                        </select>
+                                            value={selectedYear}
+                                            options={yearOptions}
+                                        />
                                     </div>
                                 </div>
                             ) : (
@@ -91,22 +134,18 @@ export const CalendarHeader : React.FC<Props> = ({
                             activeTimeframe === "tf-month" ? (
                                 <div className='month-date-select-wrapper'>
                                     <div className='month-select'>
-                                        <select 
-                                            name="month"
+                                        <Select 
                                             onChange={onSelectedMonthChange}
                                             value={selectedMonth}
-                                        >
-                                            {monthOptions}
-                                        </select>
+                                            options={monthOptions}
+                                        />
                                     </div>
                                     <div className='year-select ml-1'>
-                                        <select 
-                                            name="year"
-                                            value={selectedYear}
+                                        <Select 
                                             onChange={onSelectedYearChange}
-                                        >
-                                            {yearOptions}
-                                        </select>
+                                            value={selectedYear}
+                                            options={yearOptions}
+                                        />
                                     </div>
                                 </div>
                             ) : (
@@ -116,13 +155,11 @@ export const CalendarHeader : React.FC<Props> = ({
                         {
                             activeTimeframe === "tf-year" ? (
                                 <div className='year-select'>
-                                    <select
-                                        name="year"
-                                        value={selectedYear}
+                                    <Select 
                                         onChange={onSelectedYearChange}
-                                    >
-                                        {yearOptions}
-                                    </select>
+                                        value={selectedYear}
+                                        options={yearOptions}
+                                    />
                                 </div>
                             ) : (
                                 <></>
@@ -163,3 +200,4 @@ export const CalendarHeader : React.FC<Props> = ({
         </>
     )
 }
+
