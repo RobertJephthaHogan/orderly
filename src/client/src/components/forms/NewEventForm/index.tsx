@@ -21,11 +21,11 @@ interface EventFormProps {
 
 export default function NewEventForm(props: EventFormProps) {
 
-    const [formValues, setFormValues] = useState<any>({})
+    const [formValues, setFormValues] = useState<any>({category: 'General' })
     const [categoryOptions, setCategoryOptions] = useState<any>()
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
 
-    console.log('formValues', formValues)
+    
 
     useEffect(() => {
         if (!categoryOptions?.length) {
@@ -38,6 +38,13 @@ export default function NewEventForm(props: EventFormProps) {
         }   
     }, [])
 
+    useEffect(() => {
+        if(!formValues?.category) {
+            setFormValues({...formValues, category: 'General'})
+        }
+    })
+
+    console.log('formValues', formValues)
 
     const handleEventInfoChange = (value : any, field: any) => {
         console.log('value', value)
@@ -66,8 +73,8 @@ export default function NewEventForm(props: EventFormProps) {
 
         if (props.formOperation == 'add') {
             
-            eventStartTime = `${formValues?.eventDate}T${formValues?.startTime.split('T')[1]}`
-            eventEndTime = `${formValues?.eventDate}T${formValues?.endTime.split('T')[1]}`
+            eventStartTime = `${formValues?.eventDate}T${formValues?.startTime?.split('T')[1]}`
+            eventEndTime = `${formValues?.eventDate}T${formValues?.endTime?.split('T')[1]}`
             
             const dto = {
                 id: new ObjectID().toString(),
@@ -155,6 +162,7 @@ export default function NewEventForm(props: EventFormProps) {
                             data-select
                             className='select-field'
                             value={formValues?.category}
+                            defaultValue={formValues?.category}
                         >
                             {categoryOptions}
                         </select>
@@ -164,6 +172,7 @@ export default function NewEventForm(props: EventFormProps) {
                     <div className="input-div-40">
                         <DatePicker
                             className='w-100'
+                            status={!formValues?.eventDate ? 'error' : ''}
                             value={moment(formValues?.eventDate)}
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString().split('T')[0], 'eventDate')}
                         />
@@ -171,6 +180,7 @@ export default function NewEventForm(props: EventFormProps) {
                     <div className="input-div-30">
                         <TimePicker
                             className='w-100'
+                            status={!formValues?.startTime ? 'error' : ''}
                             value={moment(formValues?.startTime)}
                             use12Hours
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString(), 'startTime')}
@@ -180,6 +190,7 @@ export default function NewEventForm(props: EventFormProps) {
                         <TimePicker
                             className='w-100'
                             value={moment(formValues?.endTime)}
+                            status={!formValues?.endTime ? 'error' : ''}
                             use12Hours
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString(), 'endTime')}
                         />

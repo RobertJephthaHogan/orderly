@@ -53,10 +53,10 @@ export const UserEvents : React.FC = () => {
                     className='bordered'
                     //style={{height:'100px'}}
                 >
-                    <EventForm
+                    {/* <EventForm
                         existingEvent={selectedEvent}
                         formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
-                    />
+                    /> */}
                     <NewEventForm
                         existingEvent={selectedEvent}
                         formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
