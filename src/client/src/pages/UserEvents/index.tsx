@@ -57,10 +57,11 @@ export const UserEvents : React.FC = () => {
                         existingEvent={selectedEvent}
                         formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
                     />
-                    {/* <NewEventForm
+                    <NewEventForm
                         existingEvent={selectedEvent}
                         formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
-                    /> */}
+                        setEvent={setEvent}
+                    />
                 </div>
             </div>
             <div className='w-100 flex p-2'>

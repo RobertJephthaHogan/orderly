@@ -1,26 +1,26 @@
 export const eventCategories: any = [
     {
-        key: 'general',
+        key: 'General',
         label: 'General',
     },
     {
-        key: 'birthday',
+        key: 'Birthday',
         label: 'Birthday',
     },
     {
-        key: 'meeting',
+        key: 'Meeting',
         label: 'Meeting',
     },
     {
-        key: 'work',
+        key: 'Work',
         label: 'Work',
     },
     {
-        key: 'vacation',
+        key: 'Vacation',
         label: 'Vacation',
     },
     {
-        key: 'personal-projects',
-        label: 'Personal Projects',
+        key: 'Personal-Projects',
+        label: 'Personal-Projects',
     },
 ]
