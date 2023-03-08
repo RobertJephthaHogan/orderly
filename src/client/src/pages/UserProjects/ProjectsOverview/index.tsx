@@ -141,11 +141,11 @@ export const ProjectsOverview: React.FC<ProjectsOverviewProps> = ({
 					{
 						newEventFormOpen ? (
 							<div>
-								<EventForm
+								{/* <EventForm
 								eventParent={selectedProject?._id}
 								formOperation={'add'}
 								onFinishAction={() => setNewEventFormOpen(false)}
-								/>
+								/> */}
 								<NewEventForm
 									eventParent={selectedProject?._id}
 									formOperation={'add'}

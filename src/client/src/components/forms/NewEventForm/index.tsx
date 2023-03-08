@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { eventCategories } from '../../../data/eventCategories'
 import eventActions from '../../../redux/actions/event'
 import { store } from '../../../redux/store'
-
+import './styles.css'
 
 
 interface EventFormProps {

@@ -7,6 +7,7 @@ import { store } from '../../redux/store';
 import { TaskForm } from '../../components/forms/TaskForm';
 import './styles.css'
 import TaskMenuRender from '../../features/tasks/TaskMenu';
+import NewTaskForm from '../../components/forms/NewTaskForm';
 
 
 
@@ -31,9 +32,6 @@ export default function UserTasks() {
 	}, [userTasks])
 	
 
-	useEffect(() => {
-		setSortedTasks(sortedTasks)
-	}, [sortedTasks])
 
 
 	useEffect(() => {
@@ -41,8 +39,12 @@ export default function UserTasks() {
 			resetTaskForm()
 			setSelectedTask(null)
 			setSelectedCategoryTasks(sortedTasks?.[selectedCategory?.[0]])
+			console.log('sortedTasks?.[selectedCategory?.[0]]' ,sortedTasks?.[selectedCategory?.[0]])
+		} else {
+			setSelectedCategoryTasks(sortedTasks?.['General'])
 		}
 	}, [selectedCategory, sortedTasks])
+
 
 
 	const deleteUserTask = (id: any) => {
@@ -51,14 +53,7 @@ export default function UserTasks() {
 
 
 	const resetTaskForm = () => {
-		let formTitle : any = document?.getElementById('task-form-title')
-		let formDescription : any = document?.getElementById('task-form-description')
-		let formPriority : any = document?.getElementById('task-form-priority')
-		let formDueDate : any = document?.getElementById('task-form-dueDate')
-		formTitle.value = null
-		formDescription.value = null
-		formPriority.value = null
-		formDueDate.value = null
+		setSelectedTask(null)
 	}
 
 
@@ -120,10 +115,17 @@ export default function UserTasks() {
 	return (
 		<div>
 			<div className='top-bar-wrapper'>
-				<div className='top-bar'>
+				{/* <div className='top-bar'>
 					<TaskForm
 						initialTask={selectedTask}
 						formOperation={selectedTask?.id?.length ? 'edit' : 'add'}
+					/>
+				</div> */}
+				<div className='top-bar p-1'>
+					<NewTaskForm
+						initialTask={selectedTask}
+						formOperation={selectedTask?.id?.length ? 'edit' : 'add'}
+						setSelectedTask={setSelectedTask}
 					/>
 				</div>
 			</div>

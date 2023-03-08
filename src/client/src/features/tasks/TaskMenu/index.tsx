@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 
 
@@ -12,7 +13,14 @@ const TaskMenuRender : React.FC<Props> = ({
     sortedTasks,
     setSelectedCategory
 }) => {
-    const taskCategoriesMenu = Object.entries(sortedTasks)?.map((project: any) => {
+
+    const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
+
+    console.log(userTasks)
+
+    const intTasks = Object.assign({All: userTasks}, {...sortedTasks});
+
+    const taskCategoriesMenu = Object.entries(intTasks)?.map((project: any) => {
         return (
             <div 
                 className='flex w-100 brdr-b pt-1 pmenu-item'
@@ -24,6 +32,8 @@ const TaskMenuRender : React.FC<Props> = ({
             </div>
         )
     }) || []
+
+
     return (
         <div className='mr-3'>
             {taskCategoriesMenu}

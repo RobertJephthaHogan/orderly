@@ -1,50 +1,53 @@
+import { UndoOutlined } from '@ant-design/icons'
+import { Button, DatePicker, Input } from 'antd'
 import { ObjectID } from 'bson'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { priorities } from '../../../data/priorities'
 import { taskCategories } from '../../../data/taskCategories'
 import taskActions from '../../../redux/actions/tasks'
 import { store } from '../../../redux/store'
-import './styles.css'
 
 
-type Props = {
+
+
+interface TaskFormProps {
     initialTask?: any
     formOperation?: any
     taskParent?:any
     onFinishAction?: any
+    setSelectedTask?: any
 }
 
-export const TaskForm : React.FC<Props> = ({
-    initialTask,
-    formOperation,
-    taskParent,
-    onFinishAction
-}) => {
+export default function NewTaskForm(props: TaskFormProps) {
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
-    const [editingSubject, setEditingSubject] = useState<any>({})
+    const [editingSubject, setEditingSubject] = useState<any>({
+        category: 'General',
+        priority: 'High'
+    })
     const [categoryOptions, setCategoryOptions] = useState<any>()
     const [priorityOptions, setPriorityOptions] = useState<any>()
 
 
     const onEditorSubjectChange = (value: any, fieldName: any) => {
-        let inifields = editingSubject
+        let inifields = {...editingSubject}
         inifields[fieldName] = value
+        console.log('inifields', inifields)
         setEditingSubject(inifields)
     }
-
 
     const onFinish = (data:any) => {
 
         data.preventDefault()
 
-        if (formOperation == 'add') {
+        if (props.formOperation == 'add') {
             const dto = {
                 id: new ObjectID().toString(),
                 title: editingSubject?.title,
                 description: editingSubject?.description,
-                parent: taskParent ? taskParent : '',
+                parent: props.taskParent ? props.taskParent : '',
                 category: editingSubject?.category,
                 priority: editingSubject?.priority,
                 createdByUserId : currentUser._id,
@@ -54,20 +57,25 @@ export const TaskForm : React.FC<Props> = ({
             }
             console.log('dto', dto)
             store.dispatch(taskActions.add(dto))
-            if (onFinishAction) {
-                onFinishAction()
+            if (props.onFinishAction) {
+                props.onFinishAction()
+                onResetForm()
             }
 
-        } else if (formOperation == 'edit') {
+        } else if (props.formOperation == 'edit') {
             store.dispatch(taskActions.update(editingSubject?.id, editingSubject))
         }
 		
 	}
 
+    
     const onResetForm = () => {
-        console.log('resetting form...')
+        setEditingSubject({
+            category: 'General',
+            priority: 'High'
+        })
+        props.setSelectedTask(null)
     }
-
 
     const generateCategoryOptions = () => {
         if (!categoryOptions?.length) {
@@ -96,19 +104,11 @@ export const TaskForm : React.FC<Props> = ({
         generatePriorityOptions()
     })
 
-    useEffect(() => {
-        if (initialTask) {
-            setEditingSubject(initialTask)
-            let formTitle : any = document?.getElementById('task-form-title')
-            let formDescription : any = document?.getElementById('task-form-description')
-            let formPriority : any = document?.getElementById('task-form-priority')
-            let formDueDate : any = document?.getElementById('task-form-dueDate')
-            formTitle.value = initialTask?.title
-            formDescription.value = initialTask?.description
-            formPriority.value = initialTask?.priority
-            formDueDate.value = initialTask?.dueDate
+    useEffect(() => { // update editorSubject when initial task changes
+        if (props.initialTask) {
+            setEditingSubject(props.initialTask)
         }
-    }, [initialTask])
+    }, [props.initialTask])
 
     return (
         <div className='w-100'>
@@ -119,21 +119,21 @@ export const TaskForm : React.FC<Props> = ({
                 <div className='row'>
                     <div className='input-container w-30'>
                         <span className='input-label'>Task Title:</span>
-						<input
+						<Input
 							name="title"
-							id="task-form-title"
 							type="text"
 							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'title')}
+                            value={editingSubject?.title}
 							className='mr-1'
 						/>  
 					</div>
 					<div className='input-container w-70'>
 						<span className='input-label'>Task Description:</span>
-						<input
+						<Input
 							name="description"
-							id="task-form-description"
 							type="text"
 							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'description')}
+                            value={editingSubject?.description}
 							className='mr-1'
 						/> 
 					</div>
@@ -143,8 +143,8 @@ export const TaskForm : React.FC<Props> = ({
 						<span className='input-label'>Task Category:</span>
 						<select 
 							name="category"
-							id="task-form-category"
 							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'category')}
+                            value={editingSubject?.category}
 						>
 							{categoryOptions}
 						</select>
@@ -154,29 +154,46 @@ export const TaskForm : React.FC<Props> = ({
 						<select 
 							name="priority"
                             placeholder='Priority'
-							id="task-form-priority"
 							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'priority')}
+                            //value={editingSubject?.priority}
 						>
 							{priorityOptions}
 						</select>
 					</div>
 					<div className='input-container w-40'>
 						<span className='input-label'>Task Due Date:</span>
-						<input 
-							type="datetime-local" 
-							id="task-form-dueDate"
-							name="dueDate"
-							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'dueDate')}
-						/>
+                        <DatePicker
+                            format="YYYY-MM-DD HH:mm:ss"
+                            showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
+                            use12Hours
+                            onChange={(e: any) => onEditorSubjectChange(new Date(e).toISOString(), 'dueDate')}
+                            value={moment(editingSubject?.dueDate)}
+                            status={!editingSubject?.dueDate ? 'error' : ''}
+                            className='w-100 mr-4'
+                        />
 					</div>
                 </div>
                 <div className="flex">
-                    <button className="submit-task" type="submit">
-                        Submit
-                    </button>
-                    <button className='reset' type='reset' onClick={onResetForm}>
-                        reset
-                    </button>
+                    <div className='w-90 flex'>
+                        <Button 
+                            className="submit-evt m-1" 
+                            onClick={onFinish}
+                        >
+                            {
+                                props.formOperation == 'add'
+                                ? 'Submit New'
+                                : 'Submit Edit'
+                            }
+                        </Button>
+                    </div>
+                    <div className='w-10 flex'>
+                            <Button 
+                                className="reset m-1" 
+                                onClick={onResetForm}
+                            >
+                                <UndoOutlined/>
+                            </Button>
+                        </div>
                 </div>
             </form>
         </div>
