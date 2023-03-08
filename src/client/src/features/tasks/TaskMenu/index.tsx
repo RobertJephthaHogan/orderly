@@ -11,16 +11,10 @@ type Props = {
 
 const TaskMenuRender : React.FC<Props> = ({
     sortedTasks,
-    setSelectedCategory
+    setSelectedCategory,
 }) => {
 
-    const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
-
-    console.log(userTasks)
-
-    const intTasks = Object.assign({All: userTasks}, {...sortedTasks});
-
-    const taskCategoriesMenu = Object.entries(intTasks)?.map((project: any) => {
+    const taskCategoriesMenu = Object.entries(sortedTasks)?.map((project: any) => {
         return (
             <div 
                 className='flex w-100 brdr-b pt-1 pmenu-item'

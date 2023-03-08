@@ -28,7 +28,8 @@ export default function UserTasks() {
 
 	useEffect(() => { // sort tasks when tasks update
 		const st = groupByProperty(userTasks, 'category')
-		setSortedTasks(st)
+		const intTasks = Object.assign({All: userTasks}, {...st});
+		setSortedTasks(intTasks)
 	}, [userTasks])
 	
 

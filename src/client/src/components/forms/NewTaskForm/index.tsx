@@ -8,7 +8,7 @@ import { priorities } from '../../../data/priorities'
 import { taskCategories } from '../../../data/taskCategories'
 import taskActions from '../../../redux/actions/tasks'
 import { store } from '../../../redux/store'
-
+import './styles.css'
 
 
 
