@@ -30,8 +30,6 @@ export const taskReducer = (state = initialState.tasks, action) => {
         let initial = {...state}
 
         if (!action?.payload?.data?._id) {
-          console.log('not@!')
-          console.log('action.payload', action.payload)
             return state
         }
 
@@ -39,24 +37,19 @@ export const taskReducer = (state = initialState.tasks, action) => {
             (c) => c?.id === action?.payload?.data?._id
         )
 
-        console.log('found', found)
-
         if (!found && action?.payload) {
-          console.log('check not found')
             return [...state, action?.payload?.data]
         }
 
-        console.log('state?.queryResult', state?.queryResult)
-
         const data =  state?.queryResult?.map((taskItem) => {
             if (taskItem?.id === action?.payload?.data?._id) {
-              console.log('check')
                 return action.payload.data
             }
             return taskItem
         })
-        console.log('data', data)
+
         initial.queryResult = data
+
         return initial
       }
 

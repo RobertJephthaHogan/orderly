@@ -25,40 +25,36 @@ export default function UserTasks() {
 		store.dispatch(taskActions.setToDos(currentUser._id))
 	}, [])
 
-
 	useEffect(() => { // sort tasks when tasks update
 		const st = groupByProperty(userTasks, 'category')
 		const intTasks = Object.assign({All: userTasks}, {...st});
 		setSortedTasks(intTasks)
 	}, [userTasks])
-	
-
-
 
 	useEffect(() => {
 		if (selectedCategory) {
 			resetTaskForm()
 			setSelectedTask(null)
 			setSelectedCategoryTasks(sortedTasks?.[selectedCategory?.[0]])
-			console.log('sortedTasks?.[selectedCategory?.[0]]' ,sortedTasks?.[selectedCategory?.[0]])
 		} else {
 			setSelectedCategoryTasks(sortedTasks?.['General'])
 		}
 	}, [selectedCategory, sortedTasks])
 
-
-
 	const deleteUserTask = (id: any) => {
 		store.dispatch(taskActions.delete(id))
 	}
-
 
 	const resetTaskForm = () => {
 		setSelectedTask(null)
 	}
 
-
-
+    const toggleTaskCompleted = (task: any) => {
+        const taskId = task.id
+        let working = {...task}
+        working['isCompleted'] = !task.isCompleted
+        store.dispatch(taskActions.update(taskId, working))
+    }
 	
 	const TaskCategoryArea = () => {
 		const TaskRenderer = () => {
@@ -74,7 +70,10 @@ export default function UserTasks() {
 							<h5>{task.title}</h5>
 						</div>
 						<div>
-							<button className='btn-task-complete'>
+							<button 
+								className='btn-task-complete'
+								onClick={() => toggleTaskCompleted(task)}
+							>
 								<CheckOutlined/>
 							</button>
 							<button 
