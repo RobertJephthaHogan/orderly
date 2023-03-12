@@ -1,5 +1,6 @@
 import { AppstoreOutlined } from '@ant-design/icons';
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { newMenuItems } from './MenuItems';
 import { SidebarMenuRenderer } from './SidebarMenuRenderer';
 import './styles.css'
@@ -13,6 +14,8 @@ export const MyLayoutSidebar : React.FC<Props> = ({
     isSidebarCollapsed,
     setIsSidebarCollapsed
 }) => {
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const sidebar = document?.getElementById('sidebar')
@@ -41,17 +44,22 @@ export const MyLayoutSidebar : React.FC<Props> = ({
                 }}
             >
                 {
-                !isSidebarCollapsed 
-                ? (
-                    <div className='sidebar-title-wrapper'>
-                        <h3>Orderly</h3>
-                    </div>
-                ) : (
-                    <div className='sidebar-title-wrapper pt-1'>
-                        <AppstoreOutlined/>
-                    </div>
-                )
-            }
+                    !isSidebarCollapsed 
+                    ? (
+                        <div className='sidebar-title-wrapper'>
+                            <h3 
+                                className='m-auto hcp'
+                                onClick={() => navigate('/')}
+                            >
+                                Orderly
+                            </h3>
+                        </div>
+                    ) : (
+                        <div className='sidebar-title-wrapper pt-1'>
+                            <AppstoreOutlined/>
+                        </div>
+                    )
+                }
             </div>
             <div className='sidebar-divider'/>
             <SidebarMenuRenderer

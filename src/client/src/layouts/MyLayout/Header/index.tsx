@@ -32,6 +32,7 @@ export const MyLayoutHeader : React.FC<Props> = ({
                 <div className='header-left-item'>
                     <button
                         onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                        className='hcp'
                     >
                         {
                             isSidebarCollapsed ? (
