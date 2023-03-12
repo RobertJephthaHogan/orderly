@@ -31,6 +31,7 @@ const taskActions = {
                 .createTask(payload)
                 .then((resp) => {
                     if (resp) {
+                        console.log('resp', resp)
                         dispatch({ type: types.ADD_TASK, payload: resp?.data })
                         resolve(resp)
                     } else {
@@ -63,8 +64,9 @@ const taskActions = {
                     .updateTask(taskID, payload)
                     .then((resp) => {
                         if (resp) {
+                            console.log('resp', resp)
                             dispatch({ type: types.UPDATE_TASK, payload: resp?.data })
-                            return resolve(resp?.data)
+                            resolve(resp)
                         }
                         return reject()
                     })
@@ -72,6 +74,7 @@ const taskActions = {
             })
         }
     },
+
 }
 
 

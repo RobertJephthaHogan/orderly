@@ -26,24 +26,38 @@ export const taskReducer = (state = initialState.tasks, action) => {
       }
           
       case types.UPDATE_TASK: {
-        if (!action?.payload?.data?.data?._id) {
+
+        let initial = {...state}
+
+        if (!action?.payload?.data?._id) {
+          console.log('not@!')
+          console.log('action.payload', action.payload)
             return state
         }
 
         const found = state?.queryResult?.find(
-            (c) => c?.id === action?.payload?.data?.data?._id
+            (c) => c?.id === action?.payload?.data?._id
         )
 
+        console.log('found', found)
+
         if (!found && action?.payload) {
-            return [...state, action?.payload?.data?.data]
+          console.log('check not found')
+            return [...state, action?.payload?.data]
         }
 
-        return state?.queryResult?.map((taskItem) => {
-            if (taskItem?.id === action?.payload?.data?.data?._id) {
-                return action.payload.data?.data
+        console.log('state?.queryResult', state?.queryResult)
+
+        const data =  state?.queryResult?.map((taskItem) => {
+            if (taskItem?.id === action?.payload?.data?._id) {
+              console.log('check')
+                return action.payload.data
             }
             return taskItem
         })
+        console.log('data', data)
+        initial.queryResult = data
+        return initial
       }
 
       default:
