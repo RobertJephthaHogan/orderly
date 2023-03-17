@@ -49,7 +49,8 @@ export default function UserTasks() {
 		setSelectedTask(null)
 	}
 
-    const toggleTaskCompleted = (task: any) => {
+    const toggleTaskCompleted = (e: any, task: any) => {
+		e.stopPropagation()
         const taskId = task.id
         let working = {...task}
         working['isCompleted'] = !task.isCompleted
@@ -72,7 +73,7 @@ export default function UserTasks() {
 						<div>
 							<button 
 								className='btn-task-complete'
-								onClick={() => toggleTaskCompleted(task)}
+								onClick={(e) => toggleTaskCompleted(e, task)}
 							>
 								<CheckOutlined/>
 							</button>

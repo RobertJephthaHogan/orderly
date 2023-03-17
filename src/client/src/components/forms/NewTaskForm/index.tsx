@@ -74,7 +74,7 @@ export default function NewTaskForm(props: TaskFormProps) {
             category: 'General',
             priority: 'High'
         })
-        props.setSelectedTask(null)
+        props.setSelectedTask && props.setSelectedTask(null)
     }
 
     const generateCategoryOptions = () => {

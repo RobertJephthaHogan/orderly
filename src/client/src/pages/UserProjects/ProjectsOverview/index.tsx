@@ -14,6 +14,7 @@ import { TaskRowRenderer } from '../../../features/projects/TaskRowRenderer'
 import './styles.css'
 import ProjectMenuRender from '../../../features/projects/ProjectMenu'
 import NewEventForm from '../../../components/forms/NewEventForm'
+import NewTaskForm from '../../../components/forms/NewTaskForm'
 
 
 type ProjectsOverviewProps = {
@@ -118,7 +119,12 @@ export const ProjectsOverview: React.FC<ProjectsOverviewProps> = ({
 					</div>
 					{
 						newTaskFormOpen ? (
-							<TaskForm
+							// <TaskForm
+							// 	taskParent={selectedProject?._id}
+							// 	formOperation={'add'}
+							// 	onFinishAction={() => setNewTaskFormOpen(false)}
+							// />
+							<NewTaskForm
 								taskParent={selectedProject?._id}
 								formOperation={'add'}
 								onFinishAction={() => setNewTaskFormOpen(false)}
