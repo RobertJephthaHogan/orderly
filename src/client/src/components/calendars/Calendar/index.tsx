@@ -6,11 +6,13 @@ import './styles.css'
 
 type Props = {
     eventsToDisplay?: any
+    tasksToDisplay?: any
     onCellSelect?: any
 }
 
 export const Calendar : React.FC<Props> = ({
     eventsToDisplay,
+    tasksToDisplay,
     onCellSelect
 }) => {
 
@@ -97,6 +99,7 @@ export const Calendar : React.FC<Props> = ({
                     selectedDay={selectedDay}
                     onDateSelect={onDateSelect}
                     events={eventsToDisplay}
+                    tasks={tasksToDisplay}
                 />
             </div>
         </div>

@@ -5,6 +5,7 @@ import './styles.css'
 type Props = {
     activeTimeframe?: any
     events?: any
+    tasks?: any
     selectedDay?: any
     onDateSelect?: any
 }
@@ -12,6 +13,7 @@ type Props = {
 export const CalendarBody : React.FC<Props> = ({
     activeTimeframe,
     events,
+    tasks,
     selectedDay,
     onDateSelect
 }) => {
@@ -23,6 +25,7 @@ export const CalendarBody : React.FC<Props> = ({
                 selectedDay={selectedDay}
                 onDateSelect={onDateSelect}
                 events={events}
+                tasks={tasks}
             />
         )
     } else if (activeTimeframe === 'tf-month') {
@@ -31,6 +34,7 @@ export const CalendarBody : React.FC<Props> = ({
                 selectedDay={selectedDay}
                 onDateSelect={onDateSelect}
                 events={events}
+                tasks={tasks}
             />
         )
     } else if (activeTimeframe === 'tf-week') {
@@ -39,6 +43,7 @@ export const CalendarBody : React.FC<Props> = ({
                 selectedDay={selectedDay}
                 onDateSelect={onDateSelect}
                 events={events}
+                tasks={tasks}
             />
         )
     }
@@ -116,7 +121,8 @@ const YearView : React.FC<Props> = ({
 const MonthView : React.FC<Props> = ({
     selectedDay,
     onDateSelect,
-    events
+    events, 
+    tasks
 }) => {
 
     const [monthViewData, setMonthViewData] = useState<any>({})
@@ -220,11 +226,19 @@ const MonthView : React.FC<Props> = ({
                     {
                         week?.[1].map((day:any) => {
                             let eventsOnThisDay : any = []
+                            let tasksOnThisDay : any = []
                             events?.forEach((evt: any) => {
                                 if (new Date(evt?.startTime)?.toJSON().split('T')[0] == day?.toJSON().split('T')[0]) {
                                     eventsOnThisDay.push(evt)
                                 }
                             }) 
+                            tasks?.forEach((tsk: any) => {
+                                //console.log('tsk', tsk)
+                                if (new Date(tsk?.dueDate)?.toJSON().split('T')[0] == day?.toJSON().split('T')[0]) {
+                                    tasksOnThisDay.push(tsk)
+                                }
+                            }) 
+                            console.log('tasksOnThisDay', tasksOnThisDay)
                             const eventsToRender = eventsOnThisDay?.map((evt: any) => {
                                 //console.log('evt', evt)
                                 if (evt?.category == 'Meeting') {

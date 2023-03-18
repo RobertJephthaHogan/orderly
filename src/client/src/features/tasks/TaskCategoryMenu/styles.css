@@ -1,0 +1,24 @@
+
+
+
+
+.task-category-menu {
+    border: 1px solid #dfdfdf;
+    border-radius: 5px;
+}
+
+.category-row {
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.category-row:hover {
+    background-color: #eeeeee67;
+}
+
+.task-row {
+    
+}
+
+.task-row:hover {
+    background-color: #eeeeee67;
+}

@@ -8,17 +8,20 @@ import { EventMenu } from '../../features/events/EventMenu'
 import { EventForm } from '../../components/forms/EventForm'
 import './styles.css'
 import NewEventForm from '../../components/forms/NewEventForm'
+import TaskCategoryMenu from '../../features/tasks/TaskCategoryMenu'
 
 
 
 export const UserEvents : React.FC = () => {
 
     const userEvents = useSelector((state: any) => state.events?.queryResult ?? [])
+    const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
     const [sortedEvents, setSortedEvents] = useState<any>({})
     const [selectedEvent, setSelectedEvent] = useState<any>()
     const [selectedCategory, setSelectedCategory] = useState<any>()
     const [selectedDate, setSelectedDate] = useState<any>()
     const [eventsToDisplay, setEventsToDisplay] = useState<any>()
+    const [tasksToDisplay, setTasksToDisplay] = useState<any>()
 
 
     useEffect(() => {
@@ -30,14 +33,19 @@ export const UserEvents : React.FC = () => {
         const returnedTarget = Object.assign({All: userEvents}, st);
         setSortedEvents(returnedTarget)
         setEventsToDisplay(userEvents)
+        setTasksToDisplay(userTasks)
     }, [userEvents])
 
     const setEvent = (evt: any) => {
         setSelectedEvent(evt)
     }
 
-    const setCategory = (category: any) => {
+    const setEventCategory = (category: any) => {
         setEventsToDisplay(category?.children)
+    }
+
+    const setTaskCategory = (category: any) => {
+        setTasksToDisplay(category?.children)
     }
 
     const setDate = (value: any) => {
@@ -65,24 +73,30 @@ export const UserEvents : React.FC = () => {
                 </div>
             </div>
             <div className='w-100 flex p-2'>
-                <div className='bordered left-bar'>
-                    <div className='w-100 flex content-center p-1'>
-                        Event Categories
+                <div className='left-bar'>
+                    <div className='bordered lb-card'>
+                        <div className='w-100 flex content-center p-1'>
+                            Event Categories
+                        </div>
+                        <div className='divider'/>
+                        <div>
+                            <EventMenu
+                                sortedEvents={sortedEvents}
+                                setEvent={setEvent}
+                                setCategory={setEventCategory}
+                                //selectedEvent={selectedEvent}
+                                selectedCategory={selectedCategory}
+                            />
+                        </div>
                     </div>
-                    <div className='divider'/>
-                    <div>
-                        <EventMenu
-                            sortedEvents={sortedEvents}
-                            setEvent={setEvent}
-                            setCategory={setCategory}
-                            //selectedEvent={selectedEvent}
-                            selectedCategory={selectedCategory}
-                        />
+                    <div className='mt-2'>
+                        <TaskCategoryMenu/>
                     </div>
                 </div>
                 <div className='bordered right-bar'>
                     <Calendar
                         eventsToDisplay={eventsToDisplay}
+                        tasksToDisplay={tasksToDisplay}
                         onCellSelect={setDate}
                     />
                 </div>
