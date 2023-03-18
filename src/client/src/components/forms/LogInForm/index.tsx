@@ -2,6 +2,10 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button } from "antd"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import eventActions from "../../../redux/actions/event"
+import noteActions from "../../../redux/actions/notes"
+import projectActions from "../../../redux/actions/project"
+import taskActions from "../../../redux/actions/tasks"
 import userActions from "../../../redux/actions/user"
 import { store } from "../../../redux/store"
 import { userService } from "../../../services/user.service"
@@ -23,13 +27,18 @@ export default function LogInForm() {
     
     function dispatchLoginData(resp: any) {
 		store.dispatch(userActions.login(resp))
+        console.log('resp', resp)
+        store.dispatch(taskActions.setToDos(resp?.data?._id))
+        store.dispatch(eventActions.setEvents(resp?.data?._id))
+        store.dispatch(projectActions.setProjects(resp?.data?._id))
+        store.dispatch(noteActions.setNotes(resp?.data?._id))
+        navigate('/dashboard')
     }
 
 
     function onSubmitLogin(e : any) {
         userService.loginUser(loginInfo).then((resp: any) => {
 			dispatchLoginData(resp.data)
-			navigate('/dashboard')
         })
     }
 

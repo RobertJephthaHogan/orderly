@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { groupByProperty } from '../../helpers'
+import { store } from '../../redux/store'
+import eventActions from "../../redux/actions/event"
+import noteActions from "../../redux/actions/notes"
+import projectActions from "../../redux/actions/project"
+import taskActions from "../../redux/actions/tasks"
 import './styles.css'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -17,7 +23,14 @@ export default function UserDashboard() {
     const [sortedEvents, setSortedEvents] = useState<any>({})
     const [sortedProjects, setSortedProjects] = useState<any>({})
     const [sortedNotes, setSortedNotes] = useState<any>({})
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        store.dispatch(taskActions.setToDos(currentUser?._id))
+        store.dispatch(eventActions.setEvents(currentUser?._id))
+        store.dispatch(projectActions.setProjects(currentUser?._id))
+        store.dispatch(noteActions.setNotes(currentUser?._id))
+    }, [])
 
     useEffect(() => { // sort tasks when tasks update
 		const st = groupByProperty(userTasks, 'category')
@@ -43,37 +56,53 @@ export default function UserDashboard() {
 		setSortedNotes(intNotes)
 	}, [userNotes])
 
+    const dateFormatOptions : any= {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+
     return (
         <div className="user-dashboard">
             <div className="dashboard-overview">
                 <div className="overview-card">
-                    overview card
-                    <h3>Welcome Back {currentUser?.firstName}</h3>
+                    
+                    <h3>Welcome back, {currentUser?.firstName}!</h3>
+                    <h4>{new Date().toLocaleDateString("en-US", dateFormatOptions)}</h4>
                 </div>
             </div>
             <div className="dashboard-body">
                 <div className='row'>
-                    <div className='dash-card' >
-                        <div className='pl-3 pr-3 flex fdc'>
-                            <div className='flex jc-c'>
-                                <span>You Have</span>
-                            </div>
-                            <div  className='flex jc-c'>
-                                <span>{userTasks?.length} Tasks</span>
+                    <div className='dash-card'>
+                        <div className='pl-3 pr-3 flex fdc hcp' onClick={() => navigate('/tasks')}>
+                            <div className='m-auto'>
+                                <div className='flex jc-c'>
+                                    <span>You Have</span>
+                                </div>
+                                <div  className='flex jc-c'>
+                                    <span>{userTasks?.length} Tasks</span>
+                                </div>
                             </div>
                         </div>
                         <div className='v-divider'/>
-                        <div>
+                        <div 
+                            style={{
+                                margin: 'auto 0px'
+                            }}
+                        >
                             <CategoryRender groupedCategories={sortedTasks}/>
                         </div>
                     </div>
                     <div className='dash-card'>
-                        <div className='pl-3 pr-3 flex fdc'>
-                            <div className='flex jc-c'>
-                                <span>You Have</span>
-                            </div>
-                            <div  className='flex jc-c'>
-                                <span>{userEvents?.length} Events</span>
+                        <div className='pl-3 pr-3 flex fdc hcp' onClick={() => navigate('/events')}>
+                            <div className='m-auto'>
+                                <div className='flex jc-c'>
+                                    <span>You Have</span>
+                                </div>
+                                <div  className='flex jc-c'>
+                                    <span>{userEvents?.length} Events</span>
+                                </div>
                             </div>
                         </div>
                         <div className='v-divider'/>
@@ -82,12 +111,14 @@ export default function UserDashboard() {
                         </div>
                     </div>
                     <div className='dash-card'>
-                        <div className='pl-3 pr-3  flex fdc'>
-                            <div className='flex jc-c'>
-                                <span>You Have</span>
-                            </div>
-                            <div  className='flex jc-c'>
-                                <span>{userProjects?.length} Projects</span>
+                        <div className='pl-3 pr-3  flex fdc hcp' onClick={() => navigate('/projects')}>
+                            <div className='m-auto'>
+                                <div className='flex jc-c'>
+                                    <span>You Have</span>
+                                </div>
+                                <div  className='flex jc-c'>
+                                    <span>{userProjects?.length} Projects</span>
+                                </div>
                             </div>
                         </div>
                         <div className='v-divider'/>
@@ -98,12 +129,14 @@ export default function UserDashboard() {
                 </div>
                 <div className='row'>
                     <div className='dash-card'>
-                        <div className='pl-3 pr-3 flex fdc'>
-                            <div className='flex jc-c'>
-                                <span>You Have</span>
-                            </div>
-                            <div  className='flex jc-c'>
-                                <span>{userNotes?.length} Notes</span>
+                        <div className='pl-3 pr-3 flex fdc hcp'  onClick={() => navigate('/notes')}>
+                            <div className='m-auto'>
+                                <div className='flex jc-c'>
+                                    <span>You Have</span>
+                                </div>
+                                <div  className='flex jc-c'>
+                                    <span>{userNotes?.length} Notes</span>
+                                </div>
                             </div>
                         </div>
                         <div className='v-divider'/>

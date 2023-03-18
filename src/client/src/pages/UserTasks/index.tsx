@@ -8,6 +8,7 @@ import { TaskForm } from '../../components/forms/TaskForm';
 import './styles.css'
 import TaskMenuRender from '../../features/tasks/TaskMenu';
 import NewTaskForm from '../../components/forms/NewTaskForm';
+import { TaskRowRenderer } from '../../features/projects/TaskRowRenderer';
 
 
 
@@ -107,7 +108,10 @@ export default function UserTasks() {
 					</div>
 				</div>
 				<div className='bordered m-1 p-1 w-100 '>
-					<TaskRenderer/>
+					{/* <TaskRenderer/> */}
+					<TaskRowRenderer
+							tasks={selectedCategoryTasks}
+						/>
 				</div>
 			</div>
 		)

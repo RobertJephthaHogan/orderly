@@ -222,23 +222,29 @@ const MonthView : React.FC<Props> = ({
     const createMonthView = () => {
         const constr = Object.entries(monthViewData)?.map((week: any) => {
             return (
-                <div className='flex w-100' key={`week${week.toString()}`}>
+                <div 
+                    className='flex w-100' 
+                    key={`week${week.toString()}`}
+                >
                     {
                         week?.[1].map((day:any) => {
+
                             let eventsOnThisDay : any = []
                             let tasksOnThisDay : any = []
+
                             events?.forEach((evt: any) => {
                                 if (new Date(evt?.startTime)?.toJSON().split('T')[0] == day?.toJSON().split('T')[0]) {
                                     eventsOnThisDay.push(evt)
                                 }
                             }) 
+
                             tasks?.forEach((tsk: any) => {
                                 //console.log('tsk', tsk)
                                 if (new Date(tsk?.dueDate)?.toJSON().split('T')[0] == day?.toJSON().split('T')[0]) {
                                     tasksOnThisDay.push(tsk)
                                 }
                             }) 
-                            console.log('tasksOnThisDay', tasksOnThisDay)
+
                             const eventsToRender = eventsOnThisDay?.map((evt: any) => {
                                 //console.log('evt', evt)
                                 if (evt?.category == 'Meeting') {
@@ -346,8 +352,6 @@ const MonthView : React.FC<Props> = ({
                                 }
                                 
                             }) || []
-
-                            console.log('tasksToRender', tasksToRender)
 
 
                             if (selectedDay.toJSON() == day.toJSON()) { // if selected date matches this cells date render selected cell 

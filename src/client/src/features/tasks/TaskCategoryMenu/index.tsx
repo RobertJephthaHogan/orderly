@@ -17,10 +17,6 @@ export default function TaskCategoryMenu() {
         setSortedTasks(returnedTarget)
     }, [userTasks])
 
-    useEffect(() => {
-        console.log('userTasks', userTasks)
-        console.log('sortedTasks', sortedTasks)
-    })
     
     return (
         <div className='task-category-menu'>
@@ -48,6 +44,7 @@ function CategoryRows(props: CategoryRowProps) {
         return (
             <CategoryRow
                 rowData={category}
+                key={`category-row-${category[0]}`}
             />
         )
     })
