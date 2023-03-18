@@ -293,6 +293,62 @@ const MonthView : React.FC<Props> = ({
                                 
                             }) || []
 
+                            const tasksToRender = tasksOnThisDay?.map((evt: any) => {
+                                //console.log('evt', evt)
+                                if (evt?.category == 'Meeting') {
+                                    //console.log('meeting')
+                                    return (
+                                        <div 
+                                            key={evt?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <div className='meeting-chip'>
+                                                -{evt?.title}
+                                            </div>
+                                        </div>
+                                    )
+                                } else if (evt?.category == 'Birthday') {
+                                    //console.log('birthday')
+                                    return (
+                                        <div 
+                                            key={evt?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <div className='birthday-chip'>
+                                                -{evt?.title}
+                                            </div>
+                                        </div>
+                                    )
+                                } else if (evt?.category == 'Work') {
+                                    //console.log('work')
+                                    return (
+                                        <div 
+                                            key={evt?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <div className='work-chip'>
+                                                -{evt?.title}
+                                            </div>
+                                        </div>
+                                    )
+                                } else {
+                                    console.log('elsed')
+                                    return (
+                                        <div 
+                                            key={evt?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <div className='event-chip'>
+                                                -{evt?.title}
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                
+                            }) || []
+
+                            console.log('tasksToRender', tasksToRender)
+
 
                             if (selectedDay.toJSON() == day.toJSON()) { // if selected date matches this cells date render selected cell 
                                 return (
@@ -304,6 +360,7 @@ const MonthView : React.FC<Props> = ({
                                         {/* {day.toString()} */}
                                         <span className='ml-1'>{day.getDate().toString()}</span>
                                         {eventsToRender}
+                                        {tasksToRender}
                                     </div>
                                 )
                             }
@@ -316,6 +373,7 @@ const MonthView : React.FC<Props> = ({
                                     {/* {day.toString()} */}
                                     <span className='ml-1'>{day.getDate().toString()}</span>
                                     {eventsToRender}
+                                    {tasksToRender}
                                 </div>
                             )
                         }) || []
