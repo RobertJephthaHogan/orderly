@@ -5,7 +5,7 @@ import { groupByProperty } from '../../helpers';
 import noteActions from '../../redux/actions/notes';
 import { store } from '../../redux/store';
 import { noteService } from '../../services/note.service';
-import { DailyNotes } from './DailyNotes';
+import { NotesOverview } from './NotesOverview';
 import { NotesByCategory } from './NotesByCategory';
 import './styles.css'
 
@@ -49,7 +49,7 @@ export const UserNotes: React.FC = () => {
 					<div className='tab-panel-area'>
 						{
 							selectedLayout === 1 && (
-								<DailyNotes />
+								<NotesOverview />
 							)
 						}
 						{

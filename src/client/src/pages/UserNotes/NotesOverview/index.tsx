@@ -1,4 +1,4 @@
-import { Empty } from "antd"
+import { Button, Empty } from "antd"
 import { ObjectID } from "bson"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
@@ -15,7 +15,7 @@ type Props = {
 
 }
 
-export const DailyNotes: React.FC<Props> = ({
+export const NotesOverview: React.FC<Props> = ({
 
 }) => {
 
@@ -49,17 +49,31 @@ export const DailyNotes: React.FC<Props> = ({
 	
 	const createNoteForActiveDate = () => {
 		const jsonDate = activeNoteDate
-			const dto = {
-				id: new ObjectID().toString(),
-				title: `Note for ${jsonDate.split('T')[0]}`,
-				category: 'daily',
-				body: `Note for ${jsonDate.split('T')[0]}`,
-                parent: '',
-				createdByUserId : currentUser._id,
-				noteCreationTime: new Date().toJSON(),
-				dailyNoteForDate: jsonDate,
-			}
-            store.dispatch(noteActions.add(dto))
+        const dto = {
+            id: new ObjectID().toString(),
+            title: `Note for ${jsonDate.split('T')[0]}`,
+            category: 'daily',
+            body: `Note for ${jsonDate.split('T')[0]}`,
+            parent: '',
+            createdByUserId : currentUser._id,
+            noteCreationTime: new Date().toJSON(),
+            dailyNoteForDate: jsonDate,
+        }
+        store.dispatch(noteActions.add(dto))
+	}
+
+    const createNewNote = () => {
+        const dto = {
+            id: new ObjectID().toString(),
+            title: `New Note`,
+            category: 'General',
+            body: `New Note`,
+            parent: '',
+            createdByUserId : currentUser._id,
+            noteCreationTime: new Date().toJSON(),
+            dailyNoteForDate: activeNoteDate,
+        }
+        store.dispatch(noteActions.add(dto))
 	}
 
 
@@ -92,6 +106,14 @@ export const DailyNotes: React.FC<Props> = ({
 		<div>
 			 
 			<div className='body-wrapper'>
+                <div className="w-100 flex pb-2">
+                    <Button 
+                        className="w-100"
+                        onClick={createNewNote}
+                    >
+                        +
+                    </Button>
+                </div>
 				<div className='body-content'>
 					<NotesMenu
                         onNoteSelect={onNoteSelect}

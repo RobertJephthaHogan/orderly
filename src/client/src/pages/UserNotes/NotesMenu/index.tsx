@@ -39,9 +39,6 @@ export default function NotesMenu(props: NotesMenuProps) {
                     <div className='menu-select-option mr-1'  onClick={() => setMenuView('categories')}>
                         <h5 className='ml-1 mr-1'>Categories</h5>
                     </div>
-                    <div className='menu-select-option mr-1'  onClick={() => setMenuView('projects')}>
-                        <h5 className='ml-1 mr-1'>Projects</h5>
-                    </div>
                     <div className='menu-select-option mr-1'  onClick={() => setMenuView('all')}>
                         <h5 className='ml-1 mr-1'>All</h5>
                     </div>
