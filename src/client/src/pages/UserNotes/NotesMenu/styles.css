@@ -1,0 +1,20 @@
+
+
+
+.daily-note-menu-item {
+
+}
+
+.daily-note-menu-item:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+.menu-select-option {
+    border: 1px solid #dfdfdf;
+}
+
+.menu-select-option:hover {
+    cursor: pointer;
+    background-color: #f1f1f1ad;
+}

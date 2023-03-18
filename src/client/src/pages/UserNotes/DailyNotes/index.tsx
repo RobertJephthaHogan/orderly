@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 import noteActions from "../../../redux/actions/notes"
 import { store } from "../../../redux/store"
 import { noteService } from "../../../services/note.service"
+import NotesMenu from "../NotesMenu"
 import './styles.css'
 
 
@@ -69,8 +70,8 @@ export const DailyNotes: React.FC<Props> = ({
 
     const onNoteSelect = (note: any) => {
         setActiveNote(note)
-        let trying = new Date(note?.dailyNoteForDate?.split('T')[0]).toJSON()
-        setActiveNoteDate(trying)
+        let noteDate = new Date(note?.dailyNoteForDate?.split('T')[0]).toJSON()
+        setActiveNoteDate(noteDate)
     }
 
 
@@ -82,40 +83,19 @@ export const DailyNotes: React.FC<Props> = ({
 
 
     const onSaveNote = () => {
+        console.log('activeNote?.id', activeNote?.id)
         store.dispatch(noteActions.update(activeNote?.id, activeNote))
     }
 
 
 	return (
 		<div>
-			<div className='top-bar-wrapper'>
-				<div className='top-bar'>
-					Notes Component Top Bar
-				</div>
-			</div>
+			 
 			<div className='body-wrapper'>
 				<div className='body-content'>
-					<div className='notes-menu-wrapper'>
-						<div className='pl-2 pt-2'>
-							<h4>Notes</h4>
-						</div>
-						<div className='divider'/>
-						<div className='pl-2 pt-2'>
-                            {
-                                userNotes?.map((item:any) => {
-                                    return (
-                                        <div 
-                                            onClick={() => onNoteSelect(item)}
-                                            key={`${item?.id}`}
-                                            className='daily-note-menu-item'
-                                        >
-                                            {item?.title}
-                                        </div>
-                                    )
-                                }) || []
-                            }
-						</div>
-					</div>
+					<NotesMenu
+                        onNoteSelect={onNoteSelect}
+                    />
                     
 					<div className='notes-display-wrapper'>
 						<div className='note-section flex'>

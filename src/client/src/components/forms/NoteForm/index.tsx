@@ -13,6 +13,7 @@ type Props = {
 
 export const NoteForm : React.FC<Props> = ({
     noteParent,
+    onFinishAction
 }) => {
 
     const [editingSubject, setEditingSubject] = useState<any>({})
@@ -33,6 +34,7 @@ export const NoteForm : React.FC<Props> = ({
         dto['noteCreationTime'] = new Date().toJSON()
         dto['dailyNoteForDate'] = new Date().toJSON()
         store.dispatch(noteActions.add(dto))
+        onFinishAction()
     }
 
     return (
