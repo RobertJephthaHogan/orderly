@@ -25,11 +25,8 @@ export const TaskRowRenderer : React.FC<Props> = ({
 
     const toggleTaskCompleted = (task: any) => {
         const taskId = task.id
-        console.log('task', task)
-        console.log('isCompleted', task.isCompleted)
         let working = {...task}
         working['isCompleted'] = !task.isCompleted
-        console.log('working', working)
         store.dispatch(taskActions.update(taskId, working))
     }
 

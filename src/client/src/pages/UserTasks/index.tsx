@@ -42,61 +42,11 @@ export default function UserTasks() {
 		}
 	}, [selectedCategory, sortedTasks])
 
-	const deleteUserTask = (id: any) => {
-		store.dispatch(taskActions.delete(id))
-	}
-
 	const resetTaskForm = () => {
 		setSelectedTask(null)
 	}
 
-    const toggleTaskCompleted = (e: any, task: any) => {
-		e.stopPropagation()
-        const taskId = task.id
-        let working = {...task}
-        working['isCompleted'] = !task.isCompleted
-        store.dispatch(taskActions.update(taskId, working))
-    }
-	
 	const TaskCategoryArea = () => {
-		const TaskRenderer = () => {
-			const items = selectedCategoryTasks?.map((task: any) => {
-				const thisTaskActive = (task == selectedTask)
-				return (
-					<div 
-						className={`flex space-between category-task ${thisTaskActive ? "active-task" : ""}`}
-						onClick={() => setSelectedTask(task)}
-						key={`task-${task?.id}`}
-					>
-						<div>
-							<h5>{task.title}</h5>
-						</div>
-						<div>
-							<button 
-								className='btn-task-complete'
-								onClick={(e) => toggleTaskCompleted(e, task)}
-							>
-								<CheckOutlined/>
-							</button>
-							<button 
-								className='btn-task-delete'
-								onClick={() => deleteUserTask(task.id)}
-							>
-								<CloseOutlined/>
-							</button>
-						</div>
-					</div>
-				)
-				
-			}) || []
-			return (
-				<div>
-					{items}
-				</div>
-			)
-		}
-
-
 		return (
 			<div className='w-100 p-1'>
 				<div className='w-100 flex p-1'>
