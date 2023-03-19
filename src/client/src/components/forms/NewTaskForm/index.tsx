@@ -30,6 +30,12 @@ export default function NewTaskForm(props: TaskFormProps) {
     const [categoryOptions, setCategoryOptions] = useState<any>()
     const [priorityOptions, setPriorityOptions] = useState<any>()
 
+    useEffect(() => {
+        setEditingSubject({
+            category: props.taskParent?.category ? props.taskParent?.category :'General',
+            priority: 'High'
+        })
+    }, [props.taskParent?.category])
 
     const onEditorSubjectChange = (value: any, fieldName: any) => {
         let inifields = {...editingSubject}
@@ -47,7 +53,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                 id: new ObjectID().toString(),
                 title: editingSubject?.title,
                 description: editingSubject?.description,
-                parent: props.taskParent ? props.taskParent : '',
+                parent: props.taskParent?._id ? props.taskParent?._id : '',
                 category: editingSubject?.category,
                 priority: editingSubject?.priority,
                 createdByUserId : currentUser._id,

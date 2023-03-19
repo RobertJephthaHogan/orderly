@@ -23,4 +23,8 @@ export const eventCategories: any = [
         key: 'Personal-Projects',
         label: 'Personal-Projects',
     },
+    {
+        key: 'life-improvement',
+        label: 'Life Improvement',
+    },
 ]

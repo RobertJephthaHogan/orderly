@@ -21,11 +21,17 @@ interface EventFormProps {
 
 export default function NewEventForm(props: EventFormProps) {
 
-    const [formValues, setFormValues] = useState<any>({category: 'General' })
+    const [formValues, setFormValues] = useState<any>({
+        category: props.eventParent?.category ? props.eventParent?.category :'General'
+    })
     const [categoryOptions, setCategoryOptions] = useState<any>()
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
 
-    
+    useEffect(() => {
+        setFormValues({
+            category: props.eventParent?.category ? props.eventParent?.category :'General'
+        })
+    }, [props.eventParent?.category])
 
     useEffect(() => {
         if (!categoryOptions?.length) {
@@ -80,7 +86,7 @@ export default function NewEventForm(props: EventFormProps) {
                 id: new ObjectID().toString(),
                 title: formValues?.title,
                 description: formValues?.description,
-                parent: props.eventParent ? props.eventParent : '',
+                parent: props.eventParent?._id ? props.eventParent?._id : '',
                 category: formValues?.category,
                 startTime: eventStartTime,
                 endTime: eventEndTime,

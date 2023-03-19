@@ -125,7 +125,7 @@ export const ProjectsOverview: React.FC<ProjectsOverviewProps> = ({
 							// 	onFinishAction={() => setNewTaskFormOpen(false)}
 							// />
 							<NewTaskForm
-								taskParent={selectedProject?._id}
+								taskParent={selectedProject}
 								formOperation={'add'}
 								onFinishAction={() => setNewTaskFormOpen(false)}
 							/>
@@ -153,7 +153,7 @@ export const ProjectsOverview: React.FC<ProjectsOverviewProps> = ({
 								onFinishAction={() => setNewEventFormOpen(false)}
 								/> */}
 								<NewEventForm
-									eventParent={selectedProject?._id}
+									eventParent={selectedProject}
 									formOperation={'add'}
 									onFinishAction={() => setNewEventFormOpen(false)}
 								/>

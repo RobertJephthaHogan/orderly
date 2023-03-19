@@ -31,4 +31,8 @@ export const taskCategories: any = [
         key: 'shopping',
         label: 'Shopping',
     },
+    {
+        key: 'life-improvement',
+        label: 'Life Improvement',
+    },
 ]
