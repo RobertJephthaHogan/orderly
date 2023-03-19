@@ -110,8 +110,10 @@ export default function UserTasks() {
 				<div className='bordered m-1 p-1 w-100 '>
 					{/* <TaskRenderer/> */}
 					<TaskRowRenderer
-							tasks={selectedCategoryTasks}
-						/>
+						tasks={selectedCategoryTasks}
+						selectedTask={selectedTask}
+						setSelectedTask={setSelectedTask}
+					/>
 				</div>
 			</div>
 		)

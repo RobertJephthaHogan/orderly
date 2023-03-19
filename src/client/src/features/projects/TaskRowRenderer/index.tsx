@@ -8,13 +8,16 @@ import { store } from '../../../redux/store'
 
 type Props = {
     tasks?:any
+    selectedTask?: any
+    setSelectedTask?: any
 }
 
 export const TaskRowRenderer : React.FC<Props> = ({
-    tasks
+    tasks,
+    selectedTask,
+    setSelectedTask
 }) => {
 
-    const [selectedTask, setSelectedTask] = useState<any>(null)
 
     const deleteUserTask = (taskID: any) => {
         store.dispatch(taskActions.delete(taskID))
