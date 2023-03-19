@@ -299,41 +299,53 @@ const MonthView : React.FC<Props> = ({
                                 
                             }) || []
 
-                            const tasksToRender = tasksOnThisDay?.map((evt: any) => {
+                            const tasksToRender = tasksOnThisDay?.map((tsk: any) => {
                                 //console.log('evt', evt)
-                                if (evt?.category == 'Meeting') {
+                                if (tsk?.category == 'Meeting') {
                                     //console.log('meeting')
                                     return (
                                         <div 
-                                            key={evt?.id}
+                                            key={tsk?.id}
                                             className='event-chip-wrapper'
                                         >
                                             <div className='meeting-chip'>
-                                                -{evt?.title}
+                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
                                             </div>
                                         </div>
                                     )
-                                } else if (evt?.category == 'Birthday') {
+                                } else if (tsk?.category == 'Birthday') {
                                     //console.log('birthday')
                                     return (
                                         <div 
-                                            key={evt?.id}
+                                            key={tsk?.id}
                                             className='event-chip-wrapper'
                                         >
                                             <div className='birthday-chip'>
-                                                -{evt?.title}
+                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
                                             </div>
                                         </div>
                                     )
-                                } else if (evt?.category == 'Work') {
+                                } else if (tsk?.category == 'Personal Projects') {
+                                    //console.log('personal projects')
+                                    return (
+                                        <div 
+                                            key={tsk?.id}
+                                            className='event-chip-wrapper'
+                                        >
+                                            <div className='project-chip'>
+                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
+                                            </div>
+                                        </div>
+                                    )
+                                } else if (tsk?.category == 'Work') {
                                     //console.log('work')
                                     return (
                                         <div 
-                                            key={evt?.id}
+                                            key={tsk?.id}
                                             className='event-chip-wrapper'
                                         >
                                             <div className='work-chip'>
-                                                -{evt?.title}
+                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
                                             </div>
                                         </div>
                                     )
@@ -341,11 +353,11 @@ const MonthView : React.FC<Props> = ({
                                     console.log('elsed')
                                     return (
                                         <div 
-                                            key={evt?.id}
+                                            key={tsk?.id}
                                             className='event-chip-wrapper'
                                         >
                                             <div className='event-chip'>
-                                                -{evt?.title}
+                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
                                             </div>
                                         </div>
                                     )
