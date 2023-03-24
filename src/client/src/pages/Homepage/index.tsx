@@ -3,13 +3,6 @@ import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import eventActions from "../../redux/actions/event";
-import noteActions from "../../redux/actions/notes";
-import projectActions from "../../redux/actions/project";
-import taskActions from "../../redux/actions/tasks";
-import userActions from "../../redux/actions/user";
-import { store } from "../../redux/store";
-import { userService } from "../../services/user.service";
 import bg from '../../assets/images/bg.jpg'
 import fc from '../../assets/images/filing_cabinet.png'
 import './styles.css'
@@ -18,32 +11,9 @@ import './styles.css'
 
 const Homepage : React.FC = () => {
 
-    const [loginInfo, setLoginInfo] = useState<any>({})
     const currentUser = useSelector((state: any) => state.user?.data ?? null)
     const navigate = useNavigate()
 
-
-    const handleLoginInfoChange = (data: any, field: any) => {
-        let workingObj = {...loginInfo}
-        workingObj[field] = data
-        setLoginInfo(workingObj)     
-    }
-
-    const dispatchLoginData = (resp: any) => {
-        navigate('/')
-		store.dispatch(userActions.login(resp?.data))
-        store.dispatch(taskActions.setToDos(resp?.data?.data?._id))
-        store.dispatch(eventActions.setEvents(resp?.data?.data?._id))
-        store.dispatch(projectActions.setProjects(resp?.data?.data?._id))
-        store.dispatch(noteActions.setNotes(resp?.data?.data?._id))
-    }
-
-    const onSubmitLogin = (e : any) => {
-        e.preventDefault()
-        userService.loginUser(loginInfo).then((resp: any) => {
-			dispatchLoginData(resp)
-        })
-    }
 
     return (
         <div className='homepage'>
@@ -63,6 +33,7 @@ const Homepage : React.FC = () => {
                             <Button 
                                 onClick={() => navigate('/login')} 
                                 type="primary" 
+                                id="login-btn"
                             >
                                 Login
                             </Button>
@@ -70,6 +41,7 @@ const Homepage : React.FC = () => {
                                 onClick={() => navigate('/signup')} 
                                 type="primary" 
                                 className="ml-2"
+                                id="signup-btn"
                             >
                                 Sign Up
                             </Button>
@@ -77,6 +49,7 @@ const Homepage : React.FC = () => {
                                 onClick={() => navigate('/dashboard')} 
                                 type="primary" 
                                 className="ml-2"
+                                id="dashboard-btn"
                             >
                                 Dashboard
                             </Button>

@@ -68,7 +68,7 @@ export default function UserDashboard() {
             <div className="dashboard-overview">
                 <div className="overview-card">
                     
-                    <h3>Welcome back, {currentUser?.firstName}!</h3>
+                    <h3 id="welcome-back-title">Welcome back, {currentUser?.firstName}!</h3>
                     <h4>{new Date().toLocaleDateString("en-US", dateFormatOptions)}</h4>
                 </div>
             </div>

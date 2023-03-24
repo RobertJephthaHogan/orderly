@@ -47,7 +47,7 @@ export default function LogInForm() {
             <div className="form-row">
                 <input
                     name="username"
-                    id="username"
+                    id="username-input"
                     placeholder="Username"
                     type="text"
                     onChange={(e) => handleLoginInfoChange(e?.target?.value, 'username')}
@@ -59,7 +59,7 @@ export default function LogInForm() {
             <div className="form-row">
                 <input
                     name="password"
-                    id="password"
+                    id="password-input"
                     placeholder="Password"
                     type="text"
                     onChange={(e) => handleLoginInfoChange(e?.target?.value, 'password')}
@@ -69,7 +69,11 @@ export default function LogInForm() {
                 <UserOutlined/>
             </div>
             <div>
-                <Button className="hcp w-100" onClick={() => onSubmitLogin(loginInfo)}>
+                <Button 
+                    className="hcp w-100" 
+                    onClick={() => onSubmitLogin(loginInfo)}
+                    id="submit-login"
+                >
                     Submit
                 </Button>
                 <div className="flex jc-sb w-100">
