@@ -16,6 +16,7 @@
 @import './base/borders.css';  
 @import './base/dividers.css';  
 @import './base/flex.css'; 
+@import './base/font.css'; 
 @import './base/inputs.css'; 
 @import './base/positioning.css';  
 @import './base/spacing.css';  

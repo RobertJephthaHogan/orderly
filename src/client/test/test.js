@@ -2,6 +2,8 @@ const {By, Key, Builder} = require("selenium-webdriver")
 require("chromedriver")
 
 
+
+
 async function test_login() {
     
     // create the driver
@@ -25,13 +27,19 @@ async function test_login() {
     submitLoginBtn = await driver.findElement(By.id("submit-login"));
     await submitLoginBtn.click();
 
-    // setInterval(async function(){
-    //     console.log('driver.getCurrentUrl();', await driver.getCurrentUrl())
-    // }, 100);
+    setTimeout(async function(){
+        welcomeBackTitle = await driver.findElement(By.id("welcome-back-title"));
+        text = await welcomeBackTitle.getText()
+        console.log(text);
+        if (text === 'Welcome back, Robert!'){
+            return true
+        }
+        return false
+        
+    }, 1000);
 
     
-    // welcomeBackTitle = await driver.findElement(By.id("welcome-back-title"));
-    // console.log(await welcomeBackTitle.getText());
+
 
     setInterval(function(){
         driver.quit;
@@ -39,4 +47,22 @@ async function test_login() {
 
 }
 
-test_login();
+success = 0
+fail = 0
+
+result = test_login();
+
+console.log('test results: ', result)
+
+if (result == true) {
+    success += 1
+} else if (result == false) {
+    fail += 1
+}
+
+results = {
+    success: success,
+    fail: fail
+}
+
+console.log('test results: ', results)

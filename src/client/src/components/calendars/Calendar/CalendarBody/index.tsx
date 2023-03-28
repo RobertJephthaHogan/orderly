@@ -1,4 +1,4 @@
-import { Tag } from 'antd'
+import { Tag, Tooltip } from 'antd'
 import { useEffect, useState } from 'react'
 import './styles.css'
 
@@ -246,122 +246,72 @@ const MonthView : React.FC<Props> = ({
                             }) 
 
                             const eventsToRender = eventsOnThisDay?.map((evt: any) => {
-                                //console.log('evt', evt)
+
+
+                                let chipType
+
                                 if (evt?.category == 'Meeting') {
-                                    //console.log('meeting')
-                                    return (
-                                        <div 
-                                            key={evt?.id}
-                                            className='event-chip-wrapper'
-                                        >
-                                            <div className='meeting-chip'>
-                                                {evt?.title}
-                                            </div>
-                                        </div>
-                                    )
+                                    chipType = 'meeting-chip'
+
                                 } else if (evt?.category == 'Birthday') {
-                                    //console.log('birthday')
-                                    return (
-                                        <div 
-                                            key={evt?.id}
-                                            className='event-chip-wrapper'
-                                        >
-                                            <div className='birthday-chip'>
-                                                {evt?.title}
-                                            </div>
-                                        </div>
-                                    )
+                                    chipType = 'birthday-chip'
+
                                 } else if (evt?.category == 'Work') {
-                                    //console.log('work')
-                                    return (
-                                        <div 
-                                            key={evt?.id}
-                                            className='event-chip-wrapper'
-                                        >
-                                            <div className='work-chip'>
-                                                {evt?.title}
-                                            </div>
-                                        </div>
-                                    )
+                                    chipType = 'work-chip'
+                                    
                                 } else {
-                                    console.log('elsed')
-                                    return (
+                                    chipType = 'event-chip'
+                                }
+
+
+
+                                return (
+                                    <Tooltip title={`${evt?.title}`}>
                                         <div 
                                             key={evt?.id}
                                             className='event-chip-wrapper'
                                         >
-                                            <div className='event-chip'>
+                                            <div className={`${chipType}`}>
                                                 {evt?.title}
                                             </div>
                                         </div>
-                                    )
-                                }
+                                    </Tooltip>
+                                )
                                 
                             }) || []
 
                             const tasksToRender = tasksOnThisDay?.map((tsk: any) => {
-                                //console.log('evt', evt)
+
+                                let chipType
                                 if (tsk?.category == 'Meeting') {
-                                    //console.log('meeting')
-                                    return (
-                                        <div 
-                                            key={tsk?.id}
-                                            className='event-chip-wrapper'
-                                        >
-                                            <div className='meeting-chip'>
-                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
-                                            </div>
-                                        </div>
-                                    )
+                                    chipType = 'meeting-chip'
+
                                 } else if (tsk?.category == 'Birthday') {
-                                    //console.log('birthday')
-                                    return (
-                                        <div 
-                                            key={tsk?.id}
-                                            className='event-chip-wrapper'
-                                        >
-                                            <div className='birthday-chip'>
-                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
-                                            </div>
-                                        </div>
-                                    )
-                                } else if (tsk?.category == 'Personal Projects') {
-                                    //console.log('personal projects')
-                                    return (
-                                        <div 
-                                            key={tsk?.id}
-                                            className='event-chip-wrapper'
-                                        >
-                                            <div className='project-chip'>
-                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
-                                            </div>
-                                        </div>
-                                    )
+                                    chipType = 'birthday-chip'
+
                                 } else if (tsk?.category == 'Work') {
-                                    //console.log('work')
-                                    return (
-                                        <div 
-                                            key={tsk?.id}
-                                            className='event-chip-wrapper'
-                                        >
-                                            <div className='work-chip'>
-                                                {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
-                                            </div>
-                                        </div>
-                                    )
+                                    chipType = 'work-chip'
+                                    
+                                } else if (tsk?.category == 'Personal Projects') {
+                                    chipType = 'project-chip'
+                                    
                                 } else {
-                                    console.log('elsed')
-                                    return (
+                                    chipType = 'event-chip'
+                                }
+
+                                return (
+                                    <Tooltip title={`${tsk.title}`}>
                                         <div 
                                             key={tsk?.id}
                                             className='event-chip-wrapper'
                                         >
-                                            <div className='event-chip'>
+                                            <div className={`${chipType}`}>
                                                 {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
                                             </div>
                                         </div>
-                                    )
-                                }
+                                    </Tooltip>
+                                )
+
                                 
                             }) || []
 
