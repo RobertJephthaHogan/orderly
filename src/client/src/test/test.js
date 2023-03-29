@@ -113,8 +113,17 @@ async function test_add_task() {
         taskPrioritySelectOption = await driver.findElement(By.id("medium-priority-option")).click() // select priority
 
         taskDueDatePicket = await driver.findElement(By.id("task-due-date-picker")).click() // click due date datepicker
-        //taskDueDay = await driver.findElement(By.id("medium-priority-option")).click() // select date
+        await delay(250); // let datepicker transition
+        taskDueDay = await driver.findElement(By.xpath(`/html/body/div[2]/div/div/div/div/div[1]/div[1]/div[2]/table/tbody/tr[5]/td[4]/div`)).click() // select date
+        await delay(250); // let datepicker transition
+        taskAmPm = await driver.findElement(By.xpath(`/html/body/div[2]/div/div/div/div/div[1]/div[2]/div[2]/ul[1]/li[11]/div`)).click() // select an hour
+        await delay(250); // let datepicker transition
+        okSelect = await driver.findElement(By.xpath(`/html/body/div[2]/div/div/div/div/div[2]/ul/li[2]/button/span`)).click() // select ok on datepicker
 
+        submitBtn = await driver.findElement(By.id("submit-tsk")) // submit button
+        await submitBtn.click() // submit the task
+
+        
 
     //     if (text === 'Welcome back, Robert!'){ // Check if test matches expected result
     //         return {
