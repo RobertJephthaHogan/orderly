@@ -87,7 +87,13 @@ export default function NewTaskForm(props: TaskFormProps) {
         if (!categoryOptions?.length) {
             const menu = taskCategories?.map((child: any) => {
                 return (
-                    <option value={child.label} key={child.label}>{child.label}</option>
+                    <option 
+                        value={child.label} 
+                        key={child.label}
+                        id={child.menuId}
+                    >
+                        {child.label}
+                    </option>
                 )
             })  || []
             setCategoryOptions(menu)
@@ -98,7 +104,13 @@ export default function NewTaskForm(props: TaskFormProps) {
         if (!priorityOptions?.length) {
             const menu = priorities?.map((child: any) => {
                 return (
-                    <option value={child.label} key={child.label}>{child.label}</option>
+                    <option 
+                        value={child.label} 
+                        key={child.label}
+                        id={child.menuId}
+                    >
+                        {child.label}
+                    </option>
                 )
             })  || []
             setPriorityOptions(menu)
@@ -131,6 +143,7 @@ export default function NewTaskForm(props: TaskFormProps) {
 							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'title')}
                             value={editingSubject?.title}
 							className='mr-1'
+                            id='task-title-input'
 						/>  
 					</div>
 					<div className='input-container w-70'>
@@ -141,6 +154,7 @@ export default function NewTaskForm(props: TaskFormProps) {
 							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'description')}
                             value={editingSubject?.description}
 							className='mr-1'
+                            id='task-description-input'
 						/> 
 					</div>
                 </div>
@@ -151,6 +165,7 @@ export default function NewTaskForm(props: TaskFormProps) {
 							name="category"
 							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'category')}
                             value={editingSubject?.category}
+                            id='task-category-select'
 						>
 							{categoryOptions}
 						</select>
@@ -162,6 +177,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                             placeholder='Priority'
 							onChange={(e) => onEditorSubjectChange(e?.target?.value, 'priority')}
                             //value={editingSubject?.priority}
+                            id='task-priority-select'
 						>
 							{priorityOptions}
 						</select>
@@ -176,6 +192,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                             value={moment(editingSubject?.dueDate)}
                             status={!editingSubject?.dueDate ? 'error' : ''}
                             className='w-100 mr-4'
+                            id='task-due-date-picker'
                         />
 					</div>
                 </div>
@@ -184,6 +201,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                         <Button 
                             className="submit-evt m-1" 
                             onClick={onFinish}
+                            id="submit-tsk"
                         >
                             {
                                 props.formOperation == 'add'
