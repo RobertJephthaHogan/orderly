@@ -1,5 +1,8 @@
-import { Tag, Tooltip } from 'antd'
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import { Dropdown, Tag, Tooltip } from 'antd'
 import { useEffect, useState } from 'react'
+import eventActions from '../../../../redux/actions/event'
+import { store } from '../../../../redux/store'
 import './styles.css'
 
 type Props = {
@@ -218,6 +221,12 @@ const MonthView : React.FC<Props> = ({
         onDateSelect(data)
     }
 
+    const onDeleteEvent = (e: any, event: any) => {
+        e.stopPropagation()
+        console.log('event', event)
+        store.dispatch(eventActions.delete(event?.id))
+    }
+
 
     const createMonthView = () => {
         const constr = Object.entries(monthViewData)?.map((week: any) => {
@@ -266,7 +275,30 @@ const MonthView : React.FC<Props> = ({
 
 
                                 return (
-                                    <Tooltip title={`${evt?.title}`}>
+                                    <Dropdown dropdownRender={menu => (
+                                        <div
+                                            style={{
+                                                background: '#ffffff',
+                                                border: '1px solid #dfdfdf',
+                                            }}
+                                        >
+                                            <h5 className='mt-1 ml-1'>{`${evt?.title}`}</h5>
+                                            <div>
+                                            <button 
+                                                className='btn-task-complete'
+                                                onClick={() => console.log('checked')}
+                                            >
+                                                <CheckOutlined/>
+                                            </button>
+                                            <button 
+                                                className='btn-task-delete'
+                                                onClick={(e) => onDeleteEvent(e, evt)}
+                                            >
+                                                <CloseOutlined/>
+                                            </button>
+                                            </div>
+                                        </div>
+                                    )}>
                                         <div 
                                             key={evt?.id}
                                             className='event-chip-wrapper'
@@ -275,7 +307,7 @@ const MonthView : React.FC<Props> = ({
                                                 {evt?.title}
                                             </div>
                                         </div>
-                                    </Tooltip>
+                                    </Dropdown>
                                 )
                                 
                             }) || []
