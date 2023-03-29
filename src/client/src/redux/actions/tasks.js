@@ -1,3 +1,4 @@
+import { openNotification } from '../../helpers/notifications'
 import { taskService } from '../../services/task.service'
 import * as types from '../types'
 
@@ -31,6 +32,11 @@ const taskActions = {
                 .createTask(payload)
                 .then((resp) => {
                     if (resp) {
+                        console.log('resp', resp)
+                        openNotification(
+                            resp?.data?.response_type,
+                            `Task ${resp?.data?.data?._id} Created Successfully`
+                        )
                         dispatch({ type: types.ADD_TASK, payload: resp?.data })
                         resolve(resp)
                     } else {

@@ -9,6 +9,9 @@ function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
 
+const generateId = () => {
+    return `${Math.floor(Math.random() * 1000000)}`
+}
 
 async function test_login() {
     
@@ -91,6 +94,8 @@ async function test_add_task() {
 
 
     async function test() {
+
+        const testID = generateId()
         
         await delay(1000); // wait one second for page to load
         userTasksMenuItem = await driver.findElement(By.id("user-tasks-menu-item"));
@@ -100,11 +105,11 @@ async function test_add_task() {
 
         await delay(1000); // wait 1000ms for page to load
 
-        taskTitleField = await driver.findElement(By.id("task-title-input"))
-        await taskTitleField.sendKeys("automation Test Task"); // set task title
+        taskTitleField = await driver.findElement(By.id("task-title-input"))  // set task title
+        await taskTitleField.sendKeys(`automation Test Task ${testID}`); // set task title
 
         taskDescriptionField = await driver.findElement(By.id("task-description-input"))
-        await taskDescriptionField.sendKeys("automation Test Task"); // set task description
+        await taskDescriptionField.sendKeys(`automation Test Task ${testID}`); // set task description
 
         taskCategorySelect = await driver.findElement(By.id("task-category-select")).click()
         taskPrioritySelectOption = await driver.findElement(By.id("general-task-category-option")).click() // select priority
@@ -123,7 +128,13 @@ async function test_add_task() {
         submitBtn = await driver.findElement(By.id("submit-tsk")) // submit button
         await submitBtn.click() // submit the task
 
-        
+        await delay(1000); // wait 1 second after the task submits
+
+        checked = driver.findElement(By.className("task-categories-area"))
+
+        console.log(checked)
+
+
 
     //     if (text === 'Welcome back, Robert!'){ // Check if test matches expected result
     //         return {
