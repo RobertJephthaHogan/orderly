@@ -2,6 +2,7 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import { Dropdown, Tag, Tooltip } from 'antd'
 import { useEffect, useState } from 'react'
 import eventActions from '../../../../redux/actions/event'
+import taskActions from '../../../../redux/actions/tasks'
 import { store } from '../../../../redux/store'
 import './styles.css'
 
@@ -227,6 +228,12 @@ const MonthView : React.FC<Props> = ({
         store.dispatch(eventActions.delete(event?.id))
     }
 
+    const onDeleteTask = (e: any, task: any) => {
+        e.stopPropagation()
+        console.log('task', task)
+        store.dispatch(taskActions.delete(task?.id))
+    }
+
 
     const createMonthView = () => {
         const constr = Object.entries(monthViewData)?.map((week: any) => {
@@ -281,21 +288,39 @@ const MonthView : React.FC<Props> = ({
                                                 background: '#ffffff',
                                                 border: '1px solid #dfdfdf',
                                             }}
+                                            className='flex pb-2'
                                         >
-                                            <h5 className='mt-1 ml-1'>{`${evt?.title}`}</h5>
-                                            <div>
-                                            <button 
-                                                className='btn-task-complete'
-                                                onClick={() => console.log('checked')}
-                                            >
-                                                <CheckOutlined/>
-                                            </button>
-                                            <button 
-                                                className='btn-task-delete'
-                                                onClick={(e) => onDeleteEvent(e, evt)}
-                                            >
-                                                <CloseOutlined/>
-                                            </button>
+                                            <div className='mt-2 ml-3 mr-1'>
+                                                <h5 >{`${evt?.title}`}</h5>
+                                                {
+                                                    Object.entries(evt)?.map((atr: any) => {
+                                                        return (
+                                                            <div className='flex'>
+                                                                <div>
+                                                                    {atr[0]}:
+                                                                </div>
+                                                                <div className='ml-2'>
+                                                                    {atr[1]}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }) || []
+                                                }
+                                            </div>
+                                            <div className='v-divider'/>
+                                            <div className='mt-2 ml-1 mr-1'>
+                                                <button 
+                                                    className='btn-task-complete'
+                                                    onClick={() => console.log('checked')}
+                                                >
+                                                    <CheckOutlined/>
+                                                </button>
+                                                <button 
+                                                    className='btn-task-delete'
+                                                    onClick={(e) => onDeleteEvent(e, evt)}
+                                                >
+                                                    <CloseOutlined/>
+                                                </button>
                                             </div>
                                         </div>
                                     )}>
@@ -331,8 +356,62 @@ const MonthView : React.FC<Props> = ({
                                     chipType = 'event-chip'
                                 }
 
+                                // return (
+                                //     <Tooltip title={`${tsk.title}`}>
+                                //         <div 
+                                //             key={tsk?.id}
+                                //             className='event-chip-wrapper'
+                                //         >
+                                //             <div className={`${chipType}`}>
+                                //                 {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
+                                //             </div>
+                                //         </div>
+                                //     </Tooltip>
+                                // )
+
                                 return (
-                                    <Tooltip title={`${tsk.title}`}>
+                                    <Dropdown dropdownRender={menu => (
+                                        <div
+                                            style={{
+                                                background: '#ffffff',
+                                                border: '1px solid #dfdfdf',
+                                            }}
+                                            className='flex pb-2'
+                                        >
+                                            <div className='mt-2 ml-3 mr-1'>
+                                                <h5 >{`${tsk?.title}`}</h5>
+                                                {
+                                                    Object.entries(tsk)?.map((atr: any) => {
+                                                        return (
+                                                            <div className='flex'>
+                                                                <div>
+                                                                    {atr[0]}:
+                                                                </div>
+                                                                <div className='ml-2'>
+                                                                    {atr[1]}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }) || []
+                                                }
+                                            </div>
+                                            <div className='v-divider'/>
+                                            <div className='mt-2 ml-1 mr-1'>
+                                                <button 
+                                                    className='btn-task-complete'
+                                                    onClick={() => console.log('checked')}
+                                                >
+                                                    <CheckOutlined/>
+                                                </button>
+                                                <button 
+                                                    className='btn-task-delete'
+                                                    onClick={(e) => onDeleteTask(e, tsk)}
+                                                >
+                                                    <CloseOutlined/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}>
                                         <div 
                                             key={tsk?.id}
                                             className='event-chip-wrapper'
@@ -341,7 +420,7 @@ const MonthView : React.FC<Props> = ({
                                                 {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
                                             </div>
                                         </div>
-                                    </Tooltip>
+                                    </Dropdown>
                                 )
 
                                 

@@ -4,7 +4,7 @@ require("chromedriver")
 
 let testResults = []
 
-// define function to wait one second (for pg to load)
+// define function to wait certain amount of time (for pgs to load, transitions, etc...)
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
