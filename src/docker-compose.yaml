@@ -4,12 +4,12 @@ services:
     build:
       context: ./server
     ports:
-      - "8000:8000"
+      - "8001:8001"
     container_name: orderly_server
 
   orderly_client:
     build:
       context: ./client
     ports:
-      - "3000:3000"
+      - "3001:3001"
     container_name: orderly_client
