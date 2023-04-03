@@ -234,6 +234,13 @@ const MonthView : React.FC<Props> = ({
         store.dispatch(taskActions.delete(task?.id))
     }
 
+    const toggleTaskCompleted = (e: any, task: any) => {
+        e.stopPropagation()
+        const taskId = task.id
+        let working = {...task}
+        working['isCompleted'] = !task.isCompleted
+        store.dispatch(taskActions.update(taskId, working))
+    }
 
     const createMonthView = () => {
         const constr = Object.entries(monthViewData)?.map((week: any) => {
@@ -356,19 +363,6 @@ const MonthView : React.FC<Props> = ({
                                     chipType = 'event-chip'
                                 }
 
-                                // return (
-                                //     <Tooltip title={`${tsk.title}`}>
-                                //         <div 
-                                //             key={tsk?.id}
-                                //             className='event-chip-wrapper'
-                                //         >
-                                //             <div className={`${chipType}`}>
-                                //                 {tsk.isCompleted ? <s><h5>-{tsk.title}</h5></s> : <h5>-{tsk.title}</h5>}
-                                //             </div>
-                                //         </div>
-                                //     </Tooltip>
-                                // )
-
                                 return (
                                     <Dropdown dropdownRender={menu => (
                                         <div
@@ -399,7 +393,7 @@ const MonthView : React.FC<Props> = ({
                                             <div className='mt-2 ml-1 mr-1'>
                                                 <button 
                                                     className='btn-task-complete'
-                                                    onClick={() => console.log('checked')}
+                                                    onClick={(e) => toggleTaskCompleted(e, tsk)}
                                                 >
                                                     <CheckOutlined/>
                                                 </button>
