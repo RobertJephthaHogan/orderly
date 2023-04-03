@@ -1,13 +1,16 @@
+import { getConfig } from '../config/Constants'
 import axios from 'axios'
 
 
+const config = getConfig()
+
 const apiInstance = axios.create({
-    // baseURL: `http://18.118.82.187/`,
-    baseURL: `http://localhost:8000/`,
+    baseURL: `${config.apiUrl}/`,
     headers: {
         'Content-Type': 'application/json',
     },
 })
+
 
 export const taskService = {
     getTasks,
