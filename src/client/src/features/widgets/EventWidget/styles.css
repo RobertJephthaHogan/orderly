@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+.event-widget {
+    position: absolute;
+    z-index: 2000;
+    min-width: 400px;
+    min-height: 200px;
+    width: 600px;
+    height: 300px;
+    overflow: scroll;
+    background-color: #ffffff;
+    resize: both;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+
+.event-widget-header {
+    background-color: #f6f6f66c;
+    display: flex;
+    justify-content: space-between;
+}
+
+.event-widget-header:hover {
+    cursor: grab;
+}
+
+.event-widget-body {
+    padding: 5px 10px;
+}

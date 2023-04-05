@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import TaskWidget from '../../features/widgets/TaskWidget'
 import widgetActions from '../../redux/actions/widget'
 import { store } from '../../redux/store'
+import EventWidget from '../../features/widgets/EventWidget'
 
 
 type Props = {
@@ -27,12 +28,16 @@ export const MyLayout : React.FC<Props> = ({
 
     useEffect(() => {
 
-        Mousetrap.bind('alt+t', () => {
+        Mousetrap.bind('alt+1', () => {
             toggleTaskWidget()
+        })
+        Mousetrap.bind('alt+2', () => {
+            toggleEventWidget()
         })
 
         return () => {
-            Mousetrap.unbind('alt+t')
+            Mousetrap.unbind('alt+1')
+            Mousetrap.unbind('alt+2')
         }
 
     })
@@ -46,10 +51,20 @@ export const MyLayout : React.FC<Props> = ({
         }
     }
 
+    const toggleEventWidget = () => {
+        if (!eventWidget) {
+            store.dispatch(widgetActions.showEventWidget())
+        }
+        if (eventWidget) {
+            store.dispatch(widgetActions.hideEventWidget())
+        }
+    }
+
 
     return (
         <div className='my-layout'>
             {taskWidget && <TaskWidget/>}
+            {eventWidget && <EventWidget/>}
             <MyLayoutSidebar
                 isSidebarCollapsed={isSidebarCollapsed}
                 setIsSidebarCollapsed={setIsSidebarCollapsed}
