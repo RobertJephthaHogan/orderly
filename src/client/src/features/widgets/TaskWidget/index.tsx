@@ -1,5 +1,5 @@
 import { CloseOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
+import { Button, Tabs } from 'antd'
 import React from 'react'
 import Draggable from 'react-draggable'
 import widgetActions from '../../../redux/actions/widget'
@@ -13,6 +13,19 @@ export default function TaskWidget() {
     const closeWidget = () => {
         store.dispatch(widgetActions.hideTaskWidget())
     }
+
+    const items = [
+        {
+            label: 'Task Form',
+            key: 'Task Form',
+            children: 'Task Form'
+        },
+        {
+            label: 'Tasks',
+            key: 'Tasks',
+            children: 'Tasks'
+        },
+    ]
 
     return (
         <Draggable>
@@ -35,7 +48,7 @@ export default function TaskWidget() {
                     </div>
                 </div>
                 <div className='task-widget-body'>
-                    Task Widget
+                    <Tabs items={items} />
                 </div>
             </div>
         </Draggable>
