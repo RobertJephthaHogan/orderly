@@ -9,6 +9,7 @@ import TaskWidget from '../../features/widgets/TaskWidget'
 import widgetActions from '../../redux/actions/widget'
 import { store } from '../../redux/store'
 import EventWidget from '../../features/widgets/EventWidget'
+import ProjectWidget from '../../features/widgets/ProjectWidget'
 
 
 type Props = {
@@ -34,10 +35,14 @@ export const MyLayout : React.FC<Props> = ({
         Mousetrap.bind('alt+2', () => {
             toggleEventWidget()
         })
+        Mousetrap.bind('alt+3', () => {
+            toggleProjectWidget()
+        })
 
         return () => {
             Mousetrap.unbind('alt+1')
             Mousetrap.unbind('alt+2')
+            Mousetrap.unbind('alt+3')
         }
 
     })
@@ -60,11 +65,21 @@ export const MyLayout : React.FC<Props> = ({
         }
     }
 
+    const toggleProjectWidget = () => {
+        if (!projectWidget) {
+            store.dispatch(widgetActions.showProjectWidget())
+        }
+        if (projectWidget) {
+            store.dispatch(widgetActions.hideProjectWidget())
+        }
+    }
+
 
     return (
         <div className='my-layout'>
             {taskWidget && <TaskWidget/>}
             {eventWidget && <EventWidget/>}
+            {projectWidget && <ProjectWidget/>}
             <MyLayoutSidebar
                 isSidebarCollapsed={isSidebarCollapsed}
                 setIsSidebarCollapsed={setIsSidebarCollapsed}
