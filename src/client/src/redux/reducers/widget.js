@@ -42,13 +42,13 @@ export default function widgetReducer(state = initialState.widgets, action) {
         case types.SHOW_NOTE_WIDGET: {
             return {
                 ...state,
-                notesWidget: true,
+                noteWidget: true,
             }
         }
         case types.HIDE_NOTE_WIDGET: {
             return {
                 ...state,
-                notesWidget: false,
+                noteWidget: false,
             }
         }
         default:

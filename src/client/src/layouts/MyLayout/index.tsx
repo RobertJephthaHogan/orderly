@@ -10,6 +10,7 @@ import widgetActions from '../../redux/actions/widget'
 import { store } from '../../redux/store'
 import EventWidget from '../../features/widgets/EventWidget'
 import ProjectWidget from '../../features/widgets/ProjectWidget'
+import NoteWidget from '../../features/widgets/NoteWidget'
 
 
 type Props = {
@@ -38,11 +39,15 @@ export const MyLayout : React.FC<Props> = ({
         Mousetrap.bind('alt+3', () => {
             toggleProjectWidget()
         })
+        Mousetrap.bind('alt+4', () => {
+            toggleNoteWidget()
+        })
 
         return () => {
             Mousetrap.unbind('alt+1')
             Mousetrap.unbind('alt+2')
             Mousetrap.unbind('alt+3')
+            Mousetrap.unbind('alt+4')
         }
 
     })
@@ -74,12 +79,21 @@ export const MyLayout : React.FC<Props> = ({
         }
     }
 
+    const toggleNoteWidget = () => {
+        if (!noteWidget) {
+            store.dispatch(widgetActions.showNoteWidget())
+        }
+        if (noteWidget) {
+            store.dispatch(widgetActions.hideNoteWidget())
+        }
+    }
 
     return (
         <div className='my-layout'>
             {taskWidget && <TaskWidget/>}
             {eventWidget && <EventWidget/>}
             {projectWidget && <ProjectWidget/>}
+            {noteWidget && <NoteWidget/>}
             <MyLayoutSidebar
                 isSidebarCollapsed={isSidebarCollapsed}
                 setIsSidebarCollapsed={setIsSidebarCollapsed}

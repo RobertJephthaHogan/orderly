@@ -16,6 +16,6 @@ export default {
         taskWidget: false,
         eventWidget: false,
         projectWidget: false,
-        notesWidget: false
+        noteWidget: false
     }
 }
