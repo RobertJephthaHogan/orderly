@@ -2,6 +2,7 @@ import { CloseOutlined } from '@ant-design/icons'
 import { Button, Tabs } from 'antd'
 import React from 'react'
 import Draggable from 'react-draggable'
+import NewTaskForm from '../../../components/forms/NewTaskForm'
 import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
 import './styles.css'
@@ -18,17 +19,25 @@ export default function TaskWidget() {
         {
             label: 'Task Form',
             key: 'Task Form',
-            children: 'Task Form'
+            children: (
+                <div>
+                    <NewTaskForm />
+                </div>
+            )
         },
         {
             label: 'Tasks',
             key: 'Tasks',
-            children: 'Tasks'
+            children: (
+                <div>
+                    Tasks
+                </div>
+            )
         },
     ]
 
     return (
-        <Draggable>
+        <Draggable handle='.task-widget-header'>
             <div className='task-widget'>
                 <div className='task-widget-header'>
                     <div className='flex'>

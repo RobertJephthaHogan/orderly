@@ -48,7 +48,11 @@ export default function NewTaskForm(props: TaskFormProps) {
 
         data.preventDefault()
 
-        if (props.formOperation == 'add') {
+        if (props.formOperation === 'edit') {
+            store.dispatch(taskActions.update(editingSubject?.id, editingSubject))
+        }
+
+        if (props.formOperation !== 'edit') {
             const dto = {
                 id: new ObjectID().toString(),
                 title: editingSubject?.title,
@@ -67,11 +71,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                 props.onFinishAction()
                 onResetForm()
             }
-
-        } else if (props.formOperation == 'edit') {
-            store.dispatch(taskActions.update(editingSubject?.id, editingSubject))
-        }
-		
+        } 
 	}
 
     
