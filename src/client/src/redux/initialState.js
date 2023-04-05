@@ -12,4 +12,10 @@ export default {
         loading: false,
         theme: 'light',
     },
+    widgets: {
+        taskWidget: false,
+        eventWidget: false,
+        projectWidget: false,
+        notesWidget: false
+    }
 }

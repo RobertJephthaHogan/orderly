@@ -8,6 +8,7 @@ import settingsReducer from './settings'
 import initialState from '../initialState'
 
 import * as types from '../types'
+import widgetReducer from './widget'
 
 
 const appReducers = combineReducers({
@@ -17,6 +18,7 @@ const appReducers = combineReducers({
   projects: projectReducer,
   notes: noteReducer,
   settings: settingsReducer,
+  widgets: widgetReducer,
 })
 
 
