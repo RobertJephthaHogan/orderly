@@ -24,12 +24,6 @@ export const UserNotes: React.FC = () => {
 
     return (
 		<div className="fill-window-height">
-			<div className='notes-top-bar'>
-				<div className='banner'>
-				Top Bar
-				</div>
-			</div>
-			<div className='divider'></div>
 			<div className='notes-body'>
 				<div className='tab-section'>
 					<div className='tab-select'>

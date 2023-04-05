@@ -25,12 +25,6 @@ export const UserProjects: React.FC = () => {
 
     return (
 		<div className="outlet-container">
-			<div className='projects-top-bar'>
-				<div className='banner'>
-				Top Bar
-				</div>
-			</div>
-			<div className='divider'></div>
 			<div className='projects-body'>
 				<div className='tab-section'>
 					<div className='tab-select'>
@@ -102,11 +96,6 @@ const ProjectLayoutFour: React.FC<LayoutFourProps> = ({
 
 	return (
 		<div>
-			<div className='top-bar-wrapper'>
-				<div className='top-bar'>
-					Projects Component Top Bar
-				</div>
-			</div>
 			<div className='body-wrapper'>
 				<div className='projects-editor-wrapper'>
 					<div className='row flex content-center'>

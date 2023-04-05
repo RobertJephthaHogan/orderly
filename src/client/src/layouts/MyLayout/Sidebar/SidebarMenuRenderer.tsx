@@ -25,7 +25,7 @@ export const SidebarMenuRenderer : React.FC<Props> = ({
             <div 
                 data-menu-item={child}
                 onClick={() => navTo(child.route)}
-                className="child-menu-node"
+                className="child-menu-node pl-2"
                 id={`${child?.menuId}`}
                 key={`${child.label}`}
             >
