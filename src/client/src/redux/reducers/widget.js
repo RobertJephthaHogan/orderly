@@ -12,7 +12,7 @@ export default function widgetReducer(state = initialState.widgets, action) {
         case types.HIDE_TASK_WIDGET: {
             return {
                 ...state,
-                taskWidget: true,
+                taskWidget: false,
             }
         }
         case types.SHOW_EVENT_WIDGET: {
