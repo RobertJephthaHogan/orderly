@@ -19,11 +19,13 @@ export const TaskRowRenderer : React.FC<Props> = ({
 }) => {
 
 
-    const deleteUserTask = (taskID: any) => {
+    const deleteUserTask = (e: any, taskID: any) => {
+        e.stopPropagation()
         store.dispatch(taskActions.delete(taskID))
     }
 
-    const toggleTaskCompleted = (task: any) => {
+    const toggleTaskCompleted = (e: any, task: any) => {
+        e.stopPropagation()
         const taskId = task.id
         let working = {...task}
         working['isCompleted'] = !task.isCompleted
@@ -40,19 +42,18 @@ export const TaskRowRenderer : React.FC<Props> = ({
                 key={`task-${task?.id}`}
             >
                 <div>
-                    
                     {task.isCompleted ? <s><h5>{task.title}</h5></s> : <h5>{task.title}</h5>}
                 </div>
                 <div>
                     <button 
                         className='btn-task-complete'
-                        onClick={() => toggleTaskCompleted(task)}
+                        onClick={(e) => toggleTaskCompleted(e, task)}
                     >
                         <CheckOutlined/>
                     </button>
                     <button 
                         className='btn-task-delete'
-                        onClick={() => deleteUserTask(task.id)}
+                        onClick={(e) => deleteUserTask(e, task.id)}
                     >
                         <CloseOutlined/>
                     </button>
