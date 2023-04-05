@@ -21,8 +21,6 @@ const WeekView : React.FC<Props> = ({
     const [wv, setWv] = useState<any>([]) 
 
     
-
-
     useEffect(() => {
         if (!wv?.length) {
 

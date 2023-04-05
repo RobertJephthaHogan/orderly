@@ -5,7 +5,7 @@
 
 .sidebar {
     height: 100vh;
-    border: 1px solid #c3c3c3;
+    border-right: 1px solid #c3c3c3;
 }
 
 .sidebar-title {

@@ -158,7 +158,6 @@ const MonthView : React.FC<Props> = ({
                             }) 
 
                             tasks?.forEach((tsk: any) => {
-                                //console.log('tsk', tsk)
                                 if (new Date(tsk?.dueDate)?.toJSON().split('T')[0] == day?.toJSON().split('T')[0]) {
                                     tasksOnThisDay.push(tsk)
                                 }
@@ -212,12 +211,12 @@ const MonthView : React.FC<Props> = ({
                                             </div>
                                             <div className='v-divider'/>
                                             <div className='mt-2 ml-1 mr-1'>
-                                                <button 
+                                                {/* <button 
                                                     className='btn-task-complete'
                                                     onClick={() => console.log('checked')}
                                                 >
                                                     <CheckOutlined/>
-                                                </button>
+                                                </button> */}
                                                 <button 
                                                     className='btn-task-delete'
                                                     onClick={(e) => onDeleteEvent(e, evt)}

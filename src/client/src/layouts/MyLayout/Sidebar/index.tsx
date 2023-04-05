@@ -40,7 +40,8 @@ export const MyLayoutSidebar : React.FC<Props> = ({
         >
             <div 
                 style={{
-                    height: '45px'
+                    height: '45px',
+                    borderBottom:'1px solid #dfdfdf'
                 }}
             >
                 {
@@ -61,7 +62,7 @@ export const MyLayoutSidebar : React.FC<Props> = ({
                     )
                 }
             </div>
-            <div className='sidebar-divider'/>
+            
             <SidebarMenuRenderer
                 data={newMenuItems}
                 isSidebarCollapsed={isSidebarCollapsed}

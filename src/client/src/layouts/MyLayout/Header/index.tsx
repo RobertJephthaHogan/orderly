@@ -1,4 +1,5 @@
 import { GithubOutlined, LinkedinOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import userActions from '../../../redux/actions/user'
@@ -30,9 +31,10 @@ export const MyLayoutHeader : React.FC<Props> = ({
         <div className='header' id='header'>
             <div className='header-left'>
                 <div className='header-left-item'>
-                    <button
+                    <Button
                         onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
                         className='hcp'
+                        type='text'
                     >
                         {
                             isSidebarCollapsed ? (
@@ -41,16 +43,16 @@ export const MyLayoutHeader : React.FC<Props> = ({
                                 <MenuFoldOutlined/>
                             )
                         }
-                    </button>
+                    </Button>
                 </div>
-                <div className='header-left-item ml-4'>
-                    <span 
+                {/* <div className='header-left-item ml-4'>
+                    <div 
                         className='header-nav'
                         onClick={() => navigate('/')}
                     >
                         Home
-                    </span>
-                </div>
+                    </div>
+                </div> */}
             </div>
             <div className='header-right flex'>
                 <div className='mr-2 header-nav'>

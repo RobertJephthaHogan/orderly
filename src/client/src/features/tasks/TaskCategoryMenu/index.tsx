@@ -71,8 +71,6 @@ function CategoryRow(props: RowProps) {
         setExpanded(!expanded)
     }
 
-    console.log('rowdata', props.rowData)
-
     return (
         <div>
             <div 
@@ -97,9 +95,12 @@ function CategoryRow(props: RowProps) {
                 ? (
                     <div>
                         {
-                            props.rowData[1]?.map((row:any) => {
+                            props.rowData[1]?.map((row:any, i: any) => {
                                 return (
-                                    <div className='task-row pl-5 hcp'>
+                                    <div 
+                                        className='task-row pl-5 hcp'
+                                        key={`${row}-${i}`}
+                                    >
                                         <h5 className='p-0 m-0'>{row?.title}</h5>
                                     </div>
                                 )
