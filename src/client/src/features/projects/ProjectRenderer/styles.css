@@ -3,7 +3,10 @@
 
 
 
-.project-area {}
+.project-area {
+    overflow: auto;
+    max-height: calc(100vh - 100px);
+}
 
 .project-section {
     border: 1px solid #dfdfdf;
