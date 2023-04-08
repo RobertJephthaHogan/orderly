@@ -21,9 +21,9 @@ const widgetActions = {
             Promise.resolve(dispatch({ type: types.HIDE_EVENT_WIDGET }))
         }
     },
-    showProjectWidget: () => {
+    showProjectWidget: (payload) => {
         return (dispatch) => {
-            Promise.resolve(dispatch({ type: types.SHOW_PROJECT_WIDGET  }))
+            Promise.resolve(dispatch({ type: types.SHOW_PROJECT_WIDGET, payload }))
         }
     },
     hideProjectWidget: () => {

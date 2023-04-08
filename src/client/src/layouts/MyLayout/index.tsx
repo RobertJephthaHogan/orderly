@@ -71,10 +71,10 @@ export const MyLayout : React.FC<Props> = ({
     }
 
     const toggleProjectWidget = () => {
-        if (!projectWidget) {
+        if (!projectWidget?.open) {
             store.dispatch(widgetActions.showProjectWidget())
         }
-        if (projectWidget) {
+        if (projectWidget?.open) {
             store.dispatch(widgetActions.hideProjectWidget())
         }
     }
@@ -92,7 +92,7 @@ export const MyLayout : React.FC<Props> = ({
         <div className='my-layout'>
             {taskWidget && <TaskWidget/>}
             {eventWidget && <EventWidget/>}
-            {projectWidget && <ProjectWidget/>}
+            {projectWidget?.open && <ProjectWidget/>}
             {noteWidget && <NoteWidget/>}
             <MyLayoutSidebar
                 isSidebarCollapsed={isSidebarCollapsed}

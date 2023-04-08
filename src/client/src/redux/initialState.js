@@ -15,7 +15,9 @@ export default {
     widgets: {
         taskWidget: false,
         eventWidget: false,
-        projectWidget: false,
+        projectWidget: {
+            open: false
+        },
         noteWidget: false
     }
 }

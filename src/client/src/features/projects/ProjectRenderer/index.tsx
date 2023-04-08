@@ -7,6 +7,8 @@ import { NotesRowRenderer } from '../NotesRowRenderer'
 import { NoteForm } from '../../../components/forms/NoteForm'
 import { useSelector } from 'react-redux'
 import './styles.css'
+import widgetActions from '../../../redux/actions/widget'
+import { store } from '../../../redux/store'
 
 
 interface ProjectProps {
@@ -60,7 +62,10 @@ export default function ProjectRenderer(props: ProjectProps) {
                         <h4>{props.selectedProject?.category}</h4>
                     </div>
                     <div className='bordered m-1 p-1 flex'>
-                        <button >
+                        <button onClick={() => store.dispatch(widgetActions.showProjectWidget({
+                            editorType: 'edit',
+                            activeProject: props.selectedProject,
+                        }))}>
                             Edit
                         </button>
                     </div>

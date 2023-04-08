@@ -28,15 +28,20 @@ export default function widgetReducer(state = initialState.widgets, action) {
             }
         }
         case types.SHOW_PROJECT_WIDGET: {
+            let widgetState = {...state?.widgets?.projectWidget}
+            widgetState.open = true
+            widgetState = {...widgetState, ...action.payload}
             return {
                 ...state,
-                projectWidget: true,
+                projectWidget: widgetState,
             }
         }
         case types.HIDE_PROJECT_WIDGET: {
             return {
                 ...state,
-                projectWidget: false,
+                projectWidget: {
+                    open: false
+                },
             }
         }
         case types.SHOW_NOTE_WIDGET: {

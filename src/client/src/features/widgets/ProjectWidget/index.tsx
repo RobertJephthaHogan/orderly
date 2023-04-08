@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { CloseOutlined } from '@ant-design/icons'
 import { Button, Tabs } from 'antd'
 import Draggable from 'react-draggable'
@@ -6,11 +6,20 @@ import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
 import './styles.css'
 import { ProjectEditor } from '../../projects/ProjectEditor'
+import { useSelector } from 'react-redux'
 
 
 
 export default function ProjectWidget() {
 
+    const projectWidget = useSelector((state: any) => state.widgets?.projectWidget ?? [])
+    const [activeProject, setActiveProject] = useState<any>(false)
+    const [editorType, setEditorType] = useState<any>('new')
+
+    useMemo(() => {
+        setActiveProject(projectWidget?.activeProject)
+        setEditorType(projectWidget?.editorType)
+    }, [projectWidget])
     
     const closeWidget = () => {
         store.dispatch(widgetActions.hideProjectWidget())
@@ -23,8 +32,8 @@ export default function ProjectWidget() {
             children: (
                 <div>
                     <ProjectEditor
-                        activeProject={false}
-                        editorType={'new'}
+                        activeProject={activeProject}
+                        editorType={editorType}
                     />
                 </div>
             )
