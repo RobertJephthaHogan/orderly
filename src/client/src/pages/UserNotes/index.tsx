@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import noteActions from '../../redux/actions/notes';
 import { store } from '../../redux/store';
-import { NotesOverview } from './NotesOverview';
 import './styles.css'
 import { Button, Empty } from 'antd';
 import NotesMenu from './NotesMenu';
