@@ -25,34 +25,7 @@ export const UserNotes: React.FC = () => {
     return (
 		<div className="fill-window-height">
 			<div className='notes-body'>
-				<div className='tab-section'>
-					<div className='tab-select'>
-						<div 
-							className={`tab-option ${selectedLayout === 1 ? 'aactive' : 'inactive' }`}
-							onClick={() => setSelectedLayout(1)}
-						>
-							Daily Notes
-						</div>
-						<div 
-							className={`tab-option ${selectedLayout === 2 ? 'aactive' : 'inactive' }`}
-							onClick={() => setSelectedLayout(2)}
-						>
-							Notes Categories
-						</div>
-					</div>
-					<div className='tab-panel-area'>
-						{
-							selectedLayout === 1 && (
-								<NotesOverview />
-							)
-						}
-						{
-							selectedLayout === 2 && (
-								<NotesByCategory/>
-							)
-						}
-					</div>	
-				</div>
+				<NotesOverview />
 			</div>
 		</div>
     );
