@@ -17,8 +17,13 @@ export default function ProjectWidget() {
     const [editorType, setEditorType] = useState<any>('new')
 
     useMemo(() => {
-        setActiveProject(projectWidget?.activeProject)
-        setEditorType(projectWidget?.editorType)
+        if (projectWidget?.activeProject) {
+            setActiveProject(projectWidget?.activeProject)
+        }
+        if (projectWidget?.editorType) {
+            setEditorType(projectWidget?.editorType)
+        }
+        
     }, [projectWidget])
     
     const closeWidget = () => {
