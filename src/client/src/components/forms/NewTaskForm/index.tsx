@@ -129,7 +129,7 @@ export default function NewTaskForm(props: TaskFormProps) {
     }, [props.initialTask])
 
     return (
-        <div className='w-100'>
+        <div className='w-100 task-form'>
             <form 
                 onSubmit={onFinish}
                 className='task-form'
