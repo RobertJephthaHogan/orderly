@@ -6,6 +6,8 @@ import NewEventForm from '../../../components/forms/NewEventForm'
 import { NotesRowRenderer } from '../NotesRowRenderer'
 import { NoteForm } from '../../../components/forms/NoteForm'
 import { useSelector } from 'react-redux'
+import './styles.css'
+
 
 interface ProjectProps {
     selectedProject?: any
