@@ -5,6 +5,17 @@
     padding: 10px;
 }
 
+.notes-body {
+    background-color: #f5f5f5;
+    height: calc(100vh - 45px);
+}
+
+.daily-note-body-input {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+}
+
 .banner {
     border: 1px solid #dfdfdf
 }
@@ -75,6 +86,7 @@
     width: 70%;
     border: 1px solid #dfdfdf;
     padding: 10px;
+    background-color: #ffffff;
 }
 
 .note-section {

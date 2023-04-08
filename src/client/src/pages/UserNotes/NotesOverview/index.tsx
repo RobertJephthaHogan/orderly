@@ -22,7 +22,6 @@ export const NotesOverview: React.FC<Props> = ({
 	const currentUser = useSelector((state: any) => state.user?.data ?? [])
 	const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
 	const [activeNote, setActiveNote] = useState<any>()
-    const [initialAN, setInitialAN] = useState<any>()
 	const [activeNoteDate, setActiveNoteDate] = useState<any>(new Date().toJSON())
 
 
@@ -42,7 +41,6 @@ export const NotesOverview: React.FC<Props> = ({
             setActiveNote(null)
         } else { // if there is a daily note for today, set as first found
             setActiveNote(filtered?.[0])
-            setInitialAN(filtered?.[0])
         }
     }, [activeNoteDate, userNotes])
 
@@ -104,7 +102,6 @@ export const NotesOverview: React.FC<Props> = ({
 
 	return (
 		<div>
-			 
 			<div className='body-wrapper'>
                 <div className="w-100 flex pb-2">
                     <Button 
