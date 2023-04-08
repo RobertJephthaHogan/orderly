@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { TaskRowRenderer } from '../../../features/projects/TaskRowRenderer'
 import NewTaskForm from '../../../components/forms/NewTaskForm'
 import { EventRowRenderer } from '../../../features/projects/EventRowRenderer'
@@ -24,21 +24,21 @@ export default function ProjectRenderer(props: ProjectProps) {
 	const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
 
 
-    useEffect(() => { // filter for projects child tasks when userTasks updates
+    useMemo(() => { // filter for projects child tasks when userTasks updates
 		if (props.selectedProject?._id && userTasks?.length) {
 			let filtd = userTasks?.filter((tsk: any) => tsk?.parent == props.selectedProject?._id)
 			setChildTasks(filtd)
 		}
 	}, [props.selectedProject, userTasks])
 
-	useEffect(() => { // filter for projects child events when userEvents updates
+	useMemo(() => { // filter for projects child events when userEvents updates
 		if (props.selectedProject?._id && userEvents?.length) {
 			let filtd = userEvents?.filter((evt: any) => evt?.parent == props.selectedProject?._id)
 			setChildEvents(filtd)
 		}
 	}, [props.selectedProject, userEvents])
 
-	useEffect(() => { // filter for projects child notes when userNotes updates
+	useMemo(() => { // filter for projects child notes when userNotes updates
 		if (props.selectedProject?._id && userNotes?.length) {
 			let filtd = userNotes?.filter((evt: any) => evt?.parent == props.selectedProject?._id)
 			setChildNotes(filtd)
