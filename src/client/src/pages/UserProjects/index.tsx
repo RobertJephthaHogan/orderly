@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import eventActions from '../../redux/actions/event'
+import noteActions from '../../redux/actions/notes'
+import taskActions from '../../redux/actions/tasks'
 import projectActions from '../../redux/actions/project';
 import { store } from '../../redux/store';
-import { SelectCreator } from '../../components/inputs/SelectCreator';
-import { ProjectEditor } from '../../features/projects/ProjectEditor';
-import { ProjectsOverview } from './ProjectsOverview';
+import { Button } from 'antd';
+import widgetActions from '../../redux/actions/widget';
+import ProjectMenuRender from '../../features/projects/ProjectMenu';
+import ProjectRenderer from './ProjectRenderer';
 import './styles.css'
+
 
 type Props = {
 	unsortedProjects?: any
@@ -13,123 +18,66 @@ type Props = {
 
 export const UserProjects: React.FC = () => {
 
-	const [selectedLayout, setSelectedLayout] = useState<any>(1)
 	const userProjects = useSelector((state: any) => state.projects?.queryResult ?? [])
 	const currentUser = useSelector((state: any) => state.user?.data ?? [])
+	const [selectedProject, setSelectedProject] = useState<any>(null)
 
 
 	useEffect(() => {
         store.dispatch(projectActions.setProjects(currentUser._id))
     }, [])
 
+	const selectProject = (project: any) => {
+		console.log(project?.[1])
+		setSelectedProject(project?.[1])
+	}
+
+	useEffect(() => {
+		store.dispatch(taskActions.setToDos(store.getState()?.user?.data?._id))
+        store.dispatch(eventActions.setEvents(store.getState()?.user?.data?._id))
+		store.dispatch(noteActions.setNotes(store.getState()?.user?.data?._id))
+		
+		if (!selectedProject) {
+			selectProject(Object.entries(userProjects)[0])
+		}
+
+	}, [])
+
 
     return (
-		<div className="outlet-container">
-			<div className='projects-body'>
-				<div className='tab-section'>
-					<div className='tab-select'>
-						<div 
-							className={`tab-option ${selectedLayout === 1 ? 'aactive' : 'inactive' }`}
-							onClick={() => setSelectedLayout(1)}
-						>
-							Projects Overview
+		<div>
+			<div className='body-wrapper'>
+				<div className='mb-1 w-100'>
+					<Button 
+						className='w-100'
+						onClick={() => store.dispatch(widgetActions.showProjectWidget())}
+					> 
+						+ 
+					</Button>
+				</div>
+				<div className='body-content'>
+					<div className='projects-menu-wrapper'>
+						<div className='pl-2 pt-2'>
+							<h4>Projects</h4>
 						</div>
-						<div 
-							className={`tab-option ${selectedLayout === 4 ? 'aactive' : 'inactive' }`}
-							onClick={() => setSelectedLayout(4)}
-						>
-							Project Editor
+						<div className='divider'/>
+						<div className='pl-2 pt-2'>
+							{ userProjects && (
+								<ProjectMenuRender
+									userProjects={userProjects}
+									selectProject={selectProject}
+								/>
+							)}
 						</div>
 					</div>
-					<div className='tab-panel-area'>
-						{
-							selectedLayout === 1 && (
-								<ProjectsOverview
-									setSelectedLayout={setSelectedLayout}
-									userProjects={userProjects}
-								/>
-							)
-						}
-						{
-							selectedLayout === 4 && (
-								<ProjectLayoutFour
-									userProjects={userProjects}
-									setSelectedLayout={setSelectedLayout}
-								/>
-							)
-						}
-					</div>	
+					<div className='projects-display-wrapper'>
+						<ProjectRenderer
+							selectedProject={selectedProject}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
     );
 };
 
-
-type LayoutFourProps = {
-	setSelectedLayout?: any
-	userProjects?: any
-}
-
-const ProjectLayoutFour: React.FC<LayoutFourProps> = ({
-	userProjects,
-	setSelectedLayout
-}) => {
-
-	const [activeProject, setActiveProject] = useState<any>()
-	const [editorType, setEditorType] = useState<any>()
-	const [isOpen, setIsOpen] = useState<any>()
-
-
-	const dispatchNewEditor = (et: any, projectId?: any) => {
-		if (et === 'edit') {
-			setEditorType('edit')
-			setActiveProject(projectId)
-			setIsOpen(true)
-		} else if (et === 'new') {
-			setEditorType('new')
-			setActiveProject(false)
-			setIsOpen(true)
-		}
-	}
-
-
-	return (
-		<div>
-			<div className='body-wrapper'>
-				<div className='projects-editor-wrapper'>
-					<div className='row flex content-center'>
-						<button 
-							className='w-100'
-							onClick={() => dispatchNewEditor('new')}
-						>
-							+
-						</button>
-					</div>
-					<div className='row flex content-center'>
-						or
-					</div>
-					<div className='row flex content-center'>
-						<SelectCreator
-							data={userProjects}
-							title={'userProjects'}
-							onSelect={(e: any) => dispatchNewEditor('edit', e?.target?.value)}
-						/>
-					</div>
-					
-				</div>
-				{
-					isOpen ? (
-						<div className='w-100'>
-							<ProjectEditor
-								activeProject={activeProject}
-								editorType={editorType}
-								setSelectedLayout={setSelectedLayout}
-							/>
-						</div>
-					) : null
-				}
-			</div>
-		</div>
-	)
-}

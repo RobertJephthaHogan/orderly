@@ -114,3 +114,15 @@
     width: 100%;
     margin-bottom: 10px;
 }
+
+.project-section-title {
+    border-bottom: 1px solid #dfdfdf;
+    font-weight: 700;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+}
+
+.project-description {
+    font-weight: 400;
+    font-size: 12px;
+}
