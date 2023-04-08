@@ -43,7 +43,12 @@ export const ProjectEditor : React.FC<EditorProps> = ({
         if (!projectCategoryOptions?.length) {
             const menu = projectCategories?.map((child: any) => {
                 return (
-                    <option value={child.label}>{child.label}</option>
+                    <option 
+                        value={child.label}
+                        key={child.label}
+                    >
+                        {child.label}
+                    </option>
                 )
             })  || []
             setProjectCategoryOptions(menu)
@@ -54,7 +59,12 @@ export const ProjectEditor : React.FC<EditorProps> = ({
         if (!projectPriorityOptions?.length) {
             const menu = priorities?.map((child: any) => {
                 return (
-                    <option value={child.label}>{child.label}</option>
+                    <option 
+                        value={child.label}
+                        key={child.label}
+                    >
+                        {child.label}
+                    </option>
                 )
             })  || []
             setProjectPriorityOptions(menu)
@@ -68,8 +78,9 @@ export const ProjectEditor : React.FC<EditorProps> = ({
 
     useEffect(() => {
         if (editorType === 'new') {
+
         } else if (editorType === 'edit') {
-            projectService.getAProject(activeProject).then((resp: any) => {
+            projectService.getAProject(activeProject?._id).then((resp: any) => {
                 resp = resp?.data
                 setProjectData(resp?.data)
                 const projectTitleField : any = document?.getElementById('title-field')
