@@ -1,10 +1,11 @@
 import React from 'react'
 import { CloseOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
+import { Button, Tabs } from 'antd'
 import Draggable from 'react-draggable'
 import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
 import './styles.css'
+import { ProjectEditor } from '../../projects/ProjectEditor'
 
 
 
@@ -15,8 +16,33 @@ export default function ProjectWidget() {
         store.dispatch(widgetActions.hideProjectWidget())
     }
 
+    const items = [
+        {
+            label: 'New Project Form',
+            key: 'New Project Form',
+            children: (
+                <div>
+                    <ProjectEditor
+                        activeProject={false}
+                        editorType={'new'}
+                    />
+                </div>
+            )
+        },
+        {
+            label: 'Projects',
+            key: 'Projects',
+            children: (
+                <div>
+                    Projects
+                </div>
+            )
+        },
+    ]
+
+
     return (
-        <Draggable>
+        <Draggable handle='.project-widget-header'>
             <div className='project-widget'>
                 <div className='project-widget-header'>
                     <div className='flex'>
@@ -36,7 +62,7 @@ export default function ProjectWidget() {
                     </div>
                 </div>
                 <div className='project-widget-body'>
-                Project Widget
+                    <Tabs items={items} />
                 </div>
             </div>
         </Draggable>

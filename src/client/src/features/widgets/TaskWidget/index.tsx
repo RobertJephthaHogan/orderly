@@ -30,7 +30,7 @@ export default function TaskWidget() {
             key: 'Tasks',
             children: (
                 <div>
-                    Tasks
+                    TasksTasksTasksTasksTasksTasksTasks
                 </div>
             )
         },

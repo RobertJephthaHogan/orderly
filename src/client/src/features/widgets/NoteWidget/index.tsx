@@ -5,6 +5,7 @@ import Draggable from 'react-draggable'
 import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
 import './styles.css'
+import { NoteForm } from '../../../components/forms/NoteForm'
 
 
 
@@ -13,6 +14,27 @@ export default function NoteWidget() {
     const closeWidget = () => {
         store.dispatch(widgetActions.hideNoteWidget())
     }
+
+    const items = [
+        {
+            label: 'Note Form',
+            key: 'Note Form',
+            children: (
+                <div>
+                    <NoteForm />
+                </div>
+            )
+        },
+        {
+            label: 'Notes',
+            key: 'Notes',
+            children: (
+                <div>
+                    Notes
+                </div>
+            )
+        },
+    ]
 
     return (
         <Draggable>

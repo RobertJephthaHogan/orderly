@@ -15,6 +15,8 @@ import './styles.css'
 import ProjectMenuRender from '../../../features/projects/ProjectMenu'
 import NewEventForm from '../../../components/forms/NewEventForm'
 import NewTaskForm from '../../../components/forms/NewTaskForm'
+import { Button } from 'antd'
+import widgetActions from '../../../redux/actions/widget'
 
 
 type ProjectsOverviewProps = {
@@ -193,23 +195,15 @@ export const ProjectsOverview: React.FC<ProjectsOverviewProps> = ({
 
 	return (
 		<div>
-			{/* <div className='top-bar-wrapper'>
-				<div className='top-bar flex'>
-					<div className='m-1 p-1 bordered w-100'>
-						# Projects : {userProjects?.length}
-					</div>
-					<div className='m-1 p-1 bordered w-100'>
-						# Projects : {userProjects?.length}
-					</div>
-					<div className='m-1 p-1 bordered w-100'>
-						# Projects : {userProjects?.length}
-					</div>
-					<div className='m-1 p-1 bordered w-100'>
-						# Projects : {userProjects?.length}
-					</div>
-				</div>
-			</div> */}
 			<div className='body-wrapper'>
+				<div className='mb-1 w-100'>
+					<Button 
+						className='w-100'
+						onClick={() => store.dispatch(widgetActions.showProjectWidget())}
+					> 
+						+ 
+					</Button>
+				</div>
 				<div className='body-content'>
 					<div className='projects-menu-wrapper'>
 						<div className='pl-2 pt-2'>

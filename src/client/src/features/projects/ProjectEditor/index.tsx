@@ -158,7 +158,7 @@ export const ProjectEditor : React.FC<EditorProps> = ({
 
 
     return (
-        <div className='w-100 m-2 bordered p-2'>
+        <div className='w-90 '>
             <div className='project-input-row'>
                 Project Title:
                 <input
