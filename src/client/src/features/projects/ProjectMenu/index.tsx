@@ -21,19 +21,19 @@ const ProjectMenuRender : React.FC<Props> = ({
                 onClick={() => selectProject(project)}
                 key={`pm-${project?.[1]?._id}`}
             >
-                <h5>{project?.[1]?.title}</h5>
+                <h5 className='ml-2'>{project?.[1]?.title}</h5>
             </div>
         )
     }) || []
-    
+
     return (
         <div className='projects-menu'>
             <div className='pl-2 pt-2'>
                 <h4>Projects</h4>
             </div>
             <div className='divider'/>
-            <div className='pl-2 pt-2'>
-                <div className='pr-3'>
+            <div className=''>
+                <div className=''>
                     {pmenu}
                 </div>
             </div>

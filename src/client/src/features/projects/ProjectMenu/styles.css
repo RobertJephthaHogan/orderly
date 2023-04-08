@@ -6,3 +6,9 @@
 .projects-menu {
     background-color: #ffffff;
 }
+
+.pmenu-item:hover {
+    cursor: pointer;
+    background-color: #f5f5f5;
+    box-shadow: 5px ;
+}
