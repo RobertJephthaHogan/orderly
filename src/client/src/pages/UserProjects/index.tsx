@@ -8,7 +8,7 @@ import { store } from '../../redux/store';
 import { Button } from 'antd';
 import widgetActions from '../../redux/actions/widget';
 import ProjectMenuRender from '../../features/projects/ProjectMenu';
-import ProjectRenderer from './ProjectRenderer';
+import ProjectRenderer from '../../features/projects/ProjectRenderer';
 import './styles.css'
 
 
@@ -45,36 +45,28 @@ export const UserProjects: React.FC = () => {
 
 
     return (
-		<div>
-			<div className='body-wrapper'>
-				<div className='mb-1 w-100'>
-					<Button 
-						className='w-100'
-						onClick={() => store.dispatch(widgetActions.showProjectWidget())}
-					> 
-						+ 
-					</Button>
-				</div>
-				<div className='body-content'>
-					<div className='projects-menu-wrapper'>
-						<div className='pl-2 pt-2'>
-							<h4>Projects</h4>
-						</div>
-						<div className='divider'/>
-						<div className='pl-2 pt-2'>
-							{ userProjects && (
-								<ProjectMenuRender
-									userProjects={userProjects}
-									selectProject={selectProject}
-								/>
-							)}
-						</div>
-					</div>
-					<div className='projects-display-wrapper'>
-						<ProjectRenderer
-							selectedProject={selectedProject}
+		<div className='user-projects-component'>
+			<div className='mb-1 w-100'>
+				<Button 
+					className='w-100'
+					onClick={() => store.dispatch(widgetActions.showProjectWidget())}
+				> 
+					+ 
+				</Button>
+			</div>
+			<div className='body-content'>
+				<div className='projects-menu-wrapper'>
+					{ userProjects && (
+						<ProjectMenuRender
+							userProjects={userProjects}
+							selectProject={selectProject}
 						/>
-					</div>
+					)}
+				</div>
+				<div className='projects-display-wrapper'>
+					<ProjectRenderer
+						selectedProject={selectedProject}
+					/>
 				</div>
 			</div>
 		</div>

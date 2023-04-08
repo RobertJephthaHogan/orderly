@@ -1,6 +1,5 @@
-
-
-
+import React from 'react'
+import './styles.css'
 
 
 type Props = {
@@ -14,6 +13,7 @@ const ProjectMenuRender : React.FC<Props> = ({
     userProjects,
     selectProject
 }) => {
+
     const pmenu = Object.entries(userProjects)?.map((project: any) => {
         return (
             <div 
@@ -25,7 +25,20 @@ const ProjectMenuRender : React.FC<Props> = ({
             </div>
         )
     }) || []
-    return <div className='mr-3'>{pmenu}</div>
+    
+    return (
+        <div className='projects-menu'>
+            <div className='pl-2 pt-2'>
+                <h4>Projects</h4>
+            </div>
+            <div className='divider'/>
+            <div className='pl-2 pt-2'>
+                <div className='pr-3'>
+                    {pmenu}
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default ProjectMenuRender

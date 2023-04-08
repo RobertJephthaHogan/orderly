@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { TaskRowRenderer } from '../../../features/projects/TaskRowRenderer'
+import { TaskRowRenderer } from '../TaskRowRenderer'
 import NewTaskForm from '../../../components/forms/NewTaskForm'
-import { EventRowRenderer } from '../../../features/projects/EventRowRenderer'
+import { EventRowRenderer } from '../EventRowRenderer'
 import NewEventForm from '../../../components/forms/NewEventForm'
-import { NotesRowRenderer } from '../../../features/projects/NotesRowRenderer'
+import { NotesRowRenderer } from '../NotesRowRenderer'
 import { NoteForm } from '../../../components/forms/NoteForm'
 import { useSelector } from 'react-redux'
 
