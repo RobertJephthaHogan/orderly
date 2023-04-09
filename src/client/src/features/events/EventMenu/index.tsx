@@ -95,10 +95,13 @@ export const EventMenu : React.FC<Props> = ({
         return (
             <div key={`evt-category-row-${categoryRowData[0]}`}>
                 <div 
-                    className='w-100 pl-2 pr-2 pb-1 pt-1 evt-category-menu-item'
+                    className='w-100 pl-2 pr-2 pt-1 evt-category-menu-item brdr-b'
                     
                 >
-                    <div className='w-100 flex'>
+                    <div 
+                        className='w-100 flex'
+                        onClick={() => onRowClick(categoryRowData)}
+                    >
                         {
                             isExpanded ? (
                                 <MinusSquareOutlined
@@ -110,14 +113,10 @@ export const EventMenu : React.FC<Props> = ({
                                 />
                             )
                         }
-                        <div 
-                            className='pl-1' 
-                            onClick={() => onRowClick(categoryRowData)}
-                        >
+                        <div className='pl-1' >
                             {categoryRowData[0]}
                         </div>
                     </div>
-                    <div className='divider'/>
                 </div>
                 {
                     isExpanded ? (
@@ -155,12 +154,24 @@ export const EventMenu : React.FC<Props> = ({
 
 
     return (
-        <div>
-            {
-                Object.entries(sortedEvents)?.length && (
-                    <EventCategoryRows/>
-                )
-            }
+        <div 
+            className='event-menu'
+            style={{
+                backgroundColor: '#ffffff'
+            }}
+        >
+            <div className='w-100 flex content-center p-1'>
+                Event Categories
+            </div>
+            <div className='divider'/>
+            <div>
+                {
+                    Object.entries(sortedEvents)?.length && (
+                        <EventCategoryRows/>
+                    )
+                }
+            </div>
         </div>
+        
     )
 }

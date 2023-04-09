@@ -58,8 +58,17 @@ export const UserEvents : React.FC = () => {
 
     return (
         <div className='user-events'>
-            <div className='w-100 p-2'>
-                <div className='bordered'>
+            <div 
+                className='w-100'
+                style={{
+                    padding: '10px'
+                }}
+            >
+                <div
+                    style={{
+                        border: '1px solid #dfdfdf'
+                    }}
+                >
                     <NewEventForm
                         existingEvent={selectedEvent}
                         formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
@@ -67,27 +76,22 @@ export const UserEvents : React.FC = () => {
                     />
                 </div>
             </div>
-            <div className='w-100 flex p-2'>
+            <div 
+                className='w-100 flex'
+                style={{
+                    padding: '10px',
+                    paddingTop: '0px'
+                }}
+            >
                 <div className='left-bar'>
-                    <div 
-                        className='bordered lb-card'
-                        style={{
-                            backgroundColor: '#ffffff'
-                        }}
-                    >
-                        <div className='w-100 flex content-center p-1'>
-                            Event Categories
-                        </div>
-                        <div className='divider'/>
-                        <div>
-                            <EventMenu
-                                sortedEvents={sortedEvents}
-                                setEvent={setEvent}
-                                setCategory={setEventCategory}
-                                //selectedEvent={selectedEvent}
-                                // selectedCategory={selectedCategory}
-                            />
-                        </div>
+                    <div>
+                        <EventMenu
+                            sortedEvents={sortedEvents}
+                            setEvent={setEvent}
+                            setCategory={setEventCategory}
+                            //selectedEvent={selectedEvent}
+                            // selectedCategory={selectedCategory}
+                        />
                     </div>
                     <div className='mt-2'>
                         <TaskCategoryMenu
@@ -95,7 +99,12 @@ export const UserEvents : React.FC = () => {
                         />
                     </div>
                 </div>
-                <div className='bordered right-bar'>
+                <div 
+                    className='right-bar'
+                    style={{
+                        border:'1px solid #dfdfdf',
+                    }}
+                >
                     <Calendar
                         eventsToDisplay={eventsToDisplay}
                         tasksToDisplay={tasksToDisplay}
