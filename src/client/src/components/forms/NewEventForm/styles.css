@@ -1,7 +1,11 @@
 
 
+.event-form {
+    background-color: #ffffff;
+}
+
 .evt-form {
-    padding: 5px;
+    padding: 10px;
 }
 
 .title-description-category-row {

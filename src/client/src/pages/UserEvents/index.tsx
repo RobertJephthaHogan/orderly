@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { groupByProperty } from '../../helpers'
 import eventActions from '../../redux/actions/event'
@@ -28,7 +28,7 @@ export const UserEvents : React.FC = () => {
         store.dispatch(eventActions.setEvents(store.getState()?.user?.data?._id))
     }, [])
 
-    useEffect(() => {
+    useMemo(() => {
         const st = groupByProperty(userEvents, 'category')
         const returnedTarget = Object.assign({All: userEvents}, st);
         setSortedEvents(returnedTarget)
@@ -53,18 +53,13 @@ export const UserEvents : React.FC = () => {
         setSelectedDate(value)
     }
 
+    console.log('eventsToDisplay', eventsToDisplay)
+    console.log('tasksToDisplay', tasksToDisplay)
 
     return (
         <div className='user-events'>
             <div className='w-100 p-2'>
-                <div 
-                    className='bordered'
-                    //style={{height:'100px'}}
-                >
-                    {/* <EventForm
-                        existingEvent={selectedEvent}
-                        formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
-                    /> */}
+                <div className='bordered'>
                     <NewEventForm
                         existingEvent={selectedEvent}
                         formOperation={selectedEvent?.id?.length ? 'edit' : 'add'}
@@ -74,7 +69,12 @@ export const UserEvents : React.FC = () => {
             </div>
             <div className='w-100 flex p-2'>
                 <div className='left-bar'>
-                    <div className='bordered lb-card'>
+                    <div 
+                        className='bordered lb-card'
+                        style={{
+                            backgroundColor: '#ffffff'
+                        }}
+                    >
                         <div className='w-100 flex content-center p-1'>
                             Event Categories
                         </div>
@@ -85,12 +85,14 @@ export const UserEvents : React.FC = () => {
                                 setEvent={setEvent}
                                 setCategory={setEventCategory}
                                 //selectedEvent={selectedEvent}
-                                selectedCategory={selectedCategory}
+                                // selectedCategory={selectedCategory}
                             />
                         </div>
                     </div>
                     <div className='mt-2'>
-                        <TaskCategoryMenu/>
+                        <TaskCategoryMenu
+                            setTaskCategory={setTaskCategory}
+                        />
                     </div>
                 </div>
                 <div className='bordered right-bar'>

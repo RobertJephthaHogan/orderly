@@ -50,8 +50,6 @@ export default function NewEventForm(props: EventFormProps) {
         }
     })
 
-    console.log('formValues', formValues)
-
     const handleEventInfoChange = (value : any, field: any) => {
         console.log('value', value)
         console.log('field', field)
@@ -59,7 +57,6 @@ export default function NewEventForm(props: EventFormProps) {
         workingObj[field] = value
         setFormValues(workingObj)
     }
-
 
     useEffect(() => {
         setFormValues(props.existingEvent)
@@ -69,7 +66,6 @@ export default function NewEventForm(props: EventFormProps) {
     const onReset = () => {
         props.setEvent(null)
     }
-
 
     const onFinish = (data: any) => {
         data.preventDefault()
@@ -123,7 +119,7 @@ export default function NewEventForm(props: EventFormProps) {
     }
 
     return (
-        <div>
+        <div className='event-form'>
             <form 
                 onSubmit={onFinish}
                 className='evt-form'

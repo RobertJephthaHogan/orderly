@@ -94,7 +94,7 @@ export const UserNotes: React.FC = () => {
 		<div className='notes-body'>
 			<div>
 				<div className='body-wrapper'>
-					<div className="w-100 flex pb-2">
+					<div className="w-100 flex pb-1">
 						<Button 
 							className="w-100"
 							onClick={createNewNote}

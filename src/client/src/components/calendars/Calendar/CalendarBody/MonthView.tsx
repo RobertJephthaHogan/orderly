@@ -38,7 +38,7 @@ const MonthView : React.FC<Props> = ({
 
     useEffect(() => {
         generateMonthViewData()
-    }, [selectedDay, events])
+    }, [selectedDay, events, tasks])
     
     useEffect(() => {
         createMonthView()

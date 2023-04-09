@@ -6,7 +6,11 @@ import './styles.css'
 
 
 
-export default function TaskCategoryMenu() {
+interface Props {
+    setTaskCategory?: any
+}
+
+export default function TaskCategoryMenu(props: Props) {
 
     const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
     const [sortedTasks, setSortedTasks] = useState<any>({})
@@ -27,6 +31,7 @@ export default function TaskCategoryMenu() {
             <div>
                 <CategoryRows
                     sortedTasks={sortedTasks}
+                    setTaskCategory={props.setTaskCategory}
                 />
             </div>
         </div>
@@ -36,15 +41,18 @@ export default function TaskCategoryMenu() {
 
 interface CategoryRowProps {
     sortedTasks?: any 
+    setTaskCategory?: any
 }
 
 function CategoryRows(props: CategoryRowProps) {
+
 
     const rows = Object.entries(props.sortedTasks)?.map((category: any) => {
         return (
             <CategoryRow
                 rowData={category}
                 key={`category-row-${category[0]}`}
+                setTaskCategory={props.setTaskCategory}
             />
         )
     })
@@ -61,18 +69,30 @@ function CategoryRows(props: CategoryRowProps) {
 
 interface RowProps {
     rowData?: any
+    setTaskCategory?: any
 }
 
 function CategoryRow(props: RowProps) {
     
     const [expanded, setExpanded] = useState<any>()
+    
+    // On click row here?
+    
+    const onRowClick = (data: any) => {
+        console.log('data', data)
+        let formatted = {
+            title: data[0],
+            children: data[1]
+        }
+        props.setTaskCategory(formatted)
+    }
 
     const onExpandToggle = (e: any) => {
         setExpanded(!expanded)
     }
 
     return (
-        <div>
+        <div onClick={() => onRowClick(props.rowData)}>
             <div 
                 className='pl-1 pt-1 category-row hcp'
                 key={`${props.rowData[0]}-task-row`}
