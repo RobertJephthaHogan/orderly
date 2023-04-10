@@ -1,6 +1,8 @@
 import { 
+    AuditOutlined,
     BarsOutlined, 
     CalendarOutlined, 
+    CheckOutlined, 
     DashboardOutlined, 
     FileOutlined, 
     SnippetsOutlined, 
@@ -9,6 +11,13 @@ import {
 
 
 export const newMenuItems: any = [
+    {
+        key: 'user-dashboard',
+        icon: <DashboardOutlined />,
+        label: 'User Dashboard',
+        route: '/dashboard',
+        menuId: 'user-dashboard-menu-item',
+    },
     {
         key: 'user-events',
         icon: <CalendarOutlined />,
@@ -38,10 +47,17 @@ export const newMenuItems: any = [
         menuId: 'user-notes-menu-item',
     },
     {
-        key: 'user-dashboard',
-        icon: <DashboardOutlined />,
-        label: 'User Dashboard',
-        route: '/dashboard',
-        menuId: 'user-dashboard-menu-item',
+        key: 'user-agenda',
+        icon: <AuditOutlined />,
+        label: 'User Agenda',
+        route: '/agenda',
+        menuId: 'user-agenda-menu-item',
+    },
+    {
+        key: 'user-checklists',
+        icon: <CheckOutlined />,
+        label: 'User Checklists',
+        route: '/checklists',
+        menuId: 'user-checklists-menu-item',
     },
 ]
