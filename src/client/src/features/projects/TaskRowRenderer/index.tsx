@@ -23,8 +23,6 @@ export const TaskRowRenderer : React.FC<Props> = ({
     const [filteredTasks, setFilteredTasks] = useState<any>()
     const [taskRows, setTaskRows] = useState<any>()
 
-    console.log('tasks', tasks)
-
     const deleteUserTask = (e: any, taskID: any) => {
         e.stopPropagation()
         store.dispatch(taskActions.delete(taskID))
@@ -100,25 +98,25 @@ export const TaskRowRenderer : React.FC<Props> = ({
                     <h6 className='m-0 p-0' style={{marginTop:'auto'}}>Task Name</h6>
                 </div>
                 <div>
-                        <Dropdown dropdownRender={menu => (
-                            <div className='top-bar-dropdown'>
-                                <div className='brdr-b'>
-                                    <h4 className='pl-1 pt-1'>Options</h4>
-                                </div>
-                                <div className='flex jc-sb pl-1 pt-1'>
-                                    <h5>Show Completed?:</h5>
-                                    <Checkbox
-                                        className='pr-2'
-                                        checked={showCompleted}
-                                        onChange={() => setShowCompleted(!showCompleted)}
-                                    />
-                                </div>
+                    <Dropdown dropdownRender={menu => (
+                        <div className='top-bar-dropdown'>
+                            <div className='brdr-b'>
+                                <h4 className='pl-1 pt-1'>Options</h4>
                             </div>
-                        )}>
-                            <Button type="text">
-                                <EllipsisOutlined />
-                            </Button>
-                        </Dropdown>
+                            <div className='flex jc-sb pl-1 pt-1'>
+                                <h5>Show Completed?:</h5>
+                                <Checkbox
+                                    className='pr-2'
+                                    checked={showCompleted}
+                                    onChange={() => setShowCompleted(!showCompleted)}
+                                />
+                            </div>
+                        </div>
+                    )}>
+                        <Button type="text">
+                            <EllipsisOutlined />
+                        </Button>
+                    </Dropdown>
                 </div>
             </div>
             <div>

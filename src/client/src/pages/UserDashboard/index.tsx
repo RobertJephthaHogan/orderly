@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { groupByProperty } from '../../helpers'
 import { store } from '../../redux/store'
@@ -32,25 +32,25 @@ export default function UserDashboard() {
         store.dispatch(noteActions.setNotes(currentUser?._id))
     }, [])
 
-    useEffect(() => { // sort tasks when tasks update
+    useMemo(() => { // sort tasks when tasks update
 		const st = groupByProperty(userTasks, 'category')
 		const intTasks = Object.assign({All: userTasks}, {...st});
 		setSortedTasks(intTasks)
 	}, [userTasks])
 
-    useEffect(() => { // sort events when events update
+    useMemo(() => { // sort events when events update
 		const se = groupByProperty(userEvents, 'category')
 		const intEvts = Object.assign({All: userEvents}, {...se});
 		setSortedEvents(intEvts)
 	}, [userEvents])
 
-    useEffect(() => { // sort projects when projects update
+    useMemo(() => { // sort projects when projects update
 		const sp = groupByProperty(userProjects, 'category')
 		const intProjects = Object.assign({All: userProjects}, {...sp});
 		setSortedProjects(intProjects)
 	}, [userProjects])
 
-    useEffect(() => { // sort notes when notes update
+    useMemo(() => { // sort notes when notes update
 		const sn = groupByProperty(userNotes, 'category')
 		const intNotes = Object.assign({All: userNotes}, {...sn});
 		setSortedNotes(intNotes)
