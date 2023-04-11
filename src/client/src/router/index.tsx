@@ -14,6 +14,8 @@ import { UserProjects } from "../pages/UserProjects"
 import { MyLayout } from "../layouts/MyLayout"
 import { UserNotes } from "../pages/UserNotes"
 import { UserEvents } from "../pages/UserEvents"
+import UserAgenda from "../pages/UserAgenda/indes"
+import UserChecklists from "../pages/UserChecklists"
 
 
 const AppRouter: React.FC = () => {
@@ -30,11 +32,13 @@ const AppRouter: React.FC = () => {
 
 			<Route path="/" element={<ProtectedRoutes roleRequired="user"/>}>
 				<Route path="/" element={<MyLayout />}>
+					<Route path="/dashboard" element={<UserDashboard />} />
 					<Route path="/events" element={<UserEvents />} />
 					<Route path="/tasks" element={<UserTasks />} />
 					<Route path="/projects" element={<UserProjects />} />
 					<Route path="/notes" element={<UserNotes />} />
-					<Route path="/dashboard" element={<UserDashboard />} />
+					<Route path="/agenda" element={<UserAgenda />} />
+					<Route path="/checklists" element={<UserChecklists />} />
 				</Route>
 			</Route>
 

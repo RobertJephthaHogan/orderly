@@ -1,0 +1,26 @@
+
+
+.task-area-topbar {
+    width: 100%;
+    display: 'flex';
+    justify-content: space-between;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.tatb-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.tatb-left-title {
+    margin: 0;
+    padding: 0;
+    margin-top: auto;
+}
+
+.top-bar-dropdown {
+    background-color: #ffffff;
+    width: 200px;
+    border: 1px solid #dfdfdf;
+}
