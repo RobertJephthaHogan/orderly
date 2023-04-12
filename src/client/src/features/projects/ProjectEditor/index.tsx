@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux'
 import { priorities } from '../../../data/priorities'
 import { projectCategories } from '../../../data/projectCategories'
 import { projectService } from '../../../services'
+import projectActions from '../../../redux/actions/project'
+import { store } from '../../../redux/store'
 
 
 
@@ -146,15 +148,17 @@ export const ProjectEditor : React.FC<EditorProps> = ({
             }
             setProjectData(newProjectObject)
 
-            projectService.createProject(newProjectObject).then((resp: any) => {
-                console.log('creating new project:', resp)
-            })
+            store.dispatch(projectActions.add(newProjectObject))
+            // projectService.createProject(newProjectObject).then((resp: any) => {
+            //     console.log('creating new project:', resp)
+            // })
 
         } else if (editorType == 'edit') {
-            const existingProjectData = projectData
-            projectService.updateProject(existingProjectData._id, existingProjectData).then((resp: any) => {
-                console.log('updated project:', resp)
-            })
+            store.dispatch(projectActions.update(projectData._id, projectData))
+            // const existingProjectData = projectData
+            // projectService.updateProject(existingProjectData._id, existingProjectData).then((resp: any) => {
+            //     console.log('updated project:', resp)
+            // })
         }
         
     }

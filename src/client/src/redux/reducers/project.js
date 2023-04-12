@@ -25,25 +25,31 @@ export const projectReducer = (state = initialState.projects, action) => {
       }
 
       case types.UPDATE_PROJECT: {
-        if (!action?.payload?.data?.data?._id) {
+
+        let initial = {...state}
+        console.log(action?.payload)
+        if (!action?.payload?.data?._id) {
             return state
         }
 
         const found = state?.queryResult?.find(
-            (c) => c?.id === action?.payload?.data?.data?._id
+            (c) => c?._id === action?.payload?.data?._id
         )
 
         if (!found && action?.payload) {
-            return [...state, action?.payload?.data?.data]
+            return [...state, action?.payload?.data]
         }
 
-        return state?.queryResult?.map((taskItem) => {
-            if (taskItem?.id === action?.payload?.data?.data?._id) {
-                return action.payload.data?.data
+        const data =  state?.queryResult?.map((item) => {
+            if (item?.id === action?.payload?.data?._id) {
+                return action.payload.data
             }
-
-            return taskItem
+            return item
         })
+
+        initial.queryResult = data
+
+        return initial
       }
 
       default:

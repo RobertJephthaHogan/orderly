@@ -1,3 +1,4 @@
+import { openNotification } from '../../helpers/notifications'
 import * as types from '../types'
 import { projectService } from '../../services/project.service'
 
@@ -31,13 +32,24 @@ const projectActions = {
                 .createProject(payload)
                 .then((resp) => {
                     if (resp) {
+                        openNotification(
+                            resp?.data?.response_type,
+                            `Project ${resp?.data?.data?._id} Created Successfully`
+                        )
                         dispatch({ type: types.ADD_PROJECT, payload: resp?.data })
                         resolve(resp?.data)
                     } else {
                         reject()
                     }
                 })
-                .catch((error) => reject(error))
+                .catch((error) => {
+                    console.error('Error Adding Project:', error)
+                    openNotification(
+                        error?.data?.response_type,
+                        `Error Creating Project ${error?.data?.data?._id}`
+                    )
+                    reject(error)
+                })
             })
         }
     },
@@ -48,10 +60,25 @@ const projectActions = {
                 return projectService
                     .deleteProject(projectID)
                     .then((resp) => {
-                        dispatch({ type: types.DELETE_PROJECT, projectID })
-                        return resolve(resp)
+                        if (resp) {
+                            openNotification(
+                                resp?.data?.response_type,
+                                `Project ${projectID} Deleted Successfully`
+                            )
+                            dispatch({ type: types.DELETE_PROJECT, projectID })
+                            return resolve(resp)
+                        } else {
+                            reject()
+                        }
                     })
-                    .catch((error) => reject(error))
+                    .catch((error) => {
+                        console.error('Error Deleting Project:', error)
+                        openNotification(
+                            error?.data?.response_type,
+                            `Error Deleting Project ${projectID}`
+                        )
+                        reject(error)
+                    })
             })
         }
     },
@@ -63,12 +90,24 @@ const projectActions = {
                     .updateProject(projectID, payload)
                     .then((resp) => {
                         if (resp) {
-                            dispatch({ type: types.UPDATE_TASK, payload: resp?.data })
-                            return resolve(resp?.data)
+                            openNotification(
+                                resp?.data?.response_type,
+                                `Project ${projectID} Updated Successfully`
+                            )
+                            dispatch({ type: types.UPDATE_PROJECT, payload: resp?.data })
+                            resolve(resp?.data)
+                        } else {
+                            reject()
                         }
-                        return reject()
                     })
-                    .catch((error) => reject(error))
+                    .catch((error) => {
+                        console.error('Error Updating Project:', error)
+                        openNotification(
+                            error?.data?.response_type,
+                            `Error Updating Project ${projectID} `
+                        )
+                        reject(error)
+                    })
             })
         }
     },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux';
 import eventActions from '../../redux/actions/event'
 import noteActions from '../../redux/actions/notes'
@@ -42,6 +42,14 @@ export const UserProjects: React.FC = () => {
 		}
 
 	}, [])
+
+	// useMemo(() => {
+	// 	if (selectedProject) {
+	// 		const updated = userProjects.find((p:any) => p?._id === selectedProject?._id)
+	// 		console.log('updated', updated)
+	// 		setSelectedProject(updated)
+	// 	}
+	// }, [userProjects])
 
 
     return (
