@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux'
 import './styles.css'
 import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
+import { Button, Popconfirm } from 'antd'
+import projectActions from '../../../redux/actions/project'
 
 
 interface ProjectProps {
@@ -49,25 +51,47 @@ export default function ProjectRenderer(props: ProjectProps) {
 		}
 	}, [props.selectedProject, userNotes])
 
+    const onDeleteProject = () => {
+        store.dispatch(projectActions.delete(props.selectedProject?._id))
+    }
+
     return (
         <div className='project-area'>
             <div className='project-section'>
-                <div className='flex'>
-                    <div className='bordered m-1 p-1 '>
-                        <h5 className='project-section-title'>Title : </h5>
-                        <h4> {props.selectedProject?.title}</h4>
+                <div className='flex jc-sb'>
+                    <div className='flex'>
+                        <div className='m-1 p-1 '>
+                            <h5 className='project-section-title'>Title : </h5>
+                            <h4> {props.selectedProject?.title}</h4>
+                        </div>
+                        <div className='m-1 p-1 '>
+                            <h5 className='project-section-title'>Category : </h5>
+                            <h4>{props.selectedProject?.category}</h4>
+                        </div>
                     </div>
-                    <div className='bordered m-1 p-1 '>
-                        <h5 className='project-section-title'>Category : </h5>
-                        <h4>{props.selectedProject?.category}</h4>
-                    </div>
-                    <div className='bordered m-1 p-1 flex'>
-                        <button onClick={() => store.dispatch(widgetActions.showProjectWidget({
-                            editorType: 'edit',
-                            activeProject: props.selectedProject,
-                        }))}>
+                    <div className='m-1 p-1 flex'>
+                        <Button 
+                            onClick={() => store.dispatch(widgetActions.showProjectWidget({
+                                editorType: 'edit',
+                                activeProject: props.selectedProject,
+                            }))}
+                            className='m-auto mr-1'
+                        >
                             Edit
-                        </button>
+                        </Button>
+                        <Popconfirm
+                            placement="bottomRight"
+                            title={"Are you sure you want to delete this project?"}
+                            onConfirm={() => onDeleteProject()}
+                            okText="Yes"
+                            cancelText="No"
+                        >
+                            <Button
+                                className='m-auto'
+                            >
+                                Delete
+                            </Button>
+                        </Popconfirm>
                     </div>
                 </div>
             </div>
