@@ -5,7 +5,8 @@ import {
     CheckOutlined, 
     DashboardOutlined, 
     FileOutlined, 
-    SnippetsOutlined, 
+    SnippetsOutlined,
+    TableOutlined, 
 } from "@ant-design/icons"
 
 
@@ -59,5 +60,12 @@ export const newMenuItems: any = [
         label: 'User Checklists',
         route: '/checklists',
         menuId: 'user-checklists-menu-item',
+    },
+    {
+        key: 'user-tables',
+        icon: <TableOutlined />,
+        label: 'User Tables',
+        route: '/tables',
+        menuId: 'user-tables-menu-item',
     },
 ]

@@ -16,6 +16,7 @@ import { UserNotes } from "../pages/UserNotes"
 import { UserEvents } from "../pages/UserEvents"
 import UserAgenda from "../pages/UserAgenda/indes"
 import UserChecklists from "../pages/UserChecklists"
+import UserTables from "../pages/UserTables"
 
 
 const AppRouter: React.FC = () => {
@@ -39,6 +40,7 @@ const AppRouter: React.FC = () => {
 					<Route path="/notes" element={<UserNotes />} />
 					<Route path="/agenda" element={<UserAgenda />} />
 					<Route path="/checklists" element={<UserChecklists />} />
+					<Route path="/tables" element={<UserTables />} />
 				</Route>
 			</Route>
 

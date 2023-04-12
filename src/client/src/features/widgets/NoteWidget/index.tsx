@@ -1,6 +1,6 @@
 import React from 'react'
 import { CloseOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
+import { Button, Tabs } from 'antd'
 import Draggable from 'react-draggable'
 import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
@@ -57,7 +57,7 @@ export default function NoteWidget() {
                     </div>
                 </div>
                 <div className='note-widget-body'>
-                    Note Widget
+                    <Tabs items={items} />
                 </div>
             </div>
         </Draggable>
