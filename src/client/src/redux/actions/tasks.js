@@ -32,7 +32,6 @@ const taskActions = {
                 .createTask(payload)
                 .then((resp) => {
                     if (resp) {
-                        console.log('resp', resp)
                         openNotification(
                             resp?.data?.response_type,
                             `Task ${resp?.data?.data?._id} Created Successfully`
@@ -43,7 +42,14 @@ const taskActions = {
                         reject()
                     }
                 })
-                .catch((error) => reject(error))
+                .catch((error) => {
+                    console.error('Error Adding Task:', error)
+                    openNotification(
+                        error?.data?.response_type,
+                        `Error Creating Task ${error?.data?.data?._id}`
+                    )
+                    reject(error)
+                })
             })
         }
     },
@@ -53,11 +59,22 @@ const taskActions = {
             return new Promise(async function (resolve, reject) {
                 return taskService
                     .deleteTask(taskID)
-                    .then((data) => {
+                    .then((resp) => {
+                        openNotification(
+                            resp?.data?.response_type,
+                            `Task ${taskID} Deleted Successfully`
+                        )
                         dispatch({ type: types.DELETE_TASK, taskID })
-                        return resolve(data)
+                        return resolve(resp)
                     })
-                    .catch((error) => reject(error))
+                    .catch((error) => {
+                        console.error('Error Deleting Task:', error)
+                        openNotification(
+                            error?.data?.response_type,
+                            `Error Deleting Task ${taskID}`
+                        )
+                        reject(error)
+                    })
             })
         }
     },
@@ -69,12 +86,23 @@ const taskActions = {
                     .updateTask(taskID, payload)
                     .then((resp) => {
                         if (resp) {
+                            openNotification(
+                                resp?.data?.response_type,
+                                `Task ${taskID} Updated Successfully`
+                            )
                             dispatch({ type: types.UPDATE_TASK, payload: resp?.data })
                             resolve(resp)
                         }
                         return reject()
                     })
-                    .catch((error) => reject(error))
+                    .catch((error) => {
+                        console.error('Error Updating Task:', error)
+                        openNotification(
+                            error?.data?.response_type,
+                            `Error Updating Task ${taskID} `
+                        )
+                        reject(error)
+                    })
             })
         }
     },
