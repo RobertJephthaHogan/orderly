@@ -142,7 +142,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                         >
                             <Select 
                                 placeholder="Select Category"
-                                onChange={(e) => onEditorSubjectChange(e?.target?.value, 'category')}
+                                onChange={(value) => onEditorSubjectChange(value, 'category')}
                                 value={editingSubject?.category}
                                 id='task-category-select'
                                 options={taskCategories}
@@ -159,7 +159,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                         >
                             <Select 
                                 placeholder="Select Priority"
-                                onChange={(e) => onEditorSubjectChange(e?.target?.value, 'priority')}
+                                onChange={(value) => onEditorSubjectChange(value, 'priority')}
                                 id='task-priority-select'
                                 options={priorities}
                             >
