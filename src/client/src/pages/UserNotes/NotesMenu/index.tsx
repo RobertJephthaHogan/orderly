@@ -1,8 +1,11 @@
-import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons'
+import { CloseOutlined, MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { groupByProperty } from '../../../helpers'
 import './styles.css'
+import { Button, Popconfirm } from 'antd'
+import noteActions from '../../../redux/actions/notes'
+import { store } from '../../../redux/store'
 
 
 interface NotesMenuProps {
@@ -220,6 +223,10 @@ interface AllNotesProps {
 function AllNotesMenu(props: AllNotesProps) {
 
     const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
+
+    const deleteEvent = (noteID: any) => {
+        store.dispatch(noteActions.delete(noteID))
+    }
  
     return (
         <div>
@@ -229,9 +236,32 @@ function AllNotesMenu(props: AllNotesProps) {
                         <div 
                             onClick={() => props.onNoteSelect(item)}
                             key={`${item?.id}`}
-                            className='daily-note-menu-item'
+                            className='daily-note-menu-item flex jc-sb'
                         >
-                            {item?.title}
+                            <div>
+                                {item?.title}
+                            </div>
+                            <div className='pr-2'>
+                            <Popconfirm
+                                placement="bottomLeft"
+                                title={"Are you sure you want to delete this note?"}
+                                //description={"Are you sure you want to delete this note?"}
+                                onConfirm={() => deleteEvent(item?.id)}
+                                okText="Yes"
+                                cancelText="No"
+                            >
+                                <Button
+                                    type='text'
+                                    style={{
+                                        height: 'unset',
+                                        padding: '0 5px',
+                                        margin: '0'
+                                    }}
+                                >
+                                    <CloseOutlined/>
+                                </Button>
+                            </Popconfirm>
+                            </div>
                         </div>
                     )
                 }) || []

@@ -43,7 +43,7 @@ const taskActions = {
                     }
                 })
                 .catch((error) => {
-                    console.error('Error Adding Task:', error)
+                    console.error('Error Creating Task:', error)
                     openNotification(
                         error?.data?.response_type,
                         `Error Creating Task ${error?.data?.data?._id}`
