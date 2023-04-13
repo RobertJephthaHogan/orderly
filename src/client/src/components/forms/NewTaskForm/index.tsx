@@ -190,7 +190,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                             use12Hours
                             onChange={(e: any) => onEditorSubjectChange(new Date(e).toISOString(), 'dueDate')}
                             value={moment(editingSubject?.dueDate)}
-                            status={!editingSubject?.dueDate ? 'error' : ''}
+                            //status={!editingSubject?.dueDate ? 'error' : ''}
                             className='w-100 mr-4'
                             id='task-due-date-picker'
                         />

@@ -1,5 +1,5 @@
 import { UndoOutlined } from '@ant-design/icons'
-import { Button, DatePicker, Input, Select, TimePicker } from 'antd'
+import { Button, DatePicker, Form, Input, Select, TimePicker } from 'antd'
 import { ObjectID } from 'bson'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -26,6 +26,8 @@ export default function NewEventForm(props: EventFormProps) {
     })
     const [categoryOptions, setCategoryOptions] = useState<any>()
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
+
+    const [form] = Form.useForm();
 
     useEffect(() => {
         setFormValues({
@@ -68,7 +70,10 @@ export default function NewEventForm(props: EventFormProps) {
     }
 
     const onFinish = (data: any) => {
-        data.preventDefault()
+
+        console.log('data', data)
+        console.log('formValues', formValues)
+        //data.preventDefault()
 
         let eventStartTime;
         let eventEndTime;
@@ -119,33 +124,46 @@ export default function NewEventForm(props: EventFormProps) {
     }
 
     return (
-        <div className='event-form'>
-            <form 
-                onSubmit={onFinish}
+        <div className='event-form p-2'>
+            <Form 
+                onFinish={onFinish}
                 className='evt-form'
+                form={form}
             >
                 <div className='title-description-category-row'>
                     <div className="input-div-30">
-                        <Input
-                            name="title"
-                            id="event-form-title"
-                            type="text"
-                            placeholder='Event Title'
-                            onChange={(e) => handleEventInfoChange(e?.target?.value, 'title')}
-                            className='mr-1 text-field'
-                            value={formValues?.title}
-                        />
+                        <Form.Item 
+                            rules={[{ required: true }]} 
+                            style={{all:'unset'}}
+                            name={'title'}
+                        >
+                            <Input
+                                name="title"
+                                id="event-form-title"
+                                type="text"
+                                placeholder='Event Title'
+                                onChange={(e) => handleEventInfoChange(e?.target?.value, 'title')}
+                                className='mr-1 '
+                                value={formValues?.title}
+                            />
+                        </Form.Item>
                     </div>
                     <div className="input-div-50">
+                    <Form.Item 
+                        rules={[{ required: true }]} 
+                        style={{all:'unset'}}
+                        name={'description'}
+                    >
                         <Input
                             name="description"
                             id="event-form-description"
                             type="text"
                             placeholder='Event Description'
                             onChange={(e) => handleEventInfoChange(e?.target?.value, 'description')}
-                            className='mr-1 text-field'
+                            className='mr-1'
                             value={formValues?.description}
                         />
+                    </Form.Item>
                     </div>
                     <div className="input-div-20">
                         {/* <Select 
@@ -157,45 +175,69 @@ export default function NewEventForm(props: EventFormProps) {
                             //defaultValue="General"
                             //value={formValues?.category}
                         /> */}
-                        <select 
+                        <Form.Item 
+                            rules={[{ required: true }]} 
+                            style={{all:'unset'}}
                             name={'category'}
-                            id='event-form-category'
-                            onChange={(e) => handleEventInfoChange(e?.target?.value, 'category')}
-                            data-select
-                            className='select-field'
-                            value={formValues?.category}
-                            defaultValue={formValues?.category}
                         >
-                            {categoryOptions}
-                        </select>
+                            <select 
+                                name={'category'}
+                                id='event-form-category'
+                                onChange={(e) => handleEventInfoChange(e?.target?.value, 'category')}
+                                data-select
+                                className='select-field'
+                                value={formValues?.category}
+                                defaultValue={formValues?.category}
+                            >
+                                {categoryOptions}
+                            </select>
+                        </Form.Item>
                     </div>
                 </div>
                 <div className='date-and-time-row'>
                     <div className="input-div-40">
+                    <Form.Item 
+                        rules={[{ required: true }]} 
+                        style={{all:'unset'}}
+                        name={'eventDate'}
+                    >
                         <DatePicker
                             className='w-100'
-                            status={!formValues?.eventDate ? 'error' : ''}
+                            //status={!formValues?.eventDate ? 'error' : ''}
                             value={moment(formValues?.eventDate)}
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString().split('T')[0], 'eventDate')}
                         />
+                    </Form.Item>
                     </div>
                     <div className="input-div-30">
+                    <Form.Item 
+                        rules={[{ required: true }]} 
+                        style={{all:'unset'}}
+                        name={'startTime'}
+                    >
                         <TimePicker
                             className='w-100'
-                            status={!formValues?.startTime ? 'error' : ''}
+                            //status={!formValues?.startTime ? 'error' : ''}
                             value={moment(formValues?.startTime)}
                             use12Hours
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString(), 'startTime')}
                         />
+                    </Form.Item>
                     </div>
                     <div className="input-div-30">
+                    <Form.Item 
+                        rules={[{ required: true }]} 
+                        style={{all:'unset'}}
+                        name={'endTime'}
+                    >
                         <TimePicker
                             className='w-100'
                             value={moment(formValues?.endTime)}
-                            status={!formValues?.endTime ? 'error' : ''}
+                            //status={!formValues?.endTime ? 'error' : ''}
                             use12Hours
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString(), 'endTime')}
                         />
+                    </Form.Item>
                     </div>
                 </div>
                 <div className="flex">
@@ -203,7 +245,8 @@ export default function NewEventForm(props: EventFormProps) {
                         <div className='w-90 flex'>
                             <Button 
                                 className="submit-evt" 
-                                onClick={onFinish}
+                                //onClick={onFinish}
+                                htmlType={'submit'}
                             >
                                 {
                                     props.formOperation == 'add'
@@ -222,7 +265,7 @@ export default function NewEventForm(props: EventFormProps) {
                         </div>
                     </div>
                 </div>
-            </form>
+            </Form>
         </div>
     )
 }
