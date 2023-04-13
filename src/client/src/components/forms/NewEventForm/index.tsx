@@ -216,6 +216,7 @@ export default function NewEventForm(props: EventFormProps) {
                         name={'startTime'}
                     >
                         <TimePicker
+                            placeholder='Select Start Time'
                             className='w-100'
                             //status={!formValues?.startTime ? 'error' : ''}
                             value={moment(formValues?.startTime)}
@@ -231,6 +232,7 @@ export default function NewEventForm(props: EventFormProps) {
                         name={'endTime'}
                     >
                         <TimePicker
+                            placeholder='Select End Time'
                             className='w-100'
                             value={moment(formValues?.endTime)}
                             //status={!formValues?.endTime ? 'error' : ''}

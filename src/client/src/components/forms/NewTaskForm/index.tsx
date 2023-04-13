@@ -1,5 +1,5 @@
 import { UndoOutlined } from '@ant-design/icons'
-import { Button, DatePicker, Form, Input } from 'antd'
+import { Button, DatePicker, Form, Input, Select } from 'antd'
 import { ObjectID } from 'bson'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -27,8 +27,6 @@ export default function NewTaskForm(props: TaskFormProps) {
         category: 'General',
         priority: 'High'
     })
-    const [categoryOptions, setCategoryOptions] = useState<any>()
-    const [priorityOptions, setPriorityOptions] = useState<any>()
     const [form] = Form.useForm();
 
 
@@ -42,16 +40,10 @@ export default function NewTaskForm(props: TaskFormProps) {
     const onEditorSubjectChange = (value: any, fieldName: any) => {
         let inifields = {...editingSubject}
         inifields[fieldName] = value
-        console.log('inifields', inifields)
         setEditingSubject(inifields)
     }
 
     const onFinish = (data:any) => {
-
-        console.log('data', data)
-        console.log('editingSubject', editingSubject)
-
-        //data.preventDefault()
 
         if (props.formOperation === 'edit') {
             store.dispatch(taskActions.update(editingSubject?.id, editingSubject))
@@ -78,7 +70,6 @@ export default function NewTaskForm(props: TaskFormProps) {
             }
         } 
 	}
-
     
     const onResetForm = () => {
         setEditingSubject({
@@ -89,48 +80,15 @@ export default function NewTaskForm(props: TaskFormProps) {
         props.setSelectedTask && props.setSelectedTask(null)
     }
 
-    const generateCategoryOptions = () => {
-        if (!categoryOptions?.length) {
-            const menu = taskCategories?.map((child: any) => {
-                return (
-                    <option 
-                        value={child.label} 
-                        key={child.label}
-                        id={child.menuId}
-                    >
-                        {child.label}
-                    </option>
-                )
-            })  || []
-            setCategoryOptions(menu)
-        }   
-    }
-
-    const generatePriorityOptions = () => {
-        if (!priorityOptions?.length) {
-            const menu = priorities?.map((child: any) => {
-                return (
-                    <option 
-                        value={child.label} 
-                        key={child.label}
-                        id={child.menuId}
-                    >
-                        {child.label}
-                    </option>
-                )
-            })  || []
-            setPriorityOptions(menu)
-        }   
-    }
-
-    useEffect(() => {
-        generateCategoryOptions()
-        generatePriorityOptions()
-    })
-
     useEffect(() => { // update editorSubject when initial task changes
         if (props.initialTask) {
             setEditingSubject(props.initialTask)
+            const workingObj = {...props.initialTask}
+            workingObj['taskCreationTime'] = moment(workingObj?.taskCreationTime)
+            workingObj['dueDate'] = moment(workingObj?.dueDate)
+            console.log('props.initialTask', props.initialTask)
+            console.log(workingObj)
+            form.setFieldsValue(workingObj)
         }
     }, [props.initialTask])
 
@@ -143,13 +101,13 @@ export default function NewTaskForm(props: TaskFormProps) {
             >
                 <div className='row'>
                     <div className='input-container w-30'>
-                        <span className='input-label'>Task Title:</span>
                         <Form.Item 
                             rules={[{ required: true }]} 
                             style={{all:'unset', width: '100%'}}
                             name={'title'}
                         >
                             <Input
+                                placeholder='Task Title'
                                 name="title"
                                 type="text"
                                 onChange={(e) => onEditorSubjectChange(e?.target?.value, 'title')}
@@ -160,7 +118,6 @@ export default function NewTaskForm(props: TaskFormProps) {
                         </Form.Item>
 					</div>
 					<div className='input-container w-70'>
-						<span className='input-label'>Task Description:</span>
                         <Form.Item 
                             rules={[{ required: true }]} 
                             style={{all:'unset', width: '100%'}}
@@ -168,6 +125,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                         >
                             <Input
                                 name="description"
+                                placeholder='Task Description'
                                 type="text"
                                 onChange={(e) => onEditorSubjectChange(e?.target?.value, 'description')}
                                 value={editingSubject?.description}
@@ -179,61 +137,57 @@ export default function NewTaskForm(props: TaskFormProps) {
                 </div>
                 <div className='row content-center'>
                     <div className='input-container w-30'>
-						<span className='input-label'>Task Category:</span>
                         <Form.Item 
                             rules={[{ required: true }]} 
                             style={{all:'unset', width: '100%'}}
                             name={'category'}
                         >
-                            <select 
-                                name="category"
+                            <Select 
+                                placeholder="Select Category"
                                 onChange={(e) => onEditorSubjectChange(e?.target?.value, 'category')}
                                 value={editingSubject?.category}
                                 id='task-category-select'
+                                options={taskCategories}
                             >
-                                {categoryOptions}
-                            </select>
+                                
+                            </Select>
                         </Form.Item>
 					</div>
 					<div className='input-container w-30'>
-						<span className='input-label'>Task Priority:</span>
                         <Form.Item 
                             rules={[{ required: true }]} 
                             style={{all:'unset', width: '100%'}}
                             name={'priority'}
                         >
-                            <select 
-                                name="priority"
-                                placeholder='Priority'
+                            <Select 
+                                placeholder="Select Priority"
                                 onChange={(e) => onEditorSubjectChange(e?.target?.value, 'priority')}
-                                //value={editingSubject?.priority}
                                 id='task-priority-select'
+                                options={priorities}
                             >
-                                {priorityOptions}
-                            </select>
+                            </Select>
                         </Form.Item>
 					</div>
 					<div className='input-container w-40'>
-						<span className='input-label'>Task Due Date:</span>
                         <Form.Item 
                             rules={[{ required: true }]} 
                             style={{all:'unset', width: '100%'}}
                             name={'dueDate'}
                         >
                             <DatePicker
+                                placeholder='Select Due Date'
                                 format="YYYY-MM-DD HH:mm:ss"
                                 showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                                 use12Hours
                                 onChange={(e: any) => onEditorSubjectChange(new Date(e).toISOString(), 'dueDate')}
                                 value={moment(editingSubject?.dueDate)}
-                                //status={!editingSubject?.dueDate ? 'error' : ''}
                                 className='w-100 mr-4'
                                 id='task-due-date-picker'
                             />
                         </Form.Item>
 					</div>
                 </div>
-                <div className="flex">
+                <div className="flex jc-c ">
                     <div className='w-90 flex'>
                         <Button 
                             className="submit-evt m-1" 
@@ -247,15 +201,14 @@ export default function NewTaskForm(props: TaskFormProps) {
                                 : 'Submit Edit'
                             }
                         </Button>
+                        <Button 
+                            className="reset m-1" 
+                            onClick={onResetForm}
+                        >
+                            <UndoOutlined/>
+                        </Button>
                     </div>
-                    <div className='w-10 flex'>
-                            <Button 
-                                className="reset m-1" 
-                                onClick={onResetForm}
-                            >
-                                <UndoOutlined/>
-                            </Button>
-                        </div>
+                    
                 </div>
             </Form>
         </div>
