@@ -116,9 +116,12 @@ export default function ProjectRenderer(props: ProjectProps) {
                             onFinishAction={() => setNewTaskFormOpen(false)}
                         />
                     ) : (
-                        <button className='w-100 mt-1' onClick={() => setNewTaskFormOpen(true)}>
+                        <Button 
+                            className='w-100 mt-1' 
+                            onClick={() => setNewTaskFormOpen(true)}
+                        >
                             +
-                        </button>
+                        </Button>
                     )
                 }
                 
@@ -140,9 +143,12 @@ export default function ProjectRenderer(props: ProjectProps) {
                             />
                         </div>
                     ) : (
-                        <button className='w-100 mt-1' onClick={() => setNewEventFormOpen(true)}>
+                        <Button 
+                            className='w-100 mt-1' 
+                            onClick={() => setNewEventFormOpen(true)}
+                        >
                             +
-                        </button>
+                        </Button>
                     )
                 }
                 
@@ -161,9 +167,12 @@ export default function ProjectRenderer(props: ProjectProps) {
                             onFinishAction={() => setNewNoteFormOpen(false)}
                         />
                     ) : (
-                        <button className='w-100 mt-1' onClick={() => setNewNoteFormOpen(true)}>
+                        <Button 
+                            className='w-100 mt-1' 
+                            onClick={() => setNewNoteFormOpen(true)}
+                        >
                             +
-                        </button>
+                        </Button>
                     )
                 }
                 
