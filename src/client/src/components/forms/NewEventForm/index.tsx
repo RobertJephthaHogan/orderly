@@ -26,7 +26,6 @@ export default function NewEventForm(props: EventFormProps) {
     })
     const [categoryOptions, setCategoryOptions] = useState<any>()
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
-
     const [form] = Form.useForm();
 
     useEffect(() => {
