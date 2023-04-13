@@ -67,6 +67,7 @@ export default function NewEventForm(props: EventFormProps) {
 
     const onReset = () => {
         props.setEvent(null)
+        form.resetFields()
     }
 
     const onFinish = (data: any) => {
