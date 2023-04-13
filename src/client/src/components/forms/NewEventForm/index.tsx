@@ -174,7 +174,7 @@ export default function NewEventForm(props: EventFormProps) {
                         >
                             <Select 
                                 id='event-form-category'
-                                onChange={(e) => handleEventInfoChange(e?.target?.value, 'category')}
+                                onChange={(e) => handleEventInfoChange(e, 'category')}
                                 data-select
                                 className='select-field'
                                 value={formValues?.category}
