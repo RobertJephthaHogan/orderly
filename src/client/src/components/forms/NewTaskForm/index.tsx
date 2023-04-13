@@ -86,8 +86,6 @@ export default function NewTaskForm(props: TaskFormProps) {
             const workingObj = {...props.initialTask}
             workingObj['taskCreationTime'] = moment(workingObj?.taskCreationTime)
             workingObj['dueDate'] = moment(workingObj?.dueDate)
-            console.log('props.initialTask', props.initialTask)
-            console.log(workingObj)
             form.setFieldsValue(workingObj)
         }
     }, [props.initialTask])

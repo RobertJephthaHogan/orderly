@@ -61,6 +61,11 @@ export default function NewEventForm(props: EventFormProps) {
 
     useEffect(() => {
         setFormValues(props.existingEvent)
+        const workingObj = {...props.existingEvent}
+        workingObj['eventDate'] = moment(workingObj?.startTime)
+        workingObj['startTime'] = moment(workingObj?.startTime)
+        workingObj['endTime'] = moment(workingObj?.endTime)
+        form.setFieldsValue(workingObj)
     }, [props.existingEvent])
 
 
@@ -70,10 +75,6 @@ export default function NewEventForm(props: EventFormProps) {
     }
 
     const onFinish = (data: any) => {
-
-        console.log('data', data)
-        console.log('formValues', formValues)
-        //data.preventDefault()
 
         let eventStartTime;
         let eventEndTime;
@@ -166,31 +167,21 @@ export default function NewEventForm(props: EventFormProps) {
                     </Form.Item>
                     </div>
                     <div className="input-div-20">
-                        {/* <Select 
-                            className='w-100' 
-                            options={eventCategories}
-                            //optionFilterProp="label"
-                            onChange={(e) => console.log(e)}
-                            //onChange={(e) => handleEventInfoChange(e , 'category')}
-                            //defaultValue="General"
-                            //value={formValues?.category}
-                        /> */}
                         <Form.Item 
                             rules={[{ required: true }]} 
                             style={{all:'unset'}}
                             name={'category'}
                         >
-                            <select 
-                                name={'category'}
+                            <Select 
                                 id='event-form-category'
                                 onChange={(e) => handleEventInfoChange(e?.target?.value, 'category')}
                                 data-select
                                 className='select-field'
                                 value={formValues?.category}
                                 defaultValue={formValues?.category}
+                                options={eventCategories}
                             >
-                                {categoryOptions}
-                            </select>
+                            </Select>
                         </Form.Item>
                     </div>
                 </div>
@@ -203,8 +194,6 @@ export default function NewEventForm(props: EventFormProps) {
                     >
                         <DatePicker
                             className='w-100'
-                            //status={!formValues?.eventDate ? 'error' : ''}
-                            value={moment(formValues?.eventDate)}
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString().split('T')[0], 'eventDate')}
                         />
                     </Form.Item>
@@ -218,8 +207,6 @@ export default function NewEventForm(props: EventFormProps) {
                         <TimePicker
                             placeholder='Select Start Time'
                             className='w-100'
-                            //status={!formValues?.startTime ? 'error' : ''}
-                            value={moment(formValues?.startTime)}
                             use12Hours
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString(), 'startTime')}
                         />
@@ -234,8 +221,6 @@ export default function NewEventForm(props: EventFormProps) {
                         <TimePicker
                             placeholder='Select End Time'
                             className='w-100'
-                            value={moment(formValues?.endTime)}
-                            //status={!formValues?.endTime ? 'error' : ''}
                             use12Hours
                             onChange={(e: any) => handleEventInfoChange(new Date(e).toISOString(), 'endTime')}
                         />
