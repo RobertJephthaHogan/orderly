@@ -36,25 +36,25 @@ export default function UserDashboard() {
 		const st = groupByProperty(userTasks, 'category')
 		const intTasks = Object.assign({All: userTasks}, {...st});
 		setSortedTasks(intTasks)
-	}, [userTasks])
+	}, [userTasks?.length])
 
     useMemo(() => { // sort events when events update
 		const se = groupByProperty(userEvents, 'category')
 		const intEvts = Object.assign({All: userEvents}, {...se});
 		setSortedEvents(intEvts)
-	}, [userEvents])
+	}, [userEvents?.length])
 
     useMemo(() => { // sort projects when projects update
 		const sp = groupByProperty(userProjects, 'category')
 		const intProjects = Object.assign({All: userProjects}, {...sp});
 		setSortedProjects(intProjects)
-	}, [userProjects])
+	}, [userProjects?.length])
 
     useMemo(() => { // sort notes when notes update
 		const sn = groupByProperty(userNotes, 'category')
 		const intNotes = Object.assign({All: userNotes}, {...sn});
 		setSortedNotes(intNotes)
-	}, [userNotes])
+	}, [userNotes?.length])
 
     const dateFormatOptions : any= {
         weekday: "long",
