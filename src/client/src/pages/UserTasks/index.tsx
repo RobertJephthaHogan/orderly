@@ -9,6 +9,7 @@ import './styles.css'
 import TaskMenuRender from '../../features/tasks/TaskMenu';
 import NewTaskForm from '../../components/forms/NewTaskForm';
 import { TaskRowRenderer } from '../../features/projects/TaskRowRenderer';
+import TasksByTimelineMenu from '../../features/tasks/TasksByTimelineMenu';
 
 
 
@@ -94,10 +95,17 @@ export default function UserTasks() {
 			</div>
 			<div className='flex task-body-wrapper'>
 				<div className='w-30'>
-					<TaskMenuRender
-						sortedTasks={sortedTasks}
-						setSelectedCategory={setSelectedCategory}
-					/>
+					<div className='p-1'>
+						<TaskMenuRender
+							sortedTasks={sortedTasks}
+							setSelectedCategory={setSelectedCategory}
+						/>
+					</div>
+					<div className='p-1'>
+						<TasksByTimelineMenu
+						
+						/>
+					</div>
 				</div>
 				<div className='w-70'>
 					<TaskCategoryArea/>
