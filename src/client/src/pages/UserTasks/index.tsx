@@ -35,9 +35,12 @@ export default function UserTasks() {
 
 	useEffect(() => {
 		if (selectedCategory) {
+			console.log('selectedCategory', selectedCategory)
+			console.log('sortedTasks?.[selectedCategory?.[0]]', sortedTasks?.[selectedCategory?.[0]])
+			console.log('selectedCategory?.[1]', selectedCategory?.[1])
 			resetTaskForm()
 			setSelectedTask(null)
-			setSelectedCategoryTasks(sortedTasks?.[selectedCategory?.[0]])
+			setSelectedCategoryTasks(selectedCategory?.[1])
 		} else {
 			setSelectedCategoryTasks(sortedTasks?.['General'])
 		}
