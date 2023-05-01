@@ -25,7 +25,8 @@ export default function NewTaskForm(props: TaskFormProps) {
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const [editingSubject, setEditingSubject] = useState<any>({
         category: 'General',
-        priority: 'High'
+        priority: 'High',
+        dueDate: null
     })
     const [form] = Form.useForm();
 
@@ -33,7 +34,8 @@ export default function NewTaskForm(props: TaskFormProps) {
     useEffect(() => {
         setEditingSubject({
             category: props.taskParent?.category ? props.taskParent?.category :'General',
-            priority: 'High'
+            priority: 'High',
+            dueDate: null
         })
     }, [props.taskParent?.category])
 
@@ -168,7 +170,7 @@ export default function NewTaskForm(props: TaskFormProps) {
 					</div>
 					<div className='input-container w-40'>
                         <Form.Item 
-                            rules={[{ required: true }]} 
+                            //rules={[{ required: true }]} 
                             style={{all:'unset', width: '100%'}}
                             name={'dueDate'}
                         >

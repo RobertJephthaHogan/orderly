@@ -1,5 +1,5 @@
 import datetime
-from typing import Optional, Any
+from typing import Optional, Any, Union
 from beanie import Document
 from pydantic import BaseModel, EmailStr, Field
 
@@ -14,7 +14,7 @@ class Task(Document):
     createdByUserId: str = Field(...)
     isCompleted: bool = Field(...)
     taskCreationTime: datetime.datetime = Field(...)
-    dueDate: datetime.datetime = Field(...)
+    dueDate: Union[datetime.datetime, None] = Field(...)
     
     class Settings:
         name = "Task"
