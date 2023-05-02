@@ -10,6 +10,7 @@ from app.models.Event import Event
 from app.models.Task import Task
 from app.models.Project import Project
 from app.models.Note import Note
+from app.models.Agenda import Agenda
 
 
 # Load the environment variables
@@ -44,5 +45,6 @@ async def initiate_database():
                             Task, 
                             Event, 
                             Project, 
-                            Note
+                            Note,
+                            Agenda
                         ])
