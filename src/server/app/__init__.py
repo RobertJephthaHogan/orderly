@@ -6,6 +6,7 @@ from .services.event.routes import router as EventRouter
 from .services.project.routes import router as ProjectRouter
 from .services.note.routes import router as NoteRouter
 from .services.agenda.routes import router as AgendaRouter
+from .services.checklist.routes import router as ChecklistRouter
 
 from .config import initiate_database
 
@@ -47,3 +48,4 @@ app.include_router(EventRouter, tags=["Event"], prefix="/event")
 app.include_router(ProjectRouter, tags=["Project"], prefix="/project")
 app.include_router(NoteRouter, tags=["Note"], prefix="/note")
 app.include_router(AgendaRouter, tags=["Agenda"], prefix="/agenda")
+app.include_router(ChecklistRouter, tags=["Checklist"], prefix="/checklist")
