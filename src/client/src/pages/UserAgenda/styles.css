@@ -9,5 +9,9 @@
     padding: 10px;
     background-color: #ffffff;
     border: 1px solid #dfdfdf
+}
 
+.agenda-body-card {
+    background-color: #ffffff;
+    border: 1px solid #dfdfdf
 }

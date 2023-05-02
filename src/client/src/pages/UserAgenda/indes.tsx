@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import './styles.css'
 import { useSelector } from 'react-redux'
 import { store } from '../../redux/store'
 import taskActions from '../../redux/actions/tasks'
 import eventActions from '../../redux/actions/event'
 import projectActions from '../../redux/actions/project'
 import noteActions from '../../redux/actions/notes'
-
+import './styles.css'
 
 
 export default function UserAgenda() {
@@ -27,7 +26,7 @@ export default function UserAgenda() {
 
     function createUserAgenda() {
 
-        
+
 
     }
 
@@ -48,7 +47,29 @@ export default function UserAgenda() {
                     <h4>{new Date().toLocaleDateString("en-US", dateFormatOptions)}</h4>
                 </div>
             </div>
-            User Agenda
+            <div className='flex w-100 '>
+                <div className='w-20 m-1'>
+                    <div className='agenda-body-card'>
+                        Tasks Card
+                    </div>
+                    <div className='agenda-body-card'>
+                        Events Card
+                    </div>
+                    <div className='agenda-body-card'>
+                        Projects Card
+                    </div>
+                </div>
+                <div className='w-40 m-1'>
+                    <div className='agenda-body-card'>
+                        Checklist Column
+                    </div>
+                </div>
+                <div className='w-40 m-1'>
+                    <div className=' agenda-body-card'>
+                        Notes Column
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
