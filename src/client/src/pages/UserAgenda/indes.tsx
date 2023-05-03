@@ -6,6 +6,8 @@ import eventActions from '../../redux/actions/event'
 import projectActions from '../../redux/actions/project'
 import noteActions from '../../redux/actions/notes'
 import './styles.css'
+import checklistActions from '../../redux/actions/checklist'
+import agendaActions from '../../redux/actions/agenda'
 
 
 export default function UserAgenda() {
@@ -15,12 +17,16 @@ export default function UserAgenda() {
     const userEvents = useSelector((state: any) => state.events?.queryResult ?? [])
 	const userProjects = useSelector((state: any) => state.projects?.queryResult ?? [])
 	const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
+    const userChecklists = useSelector((state: any) => state.checklists?.queryResult ?? [])
+    const userAgendas = useSelector((state: any) => state.agendas?.queryResult ?? [])
 
     useEffect(() => {
         store.dispatch(taskActions.setToDos(currentUser?._id))
         store.dispatch(eventActions.setEvents(currentUser?._id))
         store.dispatch(projectActions.setProjects(currentUser?._id))
         store.dispatch(noteActions.setNotes(currentUser?._id))
+        store.dispatch(checklistActions.setChecklists(currentUser?._id))
+        store.dispatch(agendaActions.setAgendas(currentUser?._id))
     }, [currentUser])
 
 

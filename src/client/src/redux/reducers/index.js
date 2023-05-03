@@ -5,10 +5,13 @@ import eventReducer from './event'
 import projectReducer from './project'
 import noteReducer from './note'
 import settingsReducer from './settings'
-import initialState from '../initialState'
-
-import * as types from '../types'
 import widgetReducer from './widget'
+import checklistReducer from './checklist'
+import agendaReducer from './agenda'
+
+import initialState from '../initialState'
+import * as types from '../types'
+
 
 
 const appReducers = combineReducers({
@@ -19,6 +22,9 @@ const appReducers = combineReducers({
   notes: noteReducer,
   settings: settingsReducer,
   widgets: widgetReducer,
+  checklists: checklistReducer,
+  agendas: agendaReducer,
+
 })
 
 

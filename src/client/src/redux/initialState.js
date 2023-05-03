@@ -8,6 +8,8 @@ export default {
     events: [],
     projects: [],
     notes: [],
+    checklists: [],
+    agendas: [],
     settings: {
         loading: false,
         theme: 'light',
