@@ -36,6 +36,18 @@ export const ADD_NOTE = 'ADD_NOTE'
 export const DELETE_NOTE = 'DELETE_NOTE'
 export const UPDATE_NOTE = 'UPDATE_NOTE'
 
+// Checklists
+export const SET_CHECKLISTS = 'SET_CHECKLISTS'
+export const ADD_CHECKLIST = 'ADD_CHECKLIST'
+export const DELETE_CHECKLIST = 'DELETE_CHECKLIST'
+export const UPDATE_CHECKLIST = 'UPDATE_CHECKLIST'
+
+// Agendas
+export const SET_AGENDAS = 'SET_AGENDAS'
+export const ADD_AGENDA = 'ADD_AGENDA'
+export const DELETE_AGENDA = 'DELETE_AGENDA'
+export const UPDATE_AGENDA = 'UPDATE_AGENDA'
+
 
 // Settings
 export const SHOW_LOADING = 'SHOW_LOADING'

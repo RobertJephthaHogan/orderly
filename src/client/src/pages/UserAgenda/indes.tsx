@@ -61,12 +61,15 @@ export default function UserAgenda() {
                 </div>
                 <div className='w-40 m-1'>
                     <div className='agenda-body-card'>
-                        Checklist Column
+                        Checklist Card
+                    </div>
+                    <div className='agenda-body-card'>
+                        Nutrition Card
                     </div>
                 </div>
                 <div className='w-40 m-1'>
                     <div className=' agenda-body-card'>
-                        Notes Column
+                        Notes Card
                     </div>
                 </div>
             </div>
