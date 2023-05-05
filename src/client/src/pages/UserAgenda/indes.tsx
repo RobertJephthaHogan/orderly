@@ -11,9 +11,15 @@ import agendaActions from '../../redux/actions/agenda'
 import { ObjectID } from 'bson'
 
 
+
+
+
 export default function UserAgenda() {
 
     const [selectedDay, setSelectedDay] = useState<any>(new Date())
+    const [selectedAgenda, setSelectedAgenda] = useState<any>([])
+    const [agendaChecklists, setAgendaChecklists] = useState<any>([])
+
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
     const userEvents = useSelector((state: any) => state.events?.queryResult ?? [])
@@ -21,6 +27,15 @@ export default function UserAgenda() {
 	const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
     const userChecklists = useSelector((state: any) => state.checklists?.queryResult ?? [])
     const userAgendas = useSelector((state: any) => state.agendas?.queryResult ?? [])
+
+
+    const dateFormatOptions : any= {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    }
+
 
     useEffect(() => {
         store.dispatch(taskActions.setToDos(currentUser?._id))
@@ -35,21 +50,72 @@ export default function UserAgenda() {
 
     useMemo(() => {
 
-        console.log( 'date', new Date() )
         // Check if Agenda for the active day exists
         const agendaForSelectedDay = userAgendas?.filter((agenda: any) => {
             return datesMatch(new Date(agenda?.agendaDate), selectedDay)
         })
+        setSelectedAgenda(agendaForSelectedDay)
         console.log('agendaForSelectedDay', agendaForSelectedDay)
 
-        if (agendaForSelectedDay?.length === 0) {
-            console.log('No Agenda for the selected day!')
-            createUserAgenda()
+        const parentID = agendaForSelectedDay[0]?.id
+        console.log(parentID)
+        console.log('userChecklists', userChecklists)
+        const checklistsForAgenda = userChecklists?.filter((checklist: any) => {
+            return checklist.parent == parentID
+        })
+        console.log('checklistsForAgenda', checklistsForAgenda)
+        setAgendaChecklists(checklistsForAgenda)
+
+        if (agendaForSelectedDay?.length === 0) { // if there is no agenda for the active day
+            createUserAgenda() // Create an agenda for the active day
         }
 
-        // Check if Checklist for the active day exists         
 
-    }, [userChecklists, userAgendas, selectedDay])
+    }, [userAgendas, selectedDay])
+
+    useEffect(() => {
+        console.log('agendaChecklists', agendaChecklists)
+
+    }, [agendaChecklists])
+
+    useMemo(() => {
+        console.log('selectedAgenda', selectedAgenda)
+        const parentID = selectedAgenda[0]?.id
+        const checklistsForAgenda = userChecklists?.filter((checklist: any) => {
+            return checklist.parent === parentID
+        })
+        setAgendaChecklists(checklistsForAgenda)
+    }, [selectedAgenda])
+
+    // useMemo(() => {
+
+    //     console.log('HERE!!!!!!!!!!!!', selectedAgenda)
+
+    //     // Check if Checklist for the active day exists    
+
+    //     if (selectedAgenda?.length > 0) { // If there is an agenda for the active day
+
+    //         // Go through all checklists and find all which have the current agenda as the parent
+    //         const parentID = selectedAgenda[0]?.id
+    //         const checklistsForAgenda = userChecklists?.filter((checklist: any) => {
+    //             return checklist.parent === parentID
+    //         })
+    //         console.log('checklistsForAgenda', checklistsForAgenda)
+
+    //         if (checklistsForAgenda?.length === 0) {
+    //             console.log('No Checklists for the active agenda')
+    //             // TODO: create a checklist for the active agenda when none exists
+    //             createUserChecklist()
+    //         }
+
+    //         if (checklistsForAgenda?.length) {
+    //             console.log('Checklists for the active agenda:', checklistsForAgenda)
+    //         }
+
+    //     }
+        
+
+    // }, [selectedAgenda?.[0]?.id])
 
 
     function datesMatch(date1: any, date2: any) {
@@ -61,22 +127,41 @@ export default function UserAgenda() {
 
     function createUserAgenda() {
 
-        const dto = {
-            id: new ObjectID().toString(),
+        const newAgendaID = new ObjectID().toString()
+
+        const agenda_dto = {
+            id: newAgendaID,
             createdByUserId : currentUser._id,
             agendaDate: selectedDay.toJSON()
         }
-        store.dispatch(agendaActions.add(dto))
+        store.dispatch(agendaActions.add(agenda_dto))
+        setSelectedAgenda(agenda_dto)
 
+        const checklist_dto = {
+            id: new ObjectID().toString(),
+            title: `Daily Checklist for ${new Date().toLocaleDateString("en-US", dateFormatOptions)}`,
+            category: 'daily',
+            parent: newAgendaID,
+            items: [],
+            createdByUserId : currentUser._id,
+            checklistCreationTime: new Date().toJSON()
+        }
+        store.dispatch(checklistActions.add(checklist_dto))
+        setAgendaChecklists(checklist_dto)
     }
 
-    const dateFormatOptions : any= {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    };
-
+    function createUserChecklist() {
+        const dto = {
+            id: new ObjectID().toString(),
+            title: `Daily Checklist for ${new Date().toLocaleDateString("en-US", dateFormatOptions)}`,
+            category: 'daily',
+            parent: selectedAgenda?.[0]?.id,
+            items: [],
+            createdByUserId : currentUser._id,
+            checklistCreationTime: new Date().toJSON()
+        }
+        store.dispatch(checklistActions.add(dto))
+    }
 
 
     return (
@@ -85,6 +170,7 @@ export default function UserAgenda() {
                 <div className='user-agenda-top-bar'>
                     <h3 id="welcome-back-title">Welcome back, {currentUser?.firstName}!</h3>
                     <h4>{new Date().toLocaleDateString("en-US", dateFormatOptions)}</h4>
+                    {selectedAgenda?.[0]?.id}
                 </div>
             </div>
             <div className='flex w-100 '>
