@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { store } from '../../redux/store'
 import taskActions from '../../redux/actions/tasks'
@@ -8,10 +8,12 @@ import noteActions from '../../redux/actions/notes'
 import './styles.css'
 import checklistActions from '../../redux/actions/checklist'
 import agendaActions from '../../redux/actions/agenda'
+import { ObjectID } from 'bson'
 
 
 export default function UserAgenda() {
 
+    const [selectedDay, setSelectedDay] = useState<any>(new Date())
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
     const userEvents = useSelector((state: any) => state.events?.queryResult ?? [])
@@ -30,9 +32,41 @@ export default function UserAgenda() {
     }, [currentUser])
 
 
+
+    useMemo(() => {
+
+        console.log( 'date', new Date() )
+        // Check if Agenda for the active day exists
+        const agendaForSelectedDay = userAgendas?.filter((agenda: any) => {
+            return datesMatch(new Date(agenda?.agendaDate), selectedDay)
+        })
+        console.log('agendaForSelectedDay', agendaForSelectedDay)
+
+        if (agendaForSelectedDay?.length === 0) {
+            console.log('No Agenda for the selected day!')
+            createUserAgenda()
+        }
+
+        // Check if Checklist for the active day exists         
+
+    }, [userChecklists, userAgendas, selectedDay])
+
+
+    function datesMatch(date1: any, date2: any) {
+        return date1.getFullYear() === date2.getFullYear() 
+          && date1.getMonth() === date2.getMonth() 
+          && date1.getDate() === date2.getDate();
+    }
+
+
     function createUserAgenda() {
 
-
+        const dto = {
+            id: new ObjectID().toString(),
+            createdByUserId : currentUser._id,
+            agendaDate: selectedDay.toJSON()
+        }
+        store.dispatch(agendaActions.add(dto))
 
     }
 
