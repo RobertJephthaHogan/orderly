@@ -7,6 +7,7 @@ from pydantic import BaseModel, EmailStr, Field
 class Intake(Document):
     id: Optional[str] = Field(...)
     title: Optional[str] = Field(...)
+    ingredients: Optional[str] = Field(...)
     createdByUserId: str = Field(...)
     time: datetime.datetime = Field(...)
     
@@ -26,9 +27,10 @@ class Intake(Document):
 
 class UpdateIntakeModel(BaseModel):
     id: Optional[str]
-    title: Optional[str] = Field(...)
+    title: Optional[str] 
+    ingredients: Optional[str]
     createdByUserId: Optional[str]
-    time: Optional[datetime.datetime] = Field(...)
+    time: Optional[datetime.datetime]
 
     class Config:
         schema_extra = {
