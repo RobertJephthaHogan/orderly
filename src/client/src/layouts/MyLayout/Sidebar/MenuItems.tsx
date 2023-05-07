@@ -5,6 +5,8 @@ import {
     CheckOutlined, 
     DashboardOutlined, 
     FileOutlined, 
+    ReconciliationOutlined, 
+    RocketOutlined, 
     SnippetsOutlined,
     TableOutlined, 
 } from "@ant-design/icons"
@@ -60,6 +62,20 @@ export const newMenuItems: any = [
         label: 'User Checklists',
         route: '/checklists',
         menuId: 'user-checklists-menu-item',
+    },
+    {
+        key: 'user-nutrition',
+        icon: <ReconciliationOutlined />,
+        label: 'User Nutrition',
+        route: '/nutrition',
+        menuId: 'user-nutrition-menu-item',
+    },
+    {
+        key: 'user-exercise',
+        icon: <RocketOutlined />,
+        label: 'User Exercise',
+        route: '/exercise',
+        menuId: 'user-exercise-menu-item',
     },
     {
         key: 'user-tables',
