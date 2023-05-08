@@ -41,6 +41,26 @@ const widgetActions = {
             Promise.resolve(dispatch({ type: types.HIDE_NOTE_WIDGET }))
         }
     },
+    showChecklistWidget: () => {
+        return (dispatch) => {
+            Promise.resolve(dispatch({ type: types.SHOW_CHECKLIST_WIDGET  }))
+        }
+    },
+    hideChecklistWidget: () => {
+        return (dispatch) => {
+            Promise.resolve(dispatch({ type: types.HIDE_CHECKLIST_WIDGET }))
+        }
+    },
+    showIntakeWidget: () => {
+        return (dispatch) => {
+            Promise.resolve(dispatch({ type: types.SHOW_INTAKE_WIDGET  }))
+        }
+    },
+    hideIntakeWidget: () => {
+        return (dispatch) => {
+            Promise.resolve(dispatch({ type: types.HIDE_INTAKE_WIDGET }))
+        }
+    },
 }
 
 export default widgetActions

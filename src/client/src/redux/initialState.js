@@ -20,6 +20,8 @@ export default {
         projectWidget: {
             open: false
         },
-        noteWidget: false
+        noteWidget: false,
+        checklistWidget: false,
+        intakeWidget: false
     }
 }

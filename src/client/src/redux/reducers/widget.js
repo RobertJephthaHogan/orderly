@@ -56,6 +56,30 @@ export default function widgetReducer(state = initialState.widgets, action) {
                 noteWidget: false,
             }
         }
+        case types.SHOW_CHECKLIST_WIDGET: {
+            return {
+                ...state,
+                checklistWidget: true,
+            }
+        }
+        case types.HIDE_CHECKLIST_WIDGET: {
+            return {
+                ...state,
+                checklistWidget: false,
+            }
+        }
+        case types.SHOW_INTAKE_WIDGET: {
+            return {
+                ...state,
+                intakeWidget: true,
+            }
+        }
+        case types.HIDE_INTAKE_WIDGET: {
+            return {
+                ...state,
+                intakeWidget: false,
+            }
+        }
         default:
             return state
     }

@@ -26,6 +26,8 @@ export const MyLayout : React.FC<Props> = ({
     const eventWidget = useSelector((state: any) => state.widgets?.eventWidget ?? [])
     const projectWidget = useSelector((state: any) => state.widgets?.projectWidget ?? [])
     const noteWidget = useSelector((state: any) => state.widgets?.noteWidget ?? [])
+    const checklistWidget = useSelector((state: any) => state.widgets?.checklistWidget ?? [])
+    const intakeWidget = useSelector((state: any) => state.widgets?.intakeWidget ?? [])
 
 
     useEffect(() => {
@@ -42,12 +44,20 @@ export const MyLayout : React.FC<Props> = ({
         Mousetrap.bind('alt+4', () => {
             toggleNoteWidget()
         })
+        Mousetrap.bind('alt+5', () => {
+            toggleChecklistWidget()
+        })
+        Mousetrap.bind('alt+6', () => {
+            toggleIntakeWidget()
+        })
 
         return () => {
             Mousetrap.unbind('alt+1')
             Mousetrap.unbind('alt+2')
             Mousetrap.unbind('alt+3')
             Mousetrap.unbind('alt+4')
+            Mousetrap.unbind('alt+5')
+            Mousetrap.unbind('alt+6')
         }
 
     })
@@ -85,6 +95,24 @@ export const MyLayout : React.FC<Props> = ({
         }
         if (noteWidget) {
             store.dispatch(widgetActions.hideNoteWidget())
+        }
+    }
+    
+    const toggleChecklistWidget = () => {
+        if (!checklistWidget) {
+            store.dispatch(widgetActions.showChecklistWidget())
+        }
+        if (checklistWidget) {
+            store.dispatch(widgetActions.hideChecklistWidget())
+        }
+    }
+
+    const toggleIntakeWidget = () => {
+        if (!intakeWidget) {
+            store.dispatch(widgetActions.showIntakeWidget())
+        }
+        if (intakeWidget) {
+            store.dispatch(widgetActions.hideIntakeWidget())
         }
     }
 

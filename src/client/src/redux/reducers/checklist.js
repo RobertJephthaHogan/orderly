@@ -11,7 +11,7 @@ export const checklistReducer = (state = initialState.checklists, action) => {
 
       case types.ADD_CHECKLIST: {
         let initial = {...state}
-        let newChecklists = [...initial.queryResult, action.payload?.data]
+        let newChecklists = [...initial?.queryResult, action.payload?.data]
         initial.queryResult = newChecklists
         return initial
       }

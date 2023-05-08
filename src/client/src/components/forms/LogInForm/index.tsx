@@ -10,6 +10,8 @@ import userActions from "../../../redux/actions/user"
 import { store } from "../../../redux/store"
 import { userService } from "../../../services/user.service"
 import './styles.css'
+import checklistActions from "../../../redux/actions/checklist"
+import agendaActions from "../../../redux/actions/agenda"
 
 
 export default function LogInForm() {
@@ -32,6 +34,8 @@ export default function LogInForm() {
         store.dispatch(eventActions.setEvents(resp?.data?._id))
         store.dispatch(projectActions.setProjects(resp?.data?._id))
         store.dispatch(noteActions.setNotes(resp?.data?._id))
+        store.dispatch(checklistActions.setChecklists(resp?.data?._id))
+        store.dispatch(agendaActions.setAgendas(resp?.data?._id))
         navigate('/dashboard')
     }
 

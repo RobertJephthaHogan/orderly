@@ -11,7 +11,7 @@ export const agendaReducer = (state = initialState.agendas, action) => {
 
       case types.ADD_AGENDA: {
         let initial = {...state}
-        let newAgendas = [...initial.queryResult, action.payload?.data]
+        let newAgendas = [...initial?.queryResult, action.payload?.data]
         initial.queryResult = newAgendas
         return initial
       }
