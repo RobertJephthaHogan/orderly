@@ -11,6 +11,8 @@ import { store } from '../../redux/store'
 import EventWidget from '../../features/widgets/EventWidget'
 import ProjectWidget from '../../features/widgets/ProjectWidget'
 import NoteWidget from '../../features/widgets/NoteWidget'
+import ChecklistWidget from '../../features/widgets/ChecklistWidget'
+import IntakeWidget from '../../features/widgets/IntakeWidget'
 
 
 type Props = {
@@ -122,6 +124,8 @@ export const MyLayout : React.FC<Props> = ({
             {eventWidget && <EventWidget/>}
             {projectWidget?.open && <ProjectWidget/>}
             {noteWidget && <NoteWidget/>}
+            {checklistWidget && <ChecklistWidget/>}
+            {intakeWidget && <IntakeWidget/>}
             <MyLayoutSidebar
                 isSidebarCollapsed={isSidebarCollapsed}
                 setIsSidebarCollapsed={setIsSidebarCollapsed}
