@@ -1,0 +1,32 @@
+
+
+
+
+.checklist-widget {
+    position: absolute;
+    z-index: 2000;
+    /* min-width: 400px; */
+    max-width: 80vw;
+    min-height: 200px;
+    /* width: 100%; */
+    /* height: 300px; */
+    overflow: auto;
+    background-color: #ffffff;
+    resize: both !important;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+
+.checklist-widget-header {
+    background-color: #f6f6f66c;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checklist-widget-header:hover {
+    cursor: grab;
+}
+
+.checklist-widget-body {
+    padding: 5px 10px;
+}
