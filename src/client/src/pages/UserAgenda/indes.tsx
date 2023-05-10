@@ -9,6 +9,7 @@ import './styles.css'
 import checklistActions from '../../redux/actions/checklist'
 import agendaActions from '../../redux/actions/agenda'
 import { ObjectID } from 'bson'
+import ChecklistCard from '../../features/agenda/ChecklistCard'
 
 
 
@@ -27,6 +28,9 @@ export default function UserAgenda() {
 	const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
     const userChecklists = useSelector((state: any) => state.checklists?.queryResult ?? [])
     const userAgendas = useSelector((state: any) => state.agendas?.queryResult ?? [])
+
+    const [tasksDueToday, setTasksDueToday] = useState<any>()
+    const [todaysEvents, setTodaysEvents] = useState<any>()
 
 
     const dateFormatOptions : any= {
@@ -57,65 +61,24 @@ export default function UserAgenda() {
         setSelectedAgenda(agendaForSelectedDay)
         console.log('agendaForSelectedDay', agendaForSelectedDay)
 
-        const parentID = agendaForSelectedDay[0]?.id
-        console.log(parentID)
-        console.log('userChecklists', userChecklists)
-        const checklistsForAgenda = userChecklists?.filter((checklist: any) => {
-            return checklist.parent == parentID
-        })
-        console.log('checklistsForAgenda', checklistsForAgenda)
-        setAgendaChecklists(checklistsForAgenda)
-
-        if (agendaForSelectedDay?.length === 0) { // if there is no agenda for the active day
-            createUserAgenda() // Create an agenda for the active day
+        if (agendaForSelectedDay?.length === 0) { // if there is no agenda for the active day create an agenda for the active day
+            createUserAgenda() 
         }
 
 
     }, [userAgendas, selectedDay])
 
-    useEffect(() => {
-        console.log('agendaChecklists', agendaChecklists)
-
-    }, [agendaChecklists])
 
     useMemo(() => {
-        console.log('selectedAgenda', selectedAgenda)
         const parentID = selectedAgenda[0]?.id
         const checklistsForAgenda = userChecklists?.filter((checklist: any) => {
             return checklist.parent === parentID
         })
+        console.log('checklistsForAgenda', checklistsForAgenda)
         setAgendaChecklists(checklistsForAgenda)
-    }, [selectedAgenda])
+    }, [selectedAgenda, userChecklists])
 
-    // useMemo(() => {
 
-    //     console.log('HERE!!!!!!!!!!!!', selectedAgenda)
-
-    //     // Check if Checklist for the active day exists    
-
-    //     if (selectedAgenda?.length > 0) { // If there is an agenda for the active day
-
-    //         // Go through all checklists and find all which have the current agenda as the parent
-    //         const parentID = selectedAgenda[0]?.id
-    //         const checklistsForAgenda = userChecklists?.filter((checklist: any) => {
-    //             return checklist.parent === parentID
-    //         })
-    //         console.log('checklistsForAgenda', checklistsForAgenda)
-
-    //         if (checklistsForAgenda?.length === 0) {
-    //             console.log('No Checklists for the active agenda')
-    //             // TODO: create a checklist for the active agenda when none exists
-    //             createUserChecklist()
-    //         }
-
-    //         if (checklistsForAgenda?.length) {
-    //             console.log('Checklists for the active agenda:', checklistsForAgenda)
-    //         }
-
-    //     }
-        
-
-    // }, [selectedAgenda?.[0]?.id])
 
 
     function datesMatch(date1: any, date2: any) {
@@ -137,31 +100,31 @@ export default function UserAgenda() {
         store.dispatch(agendaActions.add(agenda_dto))
         setSelectedAgenda(agenda_dto)
 
-        const checklist_dto = {
-            id: new ObjectID().toString(),
-            title: `Daily Checklist for ${new Date().toLocaleDateString("en-US", dateFormatOptions)}`,
-            category: 'daily',
-            parent: newAgendaID,
-            items: [],
-            createdByUserId : currentUser._id,
-            checklistCreationTime: new Date().toJSON()
-        }
-        store.dispatch(checklistActions.add(checklist_dto))
-        setAgendaChecklists(checklist_dto)
+        // const checklist_dto = {
+        //     parent: newAgendaID,
+        //     id: new ObjectID().toString(),
+        //     title: `Daily Checklist for ${new Date().toLocaleDateString("en-US", dateFormatOptions)}`,
+        //     category: 'daily',
+        //     items: [],
+        //     createdByUserId : currentUser._id,
+        //     checklistCreationTime: new Date().toJSON()
+        // }
+        // store.dispatch(checklistActions.add(checklist_dto))
+        // setAgendaChecklists(checklist_dto)
     }
 
-    function createUserChecklist() {
-        const dto = {
-            id: new ObjectID().toString(),
-            title: `Daily Checklist for ${new Date().toLocaleDateString("en-US", dateFormatOptions)}`,
-            category: 'daily',
-            parent: selectedAgenda?.[0]?.id,
-            items: [],
-            createdByUserId : currentUser._id,
-            checklistCreationTime: new Date().toJSON()
-        }
-        store.dispatch(checklistActions.add(dto))
-    }
+    // function createUserChecklist() {
+    //     const dto = {
+    //         id: new ObjectID().toString(),
+    //         title: `Daily Checklist for ${new Date().toLocaleDateString("en-US", dateFormatOptions)}`,
+    //         category: 'daily',
+    //         parent: selectedAgenda?.[0]?.id,
+    //         items: [],
+    //         createdByUserId : currentUser._id,
+    //         checklistCreationTime: new Date().toJSON()
+    //     }
+    //     store.dispatch(checklistActions.add(dto))
+    // }
 
 
     return (
@@ -187,7 +150,9 @@ export default function UserAgenda() {
                 </div>
                 <div className='w-40 m-1'>
                     <div className='agenda-body-card'>
-                        Checklist Card
+                        <ChecklistCard
+                            agendaChecklists={agendaChecklists}
+                        />
                     </div>
                     <div className='agenda-body-card'>
                         Nutrition Card
