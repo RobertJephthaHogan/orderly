@@ -1,6 +1,8 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Select } from 'antd'
 import React from 'react'
+import { store } from '../../../redux/store'
+import widgetActions from '../../../redux/actions/widget'
 
 
 
@@ -9,6 +11,8 @@ interface CardProps {
 }
 
 export default function ChecklistCard(props: CardProps) {
+
+
 
     return (
         <div>
@@ -22,7 +26,9 @@ export default function ChecklistCard(props: CardProps) {
                     />
                 </div>
                 <div className='pl-1 pr-1'>
-                    <Button>
+                    <Button
+                        onClick={() => store.dispatch(widgetActions.showChecklistWidget())}
+                    >
                         <PlusOutlined/>
                     </Button>
                 </div>
