@@ -5,6 +5,7 @@ import Draggable from 'react-draggable'
 import { Button, Tabs } from 'antd'
 import { CloseOutlined } from '@ant-design/icons'
 import './styles.css'
+import ChecklistForm from '../../../components/forms/ChecklistForm'
 
 
 
@@ -21,6 +22,7 @@ export default function ChecklistWidget() {
             children: (
                 <div>
                     Checklist Form Will be here ---------------
+                    <ChecklistForm/>
                 </div>
             )
         },
