@@ -21,7 +21,6 @@ export default function ChecklistWidget() {
             key: 'Checklist Form',
             children: (
                 <div>
-                    Checklist Form Will be here ---------------
                     <ChecklistForm/>
                 </div>
             )

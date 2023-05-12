@@ -79,8 +79,6 @@ export default function UserAgenda() {
     }, [selectedAgenda, userChecklists])
 
 
-
-
     function datesMatch(date1: any, date2: any) {
         return date1.getFullYear() === date2.getFullYear() 
           && date1.getMonth() === date2.getMonth() 
@@ -152,6 +150,7 @@ export default function UserAgenda() {
                     <div className='agenda-body-card'>
                         <ChecklistCard
                             agendaChecklists={agendaChecklists}
+                            parent={selectedAgenda}
                         />
                     </div>
                     <div className='agenda-body-card'>

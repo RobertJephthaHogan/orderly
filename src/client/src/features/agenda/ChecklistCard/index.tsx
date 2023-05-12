@@ -1,17 +1,41 @@
-import { PlusOutlined } from '@ant-design/icons'
+import { EllipsisOutlined, MoreOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Select } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { store } from '../../../redux/store'
 import widgetActions from '../../../redux/actions/widget'
+import { ObjectID } from 'bson'
+import { useSelector } from 'react-redux'
+import checklistActions from '../../../redux/actions/checklist'
 
 
 
 interface CardProps {
     agendaChecklists?: any
+    parent?: any
 }
 
 export default function ChecklistCard(props: CardProps) {
 
+    const currentUser = useSelector((state: any) => state.user?.data ?? [])
+
+
+    const createDailyChecklist = () => {
+        console.log('Creating daily checklist')
+
+        const dto = {
+            id: new ObjectID().toString(),
+            title: `Daily Checklist for ${new Date().toJSON().split('T')[0]}`,
+            category: 'Daily',
+            parent: props.parent?.[0]?.id,
+            items: [],
+            createdByUserId: currentUser?._id,
+            checklistCreationTime: new Date().toJSON()
+        }
+
+        console.log('dto', dto)
+        store.dispatch(checklistActions.add(dto))
+
+    }
 
 
     return (
@@ -25,11 +49,16 @@ export default function ChecklistCard(props: CardProps) {
                         className='w-100 pl-1 pr-1'
                     />
                 </div>
-                <div className='pl-1 pr-1'>
+                <div className='pl-1 pr-1 flex'>
+                    <Button
+                        onClick={() => createDailyChecklist()}
+                    >
+                        <PlusOutlined/>
+                    </Button>
                     <Button
                         onClick={() => store.dispatch(widgetActions.showChecklistWidget())}
                     >
-                        <PlusOutlined/>
+                        <MoreOutlined/>
                     </Button>
                 </div>
             </div>
