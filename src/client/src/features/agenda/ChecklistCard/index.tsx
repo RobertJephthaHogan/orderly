@@ -1,11 +1,12 @@
 import { EllipsisOutlined, MoreOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Select } from 'antd'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { store } from '../../../redux/store'
 import widgetActions from '../../../redux/actions/widget'
 import { ObjectID } from 'bson'
 import { useSelector } from 'react-redux'
 import checklistActions from '../../../redux/actions/checklist'
+import Checklist from '../../checklists/Checklist'
 
 
 
@@ -17,7 +18,14 @@ interface CardProps {
 export default function ChecklistCard(props: CardProps) {
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
+    const [checklistOptions, setChecklistOptions] = useState<any>([])
+    const [activeChecklist, setActiveChecklist] = useState<any>()
 
+
+    const onChecklistChange = (value: any) => {
+        console.log('checklist change', value)
+        setActiveChecklist(value)
+    }
 
     const createDailyChecklist = () => {
         console.log('Creating daily checklist')
@@ -34,8 +42,20 @@ export default function ChecklistCard(props: CardProps) {
 
         console.log('dto', dto)
         store.dispatch(checklistActions.add(dto))
-
     }
+
+    useEffect(() => {
+        const clOptions = props.agendaChecklists?.map((checklist: any) => {
+            return (
+                {
+                    value: checklist?.id,
+                    label: checklist?.title
+                }
+            )
+        }) || []
+        setChecklistOptions(clOptions)
+        setActiveChecklist(props.agendaChecklists?.[0]?.id)
+    }, [props.agendaChecklists?.length, props.agendaChecklists])
 
 
     return (
@@ -47,6 +67,9 @@ export default function ChecklistCard(props: CardProps) {
                 <div className='w-100'>
                     <Select
                         className='w-100 pl-1 pr-1'
+                        options={checklistOptions}
+                        onChange={onChecklistChange}
+                        value={activeChecklist}
                     />
                 </div>
                 <div className='pl-1 pr-1 flex'>
@@ -64,6 +87,9 @@ export default function ChecklistCard(props: CardProps) {
             </div>
             <div>
                 checklist area
+                <Checklist
+                    checklistData={activeChecklist}
+                />
             </div>
         </div>
     )
