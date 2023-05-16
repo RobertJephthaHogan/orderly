@@ -85,8 +85,7 @@ export default function ChecklistCard(props: CardProps) {
                     </Button>
                 </div>
             </div>
-            <div>
-                checklist area
+            <div className='pl-1 pr-1'>
                 <Checklist
                     checklistData={activeChecklist}
                 />
