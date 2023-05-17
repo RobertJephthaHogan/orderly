@@ -4,6 +4,7 @@ import { store } from '../../../redux/store'
 import checklistActions from '../../../redux/actions/checklist'
 import { Button, Divider, Input } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import { checklistService } from '../../../services/checklist.service'
 
 
 interface ChecklistProps {
@@ -51,6 +52,14 @@ export default function Checklist(props: ChecklistProps) {
         )
         cList.items = cListItems
         console.log('cList', cList)
+
+        checklistService.updateChecklist(cList?.id, cList)
+            .then((resp: any) => {
+                console.log('resp', resp)
+            })
+            .catch((err: any) => {
+                console.error(err)
+            })
     }
 
     return (
