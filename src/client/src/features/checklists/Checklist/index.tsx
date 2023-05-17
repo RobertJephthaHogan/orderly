@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { store } from '../../../redux/store'
 import checklistActions from '../../../redux/actions/checklist'
-import { Button } from 'antd'
+import { Button, Divider, Input } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 
@@ -16,6 +16,7 @@ export default function Checklist(props: ChecklistProps) {
     const userChecklists = useSelector((state: any) => state.checklists?.queryResult ?? [])
     const [activeChecklist, setActiveChecklist] = useState<any>()
     const [showEditableRow, setShowEditableRow] = useState<any>(false)
+    const [newItemText, setNewItemText] = useState<any>()
 
     useEffect(() => {
         store.dispatch(checklistActions.setChecklists(currentUser?._id))
@@ -27,9 +28,29 @@ export default function Checklist(props: ChecklistProps) {
         setActiveChecklist(active)
     }, [props.checklistData])
 
-    const addNewChecklistItem = () => {
-        console.log('checklist item')
+    const enterNewChecklistItem = () => {
+        console.log('enter checklist item')
         setShowEditableRow(true)
+    }
+
+    const onNewChecklistItemChange = (value: any) => {
+        console.log('value', value)
+        setNewItemText(value)
+    }
+
+    const addNewChecklistItem = () => {
+        console.log('add checklist item')
+        setShowEditableRow(false)
+        const cList = {...activeChecklist}
+        const cListItems = [...cList?.items]
+        cListItems.push(
+            {
+                title: newItemText,
+                isComplete: false,
+            }
+        )
+        cList.items = cListItems
+        console.log('cList', cList)
     }
 
     return (
@@ -40,23 +61,39 @@ export default function Checklist(props: ChecklistProps) {
                 </div>
                 <div>
                     <Button
-                        onClick={() => addNewChecklistItem()}
+                        onClick={() => enterNewChecklistItem()}
                     >
                         <PlusOutlined/>
                     </Button>
                 </div>
             </div>
+            <Divider/>
             <div>
                 Checklist Body
                 {
                     showEditableRow 
                     ? (
-                        <div>
-                            true
+                        <div className='flex'>
+                            <div className='w-100 p-1'>
+                                <Input
+                                    placeholder='New Checklist Item'
+                                    value={newItemText}
+                                    onChange={(e) => onNewChecklistItemChange(e?.target?.value)}
+                                />
+                            </div>
+                            <div className='p-1'>
+                                <Button
+                                    size='small'
+                                    onClick={addNewChecklistItem}
+                                >
+                                    Add
+                                </Button>
+                            </div>
                         </div>
                     )
                     : null
                 }
+                
             </div>
         </div>
     )
