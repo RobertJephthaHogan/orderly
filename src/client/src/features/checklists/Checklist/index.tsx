@@ -50,16 +50,41 @@ export default function Checklist(props: ChecklistProps) {
                 isComplete: false,
             }
         )
+        if (cList._id) cList.id = cList._id
         cList.items = cListItems
         console.log('cList', cList)
 
-        checklistService.updateChecklist(cList?.id, cList)
-            .then((resp: any) => {
-                console.log('resp', resp)
-            })
-            .catch((err: any) => {
-                console.error(err)
-            })
+        // checklistService.updateChecklist(cList?.id, cList)
+        //     .then((resp: any) => {
+        //         console.log('resp', resp)
+        //     })
+        //     .catch((err: any) => {
+        //         console.error(err)
+        //     })
+
+        store.dispatch(checklistActions.update(cList?.id , cList))
+    }
+
+    function ChecklistItemRender() {
+
+        const items = activeChecklist?.items?.map((itm:any, i:any) => {
+
+            return (
+                <div 
+                    className='flex w-100'
+                    key={`checklist-itm-${i}`}
+                >
+                    {itm?.title}
+                </div>
+            )
+        }) || []
+
+        return (
+            <div className='w-100'>
+                {items}
+            </div>
+        )
+
     }
 
     return (
@@ -78,31 +103,34 @@ export default function Checklist(props: ChecklistProps) {
             </div>
             <Divider/>
             <div>
-                Checklist Body
-                {
-                    showEditableRow 
-                    ? (
-                        <div className='flex'>
-                            <div className='w-100 p-1'>
-                                <Input
-                                    placeholder='New Checklist Item'
-                                    value={newItemText}
-                                    onChange={(e) => onNewChecklistItemChange(e?.target?.value)}
-                                />
+                <div>
+                    {
+                        showEditableRow 
+                        ? (
+                            <div className='flex'>
+                                <div className='w-100 p-1'>
+                                    <Input
+                                        placeholder='New Checklist Item'
+                                        value={newItemText}
+                                        onChange={(e) => onNewChecklistItemChange(e?.target?.value)}
+                                    />
+                                </div>
+                                <div className='p-1'>
+                                    <Button
+                                        size='small'
+                                        onClick={addNewChecklistItem}
+                                    >
+                                        Add
+                                    </Button>
+                                </div>
                             </div>
-                            <div className='p-1'>
-                                <Button
-                                    size='small'
-                                    onClick={addNewChecklistItem}
-                                >
-                                    Add
-                                </Button>
-                            </div>
-                        </div>
-                    )
-                    : null
-                }
-                
+                        )
+                        : null
+                    }
+                </div>
+                <div>
+                    <ChecklistItemRender />
+                </div>
             </div>
         </div>
     )

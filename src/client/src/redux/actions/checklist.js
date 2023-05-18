@@ -85,6 +85,7 @@ const checklistActions = {
                 return checklistService
                     .updateChecklist(checklistID, payload)
                     .then((resp) => {
+                        console.log('resp', resp)
                         if (resp) {
                             openNotification(
                                 resp?.data?.response_type,
