@@ -41,6 +41,14 @@ export default function UserAgenda() {
     }
 
 
+    
+    function datesMatch(date1: any, date2: any) {
+        return date1.getFullYear() === date2.getFullYear() 
+          && date1.getMonth() === date2.getMonth() 
+          && date1.getDate() === date2.getDate();
+      }
+
+
     useEffect(() => {
         store.dispatch(taskActions.setToDos(currentUser?._id))
         store.dispatch(eventActions.setEvents(currentUser?._id))
@@ -79,15 +87,6 @@ export default function UserAgenda() {
     }, [selectedAgenda, userChecklists])
 
 
-    function datesMatch(date1: any, date2: any) {
-        const offset1 = date1.getTimezoneOffset();
-        const offset2 = date2.getTimezoneOffset();
-        
-        const adjustedDate1 = new Date(date1.getTime() + (offset1 * 60 * 1000));
-        const adjustedDate2 = new Date(date2.getTime() + (offset2 * 60 * 1000));
-      
-        return adjustedDate1.toISOString().slice(0, 10) === adjustedDate2.toISOString().slice(0, 10);
-    }
 
 
     function createUserAgenda() {
