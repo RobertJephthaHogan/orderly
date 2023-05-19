@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { store } from '../../../redux/store'
 import checklistActions from '../../../redux/actions/checklist'
 import { Button, Divider, Input, Tag } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons'
 import { checklistService } from '../../../services/checklist.service'
 import './styles.css'
 
@@ -54,14 +54,6 @@ export default function Checklist(props: ChecklistProps) {
         cList.items = cListItems
         console.log('cList', cList)
 
-        // checklistService.updateChecklist(cList?.id, cList)
-        //     .then((resp: any) => {
-        //         console.log('resp', resp)
-        //     })
-        //     .catch((err: any) => {
-        //         console.error(err)
-        //     })
-
         store.dispatch(checklistActions.update(cList?.id , cList))
     }
 
@@ -73,25 +65,58 @@ export default function Checklist(props: ChecklistProps) {
                 <div 
                     className='flex w-100 checklist-row'
                     key={`checklist-itm-${i}`}
+                    style={{
+                        height: '30px',
+                        alignItems: 'center'
+                    }}
                 >
-                    <div>
+                    <div 
+                        style={{
+                            display: 'flex',
+                            height: '30px',
+                            alignItems: 'center'
+                        }}
+                    >
                         {
                             itm?.isComplete
                             ? (
-                                <Tag color="blue" />
+                                <Tag 
+                                    color="blue" 
+                                    className='complete-tag'
+                                />
                             )
                             : null
                         }
                         {
                             !itm?.isComplete
                             ? (
-                                <Tag color="red" className='h-100 ' style={{borderRadius: '10px'}}/>
+                                <Tag 
+                                    className='incomplete-tag'
+                                    color="default" 
+                                    style={{
+                                        borderRadius: '10px',
+                                        height: '20px',
+                                        width: '20px',
+                                    }}
+                                />
                             )
                             : null
                         }
                     </div>
-                    <div>
-                        <h5 className='m-0 p-0'>{itm?.title}</h5>
+                    <div className='flex w-100 jc-sb'>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}
+                        >
+                            <h5 className='m-0 p-0'>{itm?.title}</h5>
+                        </div>
+                        <div>
+                            <Button size="small">
+                                <EllipsisOutlined/>
+                            </Button>
+                        </div>
                     </div>
                 </div>
             )

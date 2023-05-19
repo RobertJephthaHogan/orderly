@@ -9,3 +9,19 @@
 .checklist-row:hover {
     background-color: #f2f2f276;
 }
+
+.incomplete-tag {
+
+}
+
+.incomplete-tag:hover {
+    cursor: pointer;
+}
+
+.complete-tag {
+
+}
+
+.in-progress-tag {
+
+}

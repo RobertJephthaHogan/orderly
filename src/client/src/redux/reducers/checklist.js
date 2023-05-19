@@ -29,6 +29,8 @@ export const checklistReducer = (state = initialState.checklists, action) => {
 
         let initial = {...state}
 
+        console.log('initial', initial)
+
         if (!action?.payload?.data?._id) {
             return state
         }
@@ -38,7 +40,11 @@ export const checklistReducer = (state = initialState.checklists, action) => {
         )
 
         if (!found && action?.payload) {
-            return [...state, action?.payload?.data]
+            let workingObj = {...state}
+            let workingQR = [...workingObj?.queryResult] 
+            workingQR = [...workingQR, action?.payload?.data]
+            workingObj.queryResult = workingQR
+            return workingObj
         }
 
         const data =  state?.queryResult?.map((checklist) => {
