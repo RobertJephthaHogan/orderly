@@ -1,0 +1,11 @@
+
+
+
+
+.checklist-row {
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.checklist-row:hover {
+    background-color: #f2f2f276;
+}

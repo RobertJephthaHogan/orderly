@@ -2,10 +2,10 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { store } from '../../../redux/store'
 import checklistActions from '../../../redux/actions/checklist'
-import { Button, Divider, Input } from 'antd'
+import { Button, Divider, Input, Tag } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { checklistService } from '../../../services/checklist.service'
-
+import './styles.css'
 
 interface ChecklistProps {
     checklistData?: any
@@ -71,10 +71,28 @@ export default function Checklist(props: ChecklistProps) {
 
             return (
                 <div 
-                    className='flex w-100'
+                    className='flex w-100 checklist-row'
                     key={`checklist-itm-${i}`}
                 >
-                    {itm?.title}
+                    <div>
+                        {
+                            itm?.isComplete
+                            ? (
+                                <Tag color="blue" />
+                            )
+                            : null
+                        }
+                        {
+                            !itm?.isComplete
+                            ? (
+                                <Tag color="red" className='h-100 ' style={{borderRadius: '10px'}}/>
+                            )
+                            : null
+                        }
+                    </div>
+                    <div>
+                        <h5 className='m-0 p-0'>{itm?.title}</h5>
+                    </div>
                 </div>
             )
         }) || []
