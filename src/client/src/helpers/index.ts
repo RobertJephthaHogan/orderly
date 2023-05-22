@@ -24,3 +24,10 @@ export const filterByValue = (array: any, string: any) => {
 export const generateId = () => {
   return `${Math.floor(Math.random() * 1000000)}`
 }
+
+
+export function arrayRemove(arr: any, value: any) { 
+  return arr.filter(function(ele: any){ 
+      return ele != value; 
+  });
+}

@@ -7,6 +7,7 @@ import type { MenuProps } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, DownOutlined, EllipsisOutlined, FieldTimeOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons'
 import { checklistService } from '../../../services/checklist.service'
 import './styles.css'
+import { arrayRemove, generateId } from '../../../helpers'
 
 interface ChecklistProps {
     checklistData?: any
@@ -26,7 +27,6 @@ export default function Checklist(props: ChecklistProps) {
 
     useMemo(() => {
         const active = userChecklists.find((c: any) => c?.id === props.checklistData)
-        console.log('active', active)
         setActiveChecklist(active)
     }, [props.checklistData])
 
@@ -49,13 +49,36 @@ export default function Checklist(props: ChecklistProps) {
             {
                 title: newItemText,
                 isComplete: false,
+                key: generateId()
             }
         )
         if (cList._id) cList.id = cList._id
         cList.items = cListItems
         console.log('cList', cList)
+        setActiveChecklist(cList)
 
         store.dispatch(checklistActions.update(cList?.id , cList))
+    }
+
+
+    const deleteChecklistItem = (key: any) => {
+        const cList = {...activeChecklist}
+        let cListItems = [...cList?.items]
+        const cListToDelete = cListItems.find((c: any) => c?.key === key)
+        cListItems = arrayRemove(cListItems, cListToDelete)
+        cList.items = cListItems
+        setActiveChecklist(cList)
+
+        store.dispatch(checklistActions.update(cList?.id , cList))
+    }
+
+    const markItemAsCompleted = () => {
+        console.log('Item completed')
+
+    }
+
+    const markItemInProgress = () => {
+        console.log('item in progress')
     }
 
     function ChecklistItemRender() {
@@ -68,7 +91,7 @@ export default function Checklist(props: ChecklistProps) {
                 {
                     key: '1',
                     label: (
-                        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+                        <a onClick={() => console.log('Mark as Complete')}>
                             Mark as complete
                         </a>
                     ),
@@ -77,7 +100,7 @@ export default function Checklist(props: ChecklistProps) {
                 {
                     key: '2',
                     label: (
-                        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+                        <a onClick={() => console.log('Set As Active')}>
                             Set as Active
                         </a>
                     ),
@@ -86,7 +109,7 @@ export default function Checklist(props: ChecklistProps) {
                 {
                     key: '3',
                     label: (
-                        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+                        <a onClick={() => deleteChecklistItem(itm?.key)}>
                             Delete item
                         </a>
                     ),
