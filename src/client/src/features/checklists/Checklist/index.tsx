@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { store } from '../../../redux/store'
 import checklistActions from '../../../redux/actions/checklist'
 import { Button, Divider, Input, Tag } from 'antd'
-import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons'
+import { DownOutlined, EllipsisOutlined, PlusOutlined } from '@ant-design/icons'
 import { checklistService } from '../../../services/checklist.service'
 import './styles.css'
 
@@ -114,7 +114,7 @@ export default function Checklist(props: ChecklistProps) {
                         </div>
                         <div>
                             <Button size="small">
-                                <EllipsisOutlined/>
+                                <DownOutlined />
                             </Button>
                         </div>
                     </div>
