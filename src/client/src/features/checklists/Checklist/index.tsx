@@ -2,8 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { store } from '../../../redux/store'
 import checklistActions from '../../../redux/actions/checklist'
-import { Button, Divider, Input, Tag } from 'antd'
-import { DownOutlined, EllipsisOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Divider, Dropdown, Input, Tag } from 'antd'
+import type { MenuProps } from 'antd';
+import { CheckCircleOutlined, CloseCircleOutlined, DownOutlined, EllipsisOutlined, FieldTimeOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons'
 import { checklistService } from '../../../services/checklist.service'
 import './styles.css'
 
@@ -59,7 +60,39 @@ export default function Checklist(props: ChecklistProps) {
 
     function ChecklistItemRender() {
 
-        const items = activeChecklist?.items?.map((itm:any, i:any) => {
+
+
+        const itms = activeChecklist?.items?.map((itm:any, i:any) => {
+
+            const items: MenuProps['items'] = [
+                {
+                    key: '1',
+                    label: (
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+                            Mark as complete
+                        </a>
+                    ),
+                    icon: <CheckCircleOutlined />
+                },
+                {
+                    key: '2',
+                    label: (
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+                            Set as Active
+                        </a>
+                    ),
+                    icon: <FieldTimeOutlined />
+                },
+                {
+                    key: '3',
+                    label: (
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+                            Delete item
+                        </a>
+                    ),
+                    icon: <CloseCircleOutlined />
+                },
+            ];
 
             return (
                 <div 
@@ -113,9 +146,11 @@ export default function Checklist(props: ChecklistProps) {
                             <h5 className='m-0 p-0'>{itm?.title}</h5>
                         </div>
                         <div>
-                            <Button size="small">
-                                <DownOutlined />
-                            </Button>
+                            <Dropdown menu={{ items }} placement="bottomLeft">
+                                <Button size="small">
+                                    <DownOutlined />
+                                </Button>
+                            </Dropdown>
                         </div>
                     </div>
                 </div>
@@ -124,7 +159,7 @@ export default function Checklist(props: ChecklistProps) {
 
         return (
             <div className='w-100'>
-                {items}
+                {itms}
             </div>
         )
 
