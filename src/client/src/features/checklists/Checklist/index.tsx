@@ -48,7 +48,7 @@ export default function Checklist(props: ChecklistProps) {
         cListItems.push(
             {
                 title: newItemText,
-                isComplete: false,
+                state: 'incomplete',
                 key: generateId()
             }
         )
@@ -72,9 +72,32 @@ export default function Checklist(props: ChecklistProps) {
         store.dispatch(checklistActions.update(cList?.id , cList))
     }
 
-    const markItemAsCompleted = () => {
+    const markItemAsCompleted = (key: any) => {
         console.log('Item completed')
+        const cList = {...activeChecklist}
+        let cListItems = [...cList?.items]
+        let cListToUpdate = cListItems.find((c: any) => c?.key === key)
+        cListToUpdate.state = 'complete'
+        console.log('cListToUpdate', cListToUpdate)
+        console.log('cListItems', cListItems)
+        cList.items = cListItems
+        setActiveChecklist(cList)
 
+        store.dispatch(checklistActions.update(cList?.id , cList))
+    }
+
+    const markItemAsIncomplete = (key: any) => {
+        console.log('Item completed')
+        const cList = {...activeChecklist}
+        let cListItems = [...cList?.items]
+        let cListToUpdate = cListItems.find((c: any) => c?.key === key)
+        cListToUpdate.state = 'incomplete'
+        console.log('cListToUpdate', cListToUpdate)
+        console.log('cListItems', cListItems)
+        cList.items = cListItems
+        setActiveChecklist(cList)
+
+        store.dispatch(checklistActions.update(cList?.id , cList))
     }
 
     const markItemInProgress = () => {
@@ -91,7 +114,7 @@ export default function Checklist(props: ChecklistProps) {
                 {
                     key: '1',
                     label: (
-                        <a onClick={() => console.log('Mark as Complete')}>
+                        <a onClick={() => markItemAsCompleted(itm?.key)}>
                             Mark as complete
                         </a>
                     ),
@@ -100,6 +123,15 @@ export default function Checklist(props: ChecklistProps) {
                 {
                     key: '2',
                     label: (
+                        <a onClick={() => markItemAsIncomplete(itm?.key)}>
+                            Mark as incomplete
+                        </a>
+                    ),
+                    icon: <CheckCircleOutlined />
+                },
+                {
+                    key: '3',
+                    label: (
                         <a onClick={() => console.log('Set As Active')}>
                             Set as Active
                         </a>
@@ -107,7 +139,7 @@ export default function Checklist(props: ChecklistProps) {
                     icon: <FieldTimeOutlined />
                 },
                 {
-                    key: '3',
+                    key: '4',
                     label: (
                         <a onClick={() => deleteChecklistItem(itm?.key)}>
                             Delete item
@@ -134,21 +166,41 @@ export default function Checklist(props: ChecklistProps) {
                         }}
                     >
                         {
-                            itm?.isComplete
+                            itm?.state === 'complete'
                             ? (
                                 <Tag 
                                     color="blue" 
                                     className='complete-tag'
+                                    style={{
+                                        borderRadius: '10px',
+                                        height: '20px',
+                                        width: '20px',
+                                    }}
                                 />
                             )
                             : null
                         }
                         {
-                            !itm?.isComplete
+                            itm?.state === 'incomplete'
                             ? (
                                 <Tag 
                                     className='incomplete-tag'
                                     color="default" 
+                                    style={{
+                                        borderRadius: '10px',
+                                        height: '20px',
+                                        width: '20px',
+                                    }}
+                                />
+                            )
+                            : null
+                        }
+                        {
+                            itm?.state === 'in-progress'
+                            ? (
+                                <Tag 
+                                    className='incomplete-tag'
+                                    color="green" 
                                     style={{
                                         borderRadius: '10px',
                                         height: '20px',
