@@ -179,14 +179,15 @@ export default function Checklist(props: ChecklistProps) {
                             itm?.state === 'complete'
                             ? (
                                 <Tag 
-                                    color="blue" 
+                                    color="green" 
                                     className='complete-tag'
                                     style={{
                                         borderRadius: '10px',
                                         height: '20px',
                                         width: '20px',
+                                        display:'flex'
                                     }}
-                                />
+                                > </Tag>
                             )
                             : null
                         }
@@ -201,7 +202,7 @@ export default function Checklist(props: ChecklistProps) {
                                         height: '20px',
                                         width: '20px',
                                     }}
-                                />
+                                > </Tag>
                             )
                             : null
                         }
@@ -210,13 +211,13 @@ export default function Checklist(props: ChecklistProps) {
                             ? (
                                 <Tag 
                                     className='incomplete-tag'
-                                    color="green" 
+                                    color="blue" 
                                     style={{
                                         borderRadius: '10px',
                                         height: '20px',
                                         width: '20px',
                                     }}
-                                />
+                                >  </Tag>
                             )
                             : null
                         }

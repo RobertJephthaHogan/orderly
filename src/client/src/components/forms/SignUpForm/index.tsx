@@ -31,7 +31,8 @@ export default function SignUpForm() {
             'role': 'user',
             'todos': [],
             'accountsInfo': [],
-            'events': []
+            'events': [],
+            'settings': {}
         }
 
         let to_add : User  = JSON.parse(JSON.stringify(user_to_add_obj));

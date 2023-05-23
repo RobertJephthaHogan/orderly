@@ -19,6 +19,7 @@ import UserChecklists from "../pages/UserChecklists"
 import UserTables from "../pages/UserTables"
 import UserExercise from "../pages/UserExercise"
 import UserNutrition from "../pages/UserNutrition"
+import UserSettings from "../pages/UserSettings"
 
 
 const AppRouter: React.FC = () => {
@@ -45,6 +46,8 @@ const AppRouter: React.FC = () => {
 					<Route path="/exercise" element={<UserExercise />} />
 					<Route path="/nutrition" element={<UserNutrition />} />
 					<Route path="/tables" element={<UserTables />} />
+					<Route path="/settings" element={<UserSettings />} />
+
 				</Route>
 			</Route>
 

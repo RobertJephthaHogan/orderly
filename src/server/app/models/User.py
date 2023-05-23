@@ -15,9 +15,10 @@ class User(Document):
     events: list = Field(...)
     accountsInfo: list = Field(...)
     role: str = Field(...)
+    settings: Optional[dict] = Field(...)
 
     class Settings:
-        name = "users"
+        name = "User"
 
     class Config:
         schema_extra = {
@@ -31,7 +32,8 @@ class User(Document):
                 "todos": ["one", "two"],
                 "events": ["one", "two"],
                 "accountsInfo": ["one", "two"],
-                "role": "user"
+                "role": "user",
+                "settings": {}
             }
         }
 
@@ -57,6 +59,7 @@ class UserData(BaseModel):
     events: list = Field(...)
     accountsInfo: list = Field(...)
     role: str = Field(...)
+    settings: Optional[dict] = Field(...)
 
     class Config:
         schema_extra = {
@@ -70,7 +73,8 @@ class UserData(BaseModel):
                 "todos": ["one", "two"],
                 "events": ["one", "two"],
                 "accountsInfo": ["one", "two"],
-                "role": "user"
+                "role": "user",
+                "settings": {}
             }
         }
 
@@ -86,6 +90,7 @@ class UpdateUserModel(BaseModel):
     events: Optional[list]
     accountsInfo: Optional[list]
     role: Optional[str]
+    settings: Optional[dict]
 
     class Config:
         schema_extra = {
@@ -99,7 +104,8 @@ class UpdateUserModel(BaseModel):
                 "todos": ["one", "two"],
                 "events": ["one", "two"],
                 "accountsInfo": ["one", "two"],
-                "role": "user"
+                "role": "user",
+                "settings": {}
             }
         }
 

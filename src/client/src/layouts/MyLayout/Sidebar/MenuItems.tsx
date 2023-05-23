@@ -7,6 +7,7 @@ import {
     FileOutlined, 
     ReconciliationOutlined, 
     RocketOutlined, 
+    SettingOutlined, 
     SnippetsOutlined,
     TableOutlined, 
 } from "@ant-design/icons"
@@ -83,5 +84,12 @@ export const newMenuItems: any = [
         label: 'User Tables',
         route: '/tables',
         menuId: 'user-tables-menu-item',
+    },
+    {
+        key: 'user-settings',
+        icon: <SettingOutlined />,
+        label: 'User Settings',
+        route: '/settings',
+        menuId: 'user-settings-menu-item',
     },
 ]
