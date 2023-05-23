@@ -100,8 +100,18 @@ export default function Checklist(props: ChecklistProps) {
         store.dispatch(checklistActions.update(cList?.id , cList))
     }
 
-    const markItemInProgress = () => {
+    const markItemInProgress = (key: any) => {
         console.log('item in progress')
+        const cList = {...activeChecklist}
+        let cListItems = [...cList?.items]
+        let cListToUpdate = cListItems.find((c: any) => c?.key === key)
+        cListToUpdate.state = 'in-progress'
+        console.log('cListToUpdate', cListToUpdate)
+        console.log('cListItems', cListItems)
+        cList.items = cListItems
+        setActiveChecklist(cList)
+
+        store.dispatch(checklistActions.update(cList?.id , cList))
     }
 
     function ChecklistItemRender() {
@@ -132,7 +142,7 @@ export default function Checklist(props: ChecklistProps) {
                 {
                     key: '3',
                     label: (
-                        <a onClick={() => console.log('Set As Active')}>
+                        <a onClick={() => markItemInProgress(itm?.key)}>
                             Set as Active
                         </a>
                     ),
