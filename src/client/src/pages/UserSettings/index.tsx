@@ -12,18 +12,41 @@ export default function UserSettings() {
             </div>
             <div>
                 <div className='user-info-card  mb-1'>
-                    User information card
-                    Height
-                    Weight
-                    body fat percentage
-                    target Weight
-                    target bfp
+                    <div>
+                        User information card
+                    </div>
+                    <div className='divider' />
+                    <div>
+                        Height
+                    </div>
+                    <div>
+                        Weight
+                    </div>
+                    <div>
+                        Body Fat Percentage
+                    </div>
+                    <div>
+                        Target Weight
+                    </div>
+                    <div>
+                        Target BFP
+                    </div>
+                    
                 </div>
                 <div className='user-info-card  mb-1'>
-                    User nutrition settings card
-                    water intake goals
-                    calorie goals
-                    macro goals
+                    <div>
+                        User nutrition settings card
+                    </div>
+                    <div className='divider' />
+                    <div>
+                        water intake goals
+                    </div>
+                    <div>
+                        calorie goals
+                    </div>
+                    <div>
+                        macro goals
+                    </div>
 
                 </div>
                 <div className='user-info-card  mb-1'>
