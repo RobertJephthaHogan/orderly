@@ -6,6 +6,7 @@ import checklistActions from '../../redux/actions/checklist'
 import ChecklistMenu from '../../features/checklists/ChecklistMenu'
 import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import widgetActions from '../../redux/actions/widget'
 
 
 
@@ -24,7 +25,10 @@ export default function UserChecklists() {
     return (
         <div className='user-checklists-component'>
             <div className='p-1'>
-                <Button className='w-100'>
+                <Button 
+                    className='w-100'
+                    onClick={() => store.dispatch(widgetActions.showChecklistWidget())}
+                >
                     <PlusOutlined/>
                 </Button>
             </div>
