@@ -37,7 +37,7 @@ export default function ChecklistWidget() {
     ]
 
     return (
-        <Draggable>
+        <Draggable handle='.checklist-widget-header'>
             <div className='checklist-widget'>
                 <div className='checklist-widget-header'>
                     <div className='flex'>
