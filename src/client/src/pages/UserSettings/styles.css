@@ -17,3 +17,11 @@
     background-color: #ffffff;
     border: 1px solid #dfdfdf;
 }
+
+.edit-icon {
+    display: none;
+}
+
+.info-row:hover .edit-icon {
+    display: block; /* Show the child div when parent is being hovered over */
+}
