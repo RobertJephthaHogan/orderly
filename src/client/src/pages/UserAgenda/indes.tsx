@@ -140,6 +140,9 @@ export default function UserAgenda() {
             <div className='flex w-100 '>
                 <div className='w-20 m-1'>
                     <div className='agenda-body-card  mb-1'>
+                        Routine Card
+                    </div>
+                    <div className='agenda-body-card  mb-1'>
                         Tasks Card
                     </div>
                     <div className='agenda-body-card  mb-1'>

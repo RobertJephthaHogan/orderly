@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles.css'
+import { useSelector } from 'react-redux'
+import { store } from '../../redux/store'
+import checklistActions from '../../redux/actions/checklist'
+import ChecklistMenu from '../../features/checklists/ChecklistMenu'
+import { Button } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 
 
 
 export default function UserChecklists() {
 
+    const currentUser = useSelector((state: any) => state.user?.data ?? [])
+    const userChecklists = useSelector((state: any) => state.checklists?.queryResult ?? [])
+
+    
+    useEffect(() => {
+        store.dispatch(checklistActions.setChecklists(currentUser?._id))
+    }, [currentUser])
+
+    console.log('userChecklists', userChecklists)
+
     return (
-        <div>
-            User Checklists
+        <div className='user-checklists-component'>
+            <div className='p-1'>
+                <Button className='w-100'>
+                    <PlusOutlined/>
+                </Button>
+            </div>
             <div className='w-100 flex'>
-                <div className='w-30'>
-                    Checklist by category
+                <div className='w-30 p-1'>
+                    <ChecklistMenu/>
                 </div>
-                <div className='w-70'>
+                <div className='w-70 p-1'>
                     Checklist area
                 </div>
             </div>
