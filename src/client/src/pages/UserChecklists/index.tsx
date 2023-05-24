@@ -22,6 +22,8 @@ export default function UserChecklists() {
 
     console.log('userChecklists', userChecklists)
 
+    
+
     return (
         <div className='user-checklists-component'>
             <div className='p-1'>
@@ -34,7 +36,9 @@ export default function UserChecklists() {
             </div>
             <div className='w-100 flex'>
                 <div className='w-30 p-1'>
-                    <ChecklistMenu/>
+                    <ChecklistMenu
+                        onSelect={(e: any) => console.log('onSelect',e)}
+                    />
                 </div>
                 <div className='w-70 p-1'>
                     Checklist area
