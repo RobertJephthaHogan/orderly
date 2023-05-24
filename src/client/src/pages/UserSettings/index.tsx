@@ -17,6 +17,21 @@ export default function UserSettings() {
                     </div>
                     <div className='divider' />
                     <div>
+                        First Name
+                    </div>
+                    <div>
+                        Last Name
+                    </div>
+                    <div>
+                        Email
+                    </div>
+                    <div>
+                        Password
+                    </div>
+                    <div>
+                        Phone Number
+                    </div>
+                    <div>
                         Height
                     </div>
                     <div>

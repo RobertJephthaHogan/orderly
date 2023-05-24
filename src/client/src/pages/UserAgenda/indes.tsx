@@ -139,18 +139,18 @@ export default function UserAgenda() {
             </div>
             <div className='flex w-100 '>
                 <div className='w-20 m-1'>
-                    <div className='agenda-body-card'>
+                    <div className='agenda-body-card  mb-1'>
                         Tasks Card
                     </div>
-                    <div className='agenda-body-card'>
+                    <div className='agenda-body-card  mb-1'>
                         Events Card
                     </div>
-                    <div className='agenda-body-card'>
+                    <div className='agenda-body-card  mb-1'>
                         Projects Card
                     </div>
                 </div>
                 <div className='w-40 m-1'>
-                    <div className='agenda-body-card'>
+                    <div className='agenda-body-card mb-1'>
                         <ChecklistCard
                             agendaChecklists={agendaChecklists}
                             parent={selectedAgenda}
