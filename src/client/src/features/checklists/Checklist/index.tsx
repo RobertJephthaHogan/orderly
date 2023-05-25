@@ -41,7 +41,6 @@ export default function Checklist(props: ChecklistProps) {
     }
 
     const addNewChecklistItem = () => {
-        console.log('add checklist item')
         setShowEditableRow(false)
         const cList = {...activeChecklist}
         const cListItems = [...cList?.items]
@@ -54,7 +53,6 @@ export default function Checklist(props: ChecklistProps) {
         )
         if (cList._id) cList.id = cList._id
         cList.items = cListItems
-        console.log('cList', cList)
         setActiveChecklist(cList)
 
         store.dispatch(checklistActions.update(cList?.id , cList))
@@ -73,13 +71,10 @@ export default function Checklist(props: ChecklistProps) {
     }
 
     const markItemAsCompleted = (key: any) => {
-        console.log('Item completed')
         const cList = {...activeChecklist}
         let cListItems = [...cList?.items]
         let cListToUpdate = cListItems.find((c: any) => c?.key === key)
         cListToUpdate.state = 'complete'
-        console.log('cListToUpdate', cListToUpdate)
-        console.log('cListItems', cListItems)
         cList.items = cListItems
         setActiveChecklist(cList)
 
@@ -87,13 +82,10 @@ export default function Checklist(props: ChecklistProps) {
     }
 
     const markItemAsIncomplete = (key: any) => {
-        console.log('Item completed')
         const cList = {...activeChecklist}
         let cListItems = [...cList?.items]
         let cListToUpdate = cListItems.find((c: any) => c?.key === key)
         cListToUpdate.state = 'incomplete'
-        console.log('cListToUpdate', cListToUpdate)
-        console.log('cListItems', cListItems)
         cList.items = cListItems
         setActiveChecklist(cList)
 
@@ -101,13 +93,10 @@ export default function Checklist(props: ChecklistProps) {
     }
 
     const markItemInProgress = (key: any) => {
-        console.log('item in progress')
         const cList = {...activeChecklist}
         let cListItems = [...cList?.items]
         let cListToUpdate = cListItems.find((c: any) => c?.key === key)
         cListToUpdate.state = 'in-progress'
-        console.log('cListToUpdate', cListToUpdate)
-        console.log('cListItems', cListItems)
         cList.items = cListItems
         setActiveChecklist(cList)
 
@@ -252,7 +241,7 @@ export default function Checklist(props: ChecklistProps) {
     }
 
     return (
-        <div>
+        <div className='p-2'>
             <div className='flex w-100 jc-sb pt-2'>
                 <div>
                     Title: {activeChecklist?.title}

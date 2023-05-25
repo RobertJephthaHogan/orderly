@@ -56,7 +56,7 @@ export default function ChecklistMenu (props: ChecklistProps) {
                 </div>
             </div>
             <div className='divider'/>
-            <div>
+            <div className='pl-2 pt-2'>
                 {
                     menuView == 'daily'
                     ? (
