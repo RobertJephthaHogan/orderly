@@ -28,6 +28,7 @@ export default function UserAgenda() {
 	const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
     const userChecklists = useSelector((state: any) => state.checklists?.queryResult ?? [])
     const userAgendas = useSelector((state: any) => state.agendas?.queryResult ?? [])
+    const [agendaCreated, setAgendaCreated] = useState<boolean>(false)
 
     const [tasksDueToday, setTasksDueToday] = useState<any>()
     const [todaysEvents, setTodaysEvents] = useState<any>()
@@ -90,6 +91,8 @@ export default function UserAgenda() {
 
 
     function createUserAgenda() {
+
+        setAgendaCreated(true)
 
         const newAgendaID = new ObjectID().toString()
 
