@@ -101,8 +101,9 @@ export default function UserAgenda() {
             createdByUserId : currentUser._id,
             agendaDate: selectedDay.toJSON()
         }
-        store.dispatch(agendaActions.add(agenda_dto))
         setSelectedAgenda(agenda_dto)
+        store.dispatch(agendaActions.add(agenda_dto))
+        
 
         // const checklist_dto = {
         //     parent: newAgendaID,

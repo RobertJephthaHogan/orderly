@@ -42,6 +42,7 @@ export default function ChecklistCard(props: CardProps) {
 
         console.log('dto', dto)
         store.dispatch(checklistActions.add(dto))
+        setActiveChecklist(dto)
     }
 
     useEffect(() => {
