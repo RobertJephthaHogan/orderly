@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { store } from '../../../redux/store'
 import checklistActions from '../../../redux/actions/checklist'
-import { Button, Divider, Dropdown, Input, Tag } from 'antd'
+import { Button, Divider, Dropdown, Input, Progress, Tag } from 'antd'
 import type { MenuProps } from 'antd';
-import { CheckCircleOutlined, CloseCircleOutlined, DownOutlined, EllipsisOutlined, FieldTimeOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons'
+import { CheckCircleOutlined, CloseCircleOutlined, DownOutlined, EditOutlined, EllipsisOutlined, FieldTimeOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons'
 import { checklistService } from '../../../services/checklist.service'
 import './styles.css'
 import { arrayRemove, generateId } from '../../../helpers'
@@ -20,6 +20,7 @@ export default function Checklist(props: ChecklistProps) {
     const [activeChecklist, setActiveChecklist] = useState<any>()
     const [showEditableRow, setShowEditableRow] = useState<any>(false)
     const [newItemText, setNewItemText] = useState<any>()
+    const [pctComplete, setPctComplete] = useState<any>(0)
 
     useEffect(() => {
         store.dispatch(checklistActions.setChecklists(currentUser?._id))
@@ -29,6 +30,12 @@ export default function Checklist(props: ChecklistProps) {
         const active = userChecklists.find((c: any) => c?.id === props.checklistData)
         setActiveChecklist(active)
     }, [props.checklistData])
+
+    useMemo(() => {
+        const completeItems = activeChecklist?.items?.filter((itm: any) => itm.state === 'complete')
+        const pctComp = (completeItems?.length / activeChecklist?.items?.length) * 100
+        setPctComplete(pctComp)
+    }, [activeChecklist?.items])
 
     const enterNewChecklistItem = () => {
         console.log('enter checklist item')
@@ -103,6 +110,10 @@ export default function Checklist(props: ChecklistProps) {
         store.dispatch(checklistActions.update(cList?.id , cList))
     }
 
+    const editChecklistItem = (key: any) => {
+        console.log('key', key)
+    }
+
     function ChecklistItemRender() {
 
 
@@ -139,6 +150,15 @@ export default function Checklist(props: ChecklistProps) {
                 },
                 {
                     key: '4',
+                    label: (
+                        <a onClick={() => editChecklistItem(itm?.key)}>
+                            Edit item
+                        </a>
+                    ),
+                    icon: <EditOutlined />
+                },
+                {
+                    key: '5',
                     label: (
                         <a onClick={() => deleteChecklistItem(itm?.key)}>
                             Delete item
@@ -245,6 +265,7 @@ export default function Checklist(props: ChecklistProps) {
             <div className='flex w-100 jc-sb pt-2'>
                 <div>
                     Title: {activeChecklist?.title}
+                    <Progress size="small" percent={pctComplete} status="active" />
                 </div>
                 <div>
                     <Button
