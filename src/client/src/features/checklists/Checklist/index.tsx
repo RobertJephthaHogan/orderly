@@ -4,7 +4,7 @@ import { store } from '../../../redux/store'
 import checklistActions from '../../../redux/actions/checklist'
 import { Button, Divider, Dropdown, Input, Progress, Tag } from 'antd'
 import type { MenuProps } from 'antd';
-import { CheckCircleOutlined, CloseCircleOutlined, DownOutlined, EditOutlined, EllipsisOutlined, FieldTimeOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons'
+import { CheckCircleOutlined, CloseCircleOutlined, CloseOutlined, DownOutlined, EditOutlined, EllipsisOutlined, FieldTimeOutlined, PlusOutlined, SaveOutlined, UserOutlined } from '@ant-design/icons'
 import { checklistService } from '../../../services/checklist.service'
 import './styles.css'
 import { arrayRemove, generateId } from '../../../helpers'
@@ -21,6 +21,8 @@ export default function Checklist(props: ChecklistProps) {
     const [showEditableRow, setShowEditableRow] = useState<any>(false)
     const [newItemText, setNewItemText] = useState<any>()
     const [pctComplete, setPctComplete] = useState<any>(0)
+    const [editingKey, setEditingKey] = useState<any>()
+    const [editingText, setEditingText] = useState<any>('')
 
     useEffect(() => {
         store.dispatch(checklistActions.setChecklists(currentUser?._id))
@@ -46,6 +48,17 @@ export default function Checklist(props: ChecklistProps) {
         console.log('value', value)
         setNewItemText(value)
     }
+
+    const onChecklistItemEdit = (value: any) => {
+        console.log('value', value)
+        setEditingText(value)
+        // const input = document.getElementById('editableChecklistInput')
+        // input?.focus()
+    }
+
+    const handleInputFocus = (event: any) => {
+        event.target.focus();
+    };
 
     const addNewChecklistItem = () => {
         setShowEditableRow(false)
@@ -112,6 +125,25 @@ export default function Checklist(props: ChecklistProps) {
 
     const editChecklistItem = (key: any) => {
         console.log('key', key)
+        setEditingKey(key)
+        const cList = {...activeChecklist}
+        const cListItems = [...cList?.items]
+
+        const oldItem = cListItems.find((itm:any) => itm.key === key)
+        setEditingText(oldItem?.title)
+    }
+
+    const saveEditedChecklist = () => {
+        const cList = {...activeChecklist}
+        const cListItems = [...cList?.items]
+
+        const oldItem = cListItems.find((itm:any) => itm.key === editingKey)
+        oldItem.title = editingText
+        cList.items = cListItems
+        setActiveChecklist(cList)
+        store.dispatch(checklistActions.update(cList?.id , cList))
+        setEditingKey(null)
+        setEditingText(null)
     }
 
     function ChecklistItemRender() {
@@ -238,14 +270,42 @@ export default function Checklist(props: ChecklistProps) {
                                 alignItems: 'center'
                             }}
                         >
-                            <h5 className='m-0 p-0'>{itm?.title}</h5>
+                            <h5 className='m-0 p-0'>
+                                { 
+                                    editingKey != itm?.key
+                                    ? itm?.title
+                                    : (
+                                        <Input
+                                            id='editableChecklistInput'
+                                            value={editingText}
+                                            onChange={(e) => onChecklistItemEdit(e?.target?.value)}
+                                            onFocus={handleInputFocus}
+                                        />
+                                    )
+                                }
+                            </h5>
                         </div>
                         <div>
-                            <Dropdown menu={{ items }} placement="bottomLeft">
-                                <Button size="small">
-                                    <DownOutlined />
-                                </Button>
-                            </Dropdown>
+                            {
+                                editingKey != itm?.key
+                                ? (
+                                    <Dropdown menu={{ items }} placement="bottomLeft">
+                                        <Button size="small">
+                                            <DownOutlined />
+                                        </Button>
+                                    </Dropdown>
+                                )
+                                : (
+                                    <div>
+                                        <Button size="small" onClick={() => saveEditedChecklist()}>
+                                            <SaveOutlined />
+                                        </Button>
+                                        <Button size="small" onClick={() => setEditingKey(null)}>
+                                            <CloseOutlined />
+                                        </Button>
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
