@@ -251,7 +251,7 @@ export default function Checklist(props: ChecklistProps) {
                             itm?.state === 'in-progress'
                             ? (
                                 <Tag 
-                                    className='incomplete-tag'
+                                    className='in-progress-tag'
                                     color="blue" 
                                     style={{
                                         borderRadius: '10px',

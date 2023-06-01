@@ -5,6 +5,7 @@ import Draggable from 'react-draggable'
 import { Button, Tabs } from 'antd'
 import { CloseOutlined } from '@ant-design/icons'
 import './styles.css'
+import IntakeForm from '../../../components/forms/IntakeForm'
 
 
 
@@ -20,7 +21,7 @@ export default function IntakeWidget() {
             key: 'Intake Form',
             children: (
                 <div>
-                    Intake Form Will be here ----------
+                    <IntakeForm/>
                 </div>
             )
         },
@@ -36,7 +37,7 @@ export default function IntakeWidget() {
     ]
 
     return (
-        <Draggable>
+        <Draggable handle='.intake-widget-header'>
             <div className='intake-widget'>
                 <div className='intake-widget-header'>
                     <div className='flex'>
