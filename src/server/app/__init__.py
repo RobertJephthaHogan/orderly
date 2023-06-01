@@ -7,6 +7,8 @@ from .services.project.routes import router as ProjectRouter
 from .services.note.routes import router as NoteRouter
 from .services.agenda.routes import router as AgendaRouter
 from .services.checklist.routes import router as ChecklistRouter
+from .services.intake.routes import router as IntakeRouter
+
 
 from .config import initiate_database
 
@@ -49,3 +51,4 @@ app.include_router(ProjectRouter, tags=["Project"], prefix="/project")
 app.include_router(NoteRouter, tags=["Note"], prefix="/note")
 app.include_router(AgendaRouter, tags=["Agenda"], prefix="/agenda")
 app.include_router(ChecklistRouter, tags=["Checklist"], prefix="/checklist")
+app.include_router(IntakeRouter, tags=["Intake"], prefix="/intake")
