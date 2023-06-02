@@ -27,3 +27,8 @@ input[type=text], select {
     border-radius: 4px;
     border-radius: border-box;
 }
+
+
+.datepicker-pop-up {
+    z-index: 3000;
+}

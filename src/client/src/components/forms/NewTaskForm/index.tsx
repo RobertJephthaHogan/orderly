@@ -176,6 +176,7 @@ export default function NewTaskForm(props: TaskFormProps) {
                         >
                             <DatePicker
                                 placeholder='Select Due Date'
+                                popupClassName='datepicker-pop-up'
                                 format="YYYY-MM-DD HH:mm:ss"
                                 showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                                 use12Hours
