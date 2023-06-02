@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Empty, Input } from 'antd'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 
@@ -31,16 +31,28 @@ export default function IntakeForm() {
         setEditingIndex(workingIngredients?.length)
     }
 
+    useMemo(() => {
+        console.log('formValues', formValues)
+    }, [formValues])
+
 
     function IngredientInput() {
 
         const [editingSubject, setEditingSubject] = useState<any>({})
 
-        const onChange = (value: any, field: string) => {
+        const onIngredientChange = (value: any, field: string) => {
             const workingObj = {...editingSubject}
             workingObj[field] = value
             console.log('workingObj', workingObj)
             setEditingSubject(workingObj)
+        }
+
+        const handleAddIngredient = () => {
+            const existing = {...formValues}
+            existing.ingredients = [...existing?.ingredients, editingSubject]
+            setFormValues(existing)
+            setIngredients([])
+            setEditingIndex(null)
         }
 
         return (
@@ -49,36 +61,36 @@ export default function IntakeForm() {
                     <Input
                         placeholder='Title'
                         className='m-1'
-                        onChange={(e) => onChange(e?.target?.value, 'title')}
+                        onChange={(e) => onIngredientChange(e?.target?.value, 'title')}
                     />
                     <Input
                         placeholder='Serving Size'
                         className='m-1'
-                        onChange={(e) => onChange(e?.target?.value, 'servingSize')}
+                        onChange={(e) => onIngredientChange(e?.target?.value, 'servingSize')}
                     />
                     <Input
                         placeholder='Calories'
                         className='m-1'
-                        onChange={(e) => onChange(e?.target?.value, 'calories')}
+                        onChange={(e) => onIngredientChange(e?.target?.value, 'calories')}
                     />
                     <Input
                         placeholder='Protein'
                         className='m-1'
-                        onChange={(e) => onChange(e?.target?.value, 'protein')}
+                        onChange={(e) => onIngredientChange(e?.target?.value, 'protein')}
                     />
                     <Input
                         placeholder='Carbs'
                         className='m-1'
-                        onChange={(e) => onChange(e?.target?.value, 'carbs')}
+                        onChange={(e) => onIngredientChange(e?.target?.value, 'carbs')}
                     />
                     <Input
                         placeholder='Fat'
                         className='m-1'
-                        onChange={(e) => onChange(e?.target?.value, 'fat')}
+                        onChange={(e) => onIngredientChange(e?.target?.value, 'fat')}
                     />
                 </div>
                 <div className='pt-1 pl-4 pr-4'>
-                    <Button className='w-100' size='small'>
+                    <Button className='w-100' size='small' onClick={handleAddIngredient}>
                         Add Ingredient to Intake
                     </Button>
                 </div>
@@ -103,13 +115,17 @@ export default function IntakeForm() {
                 <DatePicker 
                     placeholder='Date'
                     className='w-100'
-                    onChange={(value) => onChange(value, 'date')}
+                    onChange={(value: any) => onChange(new Date(value).toJSON(), 'date')}
                 />
             </div>
             <div className='p-1'>
                 <div>
                 Ingredients
-                {!ingredients?.length && <Empty/>}
+                {
+                    !ingredients?.length 
+                    && !formValues?.ingredients?.length
+                    && <Empty/>
+                    }
                 {
                     editingIndex !== null
                     ? (
