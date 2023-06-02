@@ -11,6 +11,7 @@ import agendaReducer from './agenda'
 
 import initialState from '../initialState'
 import * as types from '../types'
+import intakeReducer from './intake'
 
 
 
@@ -24,7 +25,7 @@ const appReducers = combineReducers({
   widgets: widgetReducer,
   checklists: checklistReducer,
   agendas: agendaReducer,
-
+  intakes: intakeReducer,
 })
 
 

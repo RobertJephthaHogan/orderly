@@ -4,6 +4,8 @@ import { ObjectID } from 'bson'
 import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './styles.css'
+import { store } from '../../../redux/store'
+import intakeActions from '../../../redux/actions/intake'
 
 
 
@@ -40,6 +42,8 @@ export default function IntakeForm() {
         dto['hasBeenConsumed'] = false
 
         console.log('dto', dto)
+
+        store.dispatch(intakeActions.add(dto))
     }
 
     useMemo(() => {
@@ -196,7 +200,7 @@ export default function IntakeForm() {
                     popupClassName='datepicker-pop-up'
                     placeholder='Date'
                     className='w-100'
-                    onChange={(value: any) => onChange(new Date(value).toJSON(), 'date')}
+                    onChange={(value: any) => onChange(new Date(value).toJSON(), 'time')}
                 />
             </div>
             <div className='p-1'>

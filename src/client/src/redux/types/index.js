@@ -48,6 +48,12 @@ export const ADD_AGENDA = 'ADD_AGENDA'
 export const DELETE_AGENDA = 'DELETE_AGENDA'
 export const UPDATE_AGENDA = 'UPDATE_AGENDA'
 
+// Intakes
+export const SET_INTAKES = 'SET_INTAKES'
+export const ADD_INTAKE = 'ADD_INTAKE'
+export const DELETE_INTAKE = 'DELETE_INTAKE'
+export const UPDATE_INTAKE = 'UPDATE_INTAKE'
+
 
 // Settings
 export const SHOW_LOADING = 'SHOW_LOADING'

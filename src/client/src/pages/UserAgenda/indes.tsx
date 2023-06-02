@@ -10,6 +10,7 @@ import checklistActions from '../../redux/actions/checklist'
 import agendaActions from '../../redux/actions/agenda'
 import { ObjectID } from 'bson'
 import ChecklistCard from '../../features/agenda/ChecklistCard'
+import intakeActions from '../../redux/actions/intake'
 
 
 
@@ -28,6 +29,8 @@ export default function UserAgenda() {
 	const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
     const userChecklists = useSelector((state: any) => state.checklists?.queryResult ?? [])
     const userAgendas = useSelector((state: any) => state.agendas?.queryResult ?? [])
+    const userIntakes = useSelector((state: any) => state.intakes?.queryResult ?? [])
+
     const [agendaCreated, setAgendaCreated] = useState<boolean>(false)
 
     const [tasksDueToday, setTasksDueToday] = useState<any>()
@@ -57,6 +60,7 @@ export default function UserAgenda() {
         store.dispatch(noteActions.setNotes(currentUser?._id))
         store.dispatch(checklistActions.setChecklists(currentUser?._id))
         store.dispatch(agendaActions.setAgendas(currentUser?._id))
+        store.dispatch(intakeActions.setIntakes(currentUser?._id))
     }, [currentUser])
 
 

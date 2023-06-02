@@ -10,6 +10,7 @@ export default {
     notes: [],
     checklists: [],
     agendas: [],
+    intakes: [],
     settings: {
         loading: false,
         theme: 'light',
