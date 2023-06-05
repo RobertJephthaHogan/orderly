@@ -197,6 +197,7 @@ export default function IntakeForm() {
             </div>
             <div className='p-1'>
                 <DatePicker 
+                    showTime 
                     popupClassName='datepicker-pop-up'
                     placeholder='Date'
                     className='w-100'
