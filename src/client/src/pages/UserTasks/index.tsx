@@ -23,6 +23,11 @@ export default function UserTasks() {
 	const currentUser = useSelector((state: any) => state.user?.data ?? [])
 
 
+	useEffect(() => {
+		console.log('selectedCategory', selectedCategory)
+	}, [selectedCategory])
+
+
 	useEffect(() => { // get tasks on mount
 		store.dispatch(taskActions.setToDos(currentUser._id))
 	}, [])

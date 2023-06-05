@@ -6,11 +6,17 @@ import taskActions from '../../../redux/actions/tasks'
 
 
 
+interface TasksByTimelineProps {
+    setSelectedCategory?: any
+}
+
 export default function TasksByTimelineMenu() {
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
     const [sortedTasks, setSortedTasks] = useState<any>()
+
+
 
     useEffect(() => {
         store.dispatch(taskActions.setToDos(currentUser?._id))
@@ -18,6 +24,7 @@ export default function TasksByTimelineMenu() {
 
     function isDateAfterWithinDays(date1: any, date2: any, numDays: any) {
         const timeDifference = date1.getTime() - date2.getTime();
+        console.log('timeDifference', timeDifference)
         const daysInMillis = numDays * 24 * 60 * 60 * 1000;
         return timeDifference > 0 && timeDifference <= daysInMillis;
     }
@@ -29,7 +36,7 @@ export default function TasksByTimelineMenu() {
         let dueWithinThirty: any = []
 
         let workingTasks = [...userTasks]
-        workingTasks = workingTasks.filter((tsk: any) => tsk.isCompleted)
+        workingTasks = workingTasks.filter((tsk: any) => !tsk.isCompleted)
 
         workingTasks?.forEach((tsk: any) => {
             const todaysDate = new Date()

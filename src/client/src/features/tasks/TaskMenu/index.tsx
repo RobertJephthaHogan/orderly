@@ -14,15 +14,14 @@ const TaskMenuRender : React.FC<Props> = ({
     setSelectedCategory,
 }) => {
 
-    const taskCategoriesMenu = Object.entries(sortedTasks)?.map((project: any) => {
+    const taskCategoriesMenu = Object.entries(sortedTasks)?.map((category: any) => {
         return (
             <div 
                 className='flex w-100 brdr-b pt-1 pmenu-item'
-                data-value={project}
-                onClick={() => setSelectedCategory(project)}
-                key={`${project?.[0]}`}
+                onClick={() => setSelectedCategory(category)}
+                key={`${category?.[0]}`}
             >
-                <h5 className='ml-2'>{project?.[0]}</h5><h5 className='ml-1'>{`(${project?.[1]?.length})`}</h5>
+                <h5 className='ml-2'>{category?.[0]}</h5><h5 className='ml-1'>{`(${category?.[1]?.length})`}</h5>
             </div>
         )
     }) || []
