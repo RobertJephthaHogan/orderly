@@ -10,13 +10,11 @@ interface TasksByTimelineProps {
     setSelectedCategory?: any
 }
 
-export default function TasksByTimelineMenu() {
+export default function TasksByTimelineMenu(props: TasksByTimelineProps) {
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
     const [sortedTasks, setSortedTasks] = useState<any>()
-
-
 
     useEffect(() => {
         store.dispatch(taskActions.setToDos(currentUser?._id))
@@ -31,9 +29,10 @@ export default function TasksByTimelineMenu() {
 
     useEffect(() => {
 
-        let overdueTasks: any = []
+        let overdue: any = []
         let dueWithinSeven: any = []
         let dueWithinThirty: any = []
+        let dueToday: any = []
 
         let workingTasks = [...userTasks]
         workingTasks = workingTasks.filter((tsk: any) => !tsk.isCompleted)
@@ -42,43 +41,39 @@ export default function TasksByTimelineMenu() {
             const todaysDate = new Date()
             const taskDueDate = new Date(tsk?.dueDate)
 
-            // console.log('todaysDate', todaysDate)
-            // console.log('taskDueDate', taskDueDate)
-
             if (todaysDate > taskDueDate) {
                 console.log('overdue@!')
-                overdueTasks.push(tsk)
+                overdue.push(tsk)
+
             } else if (isDateAfterWithinDays(taskDueDate, todaysDate, 7)) {
                 console.log('within 7 days')
                 dueWithinSeven.push(tsk)
-                // console.log('taskDueDate', taskDueDate)
-                // console.log('todaysDate', todaysDate)
+
             }  else if (isDateAfterWithinDays(taskDueDate, todaysDate, 30)) {
                 console.log('within 30 days')
                 dueWithinThirty.push(tsk)
-                // console.log('taskDueDate', taskDueDate)
-                // console.log('todaysDate', todaysDate)
+
+            }   else if (isDateAfterWithinDays(taskDueDate, todaysDate, 1)) {
+                console.log('within 1 days')
+                dueToday.push(tsk)
+
             } else {
                 console.log('not')
             }
 
             const sorted = {
-                overdue: overdueTasks,
-                dueWithinSeven: dueWithinSeven,
-                dueWithinThirty: dueWithinThirty
+                overdue,
+                dueWithinSeven,
+                dueWithinThirty,
+                dueToday
             }
+            
             setSortedTasks(sorted)
             
         })
 
-
     }, [userTasks])
 
-    console.log('userTasks', userTasks)
-    console.log('sortedTasks', sortedTasks)
-    // TODO: 
-        // Go Through all the tasks and compare date to dueDate
-        // Sort Accordingly
 
     return (
         <div className='tasks-by-timeline-menu'>
@@ -86,19 +81,19 @@ export default function TasksByTimelineMenu() {
                 <h4 className='p-1 m-0'>Tasks By Timeline </h4>
             </div>
             <div className='divider' />
-            <div className='timegroup-option hcp p-1'>
-                <h5 className='m-0 p-0'>Due Today</h5>
+            <div className='timegroup-option hcp p-1' onClick={() => props?.setSelectedCategory([['Due Today'], sortedTasks?.dueToday])}>
+                <h5 className='m-0 p-0'>Due Today {`(${sortedTasks?.dueToday?.length})`}</h5>
             </div>
             <div className='divider' />
-            <div  className='timegroup-option hcp p-1'>
+            <div  className='timegroup-option hcp p-1' onClick={() => props?.setSelectedCategory([['Due within 7 days'], sortedTasks?.dueWithinSeven])}>
                 <h5 className='m-0 p-0'>Due within 7 days {`(${sortedTasks?.dueWithinSeven?.length})`}</h5>
             </div>
             <div className='divider' />
-            <div  className='timegroup-option hcp p-1'>
+            <div  className='timegroup-option hcp p-1' onClick={() => props?.setSelectedCategory([['Due within 30 days'], sortedTasks?.dueWithinThirty])}>
                 <h5 className='m-0 p-0'> Due within 30 days {`(${sortedTasks?.dueWithinThirty?.length})`}</h5>
             </div>
             <div className='divider' />
-            <div  className='timegroup-option hcp p-1'>
+            <div  className='timegroup-option hcp p-1' onClick={() => props?.setSelectedCategory([['Overdue'], sortedTasks?.overdue])}>
                 <h5 className='m-0 p-0'>Overdue {`(${sortedTasks?.overdue?.length})`}</h5>
             </div>
         </div>

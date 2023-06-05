@@ -111,7 +111,7 @@ export default function UserTasks() {
 					</div>
 					<div className='p-1'>
 						<TasksByTimelineMenu
-						
+							setSelectedCategory={setSelectedCategory}
 						/>
 					</div>
 				</div>
