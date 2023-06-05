@@ -16,6 +16,8 @@ export default function IntakeCard() {
     const [selectedDay, setSelectedDay] = useState<any>(new Date())
     const [intakesForSelectedDate, setIntakesForSelectedDate] = useState<any>()
     const [intakeRows, setIntakeRows] = useState<any>()
+    const [nutrientTotals, setNutrientTotals] = useState<any>()
+
 
         
     function datesMatch(date1: any, date2: any) {
@@ -36,10 +38,44 @@ export default function IntakeCard() {
         setIntakesForSelectedDate(currentIntakes)
     }, [userIntakes])
 
+    useMemo(() => {
+        // When intakesForSelectedDate updates, recalculate the nutrient totals
+        const intakeNutrients = intakesForSelectedDate?.map((intake:any) => {
+
+            return (
+                {
+                    intakeCalories: sumArrayElements(intake?.ingredients?.map((intake: any) => intake?.calories)),
+                    intakeProtein: sumArrayElements(intake?.ingredients?.map((intake: any) => intake?.protein)),
+                    intakeCarbs: sumArrayElements(intake?.ingredients?.map((intake: any) => intake?.carbs)),
+                    intakeFat: sumArrayElements(intake?.ingredients?.map((intake: any) => intake?.fat)),
+                }
+            )
+        }) || []
+
+        setNutrientTotals({
+            calories: sumArrayElements(intakeNutrients?.map((intake: any) => intake?.intakeCalories)),
+            protein: sumArrayElements(intakeNutrients?.map((intake: any) => intake?.intakeProtein)),
+            carbs: sumArrayElements(intakeNutrients?.map((intake: any) => intake?.intakeCarbs)),
+            fat: sumArrayElements(intakeNutrients?.map((intake: any) => intake?.intakeFat)),
+        })
+
+    }, [intakesForSelectedDate])
+
+    useMemo(() => {
+        console.log('nutrientTotals', nutrientTotals)
+    }, [nutrientTotals])
+
     const triggerNewIntake = () => {
         store.dispatch(widgetActions.showIntakeWidget())
     }
 
+    function sumArrayElements(arr: any) {
+        let sum = 0;
+        for (let i = 0; i < arr.length; i++) {
+            sum += parseInt(arr[i], 10);
+        }
+        return sum;
+    }
 
 
     interface IntakeRowProps {
@@ -49,38 +85,102 @@ export default function IntakeCard() {
     function IntakeRow(props: IntakeRowProps) {
 
         const [isRowCollapsed, setIsRowCollapsed] = useState<any>(true)
+        const [ingredientRows, setIngredientRows] = useState<any>()
+        const [intakeInformation, setIntakeInformation] = useState<any>()
+
+        useMemo(() => {
+
+            const intakeCalories = sumArrayElements(props?.intakeData?.ingredients?.map((intake: any) => intake?.calories))
+            const intakeProtein = sumArrayElements(props?.intakeData?.ingredients?.map((intake: any) => intake?.protein))
+            const intakeCarbs = sumArrayElements(props?.intakeData?.ingredients?.map((intake: any) => intake?.carbs))
+            const intakeFat = sumArrayElements(props?.intakeData?.ingredients?.map((intake: any) => intake?.fat))
+            console.log('intakeCalories', intakeCalories)
+            console.log('intakeProtein', intakeProtein)
+            console.log('intakeCarbs', intakeCarbs)
+            console.log('intakeFat', intakeFat)
+
+            setIntakeInformation({
+                intakeCalories,
+                intakeProtein,
+                intakeCarbs,
+                intakeFat
+            })
+
+
+            const iRows = props?.intakeData?.ingredients?.map((iData: any) => {
+                return (
+                    <div className='flex jc-sb'>
+                        <div>
+                            {iData?.title}
+                        </div>
+                        <div className='flex'>
+                            <div className='mr-1'>
+                                {iData?.calories}
+                            </div>
+                            <div className='mr-1'>
+                                {iData?.protein}
+                            </div>
+                            <div className='mr-1'>
+                                {iData?.carbs}
+                            </div>
+                            <div className='mr-1'>
+                                {iData?.fat}
+                            </div>
+                        </div>
+                    </div>
+                )
+            }) || []
+            
+            setIngredientRows(iRows)
+
+        }, [props?.intakeData])
 
         return (
-            <div key={`${props?.intakeData?.id}`} className='brdr-b pl-2 pr-2 flex jc-sb'>
-                <div className='flex'>
-                    <div>
-                        {
-                            isRowCollapsed
-                            ? (
-                                <RightOutlined onClick={() => setIsRowCollapsed(false)}/>
-                            )
-                            : (
-                                <DownOutlined  onClick={() => setIsRowCollapsed(true)}/>
-                            )
-                        }
+            <div key={`${props?.intakeData?.id}`} className='brdr-b pl-2 pr-2 '>
+                <div className='flex jc-sb'>
+                    <div className='flex'>
+                        <div>
+                            {
+                                isRowCollapsed
+                                ? (
+                                    <RightOutlined onClick={() => setIsRowCollapsed(false)}/>
+                                )
+                                : (
+                                    <DownOutlined  onClick={() => setIsRowCollapsed(true)}/>
+                                )
+                            }
+                        </div>
+                        <div className='ml-1'>
+                            {props?.intakeData?.title}
+                        </div>
                     </div>
-                    <div className='ml-1'>
-                        {props?.intakeData?.title}
+                    <div className='flex'>
+                        <div className='mr-1'>
+                            {intakeInformation?.intakeCalories}
+                        </div>
+                        <div className='mr-1'>
+                            {intakeInformation?.intakeProtein}
+                        </div>
+                        <div className='mr-1'>
+                            {intakeInformation?.intakeCarbs}
+                        </div>
+                        <div className='mr-1'>
+                            {intakeInformation?.intakeFat}
+                        </div>
                     </div>
                 </div>
-                <div className='flex'>
-                    <div className='mr-1'>
-                        calories
-                    </div>
-                    <div className='mr-1'>
-                        protein
-                    </div>
-                    <div className='mr-1'>
-                        carbs
-                    </div>
-                    <div className='mr-1'>
-                        fat
-                    </div>
+                <div>
+                    {
+                        isRowCollapsed
+                        ? (
+                            null
+                        )
+                        : ( // TODO: Ingredient row rendering
+                            <div className='ml-4'>
+                                {ingredientRows}
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         )
@@ -117,6 +217,25 @@ export default function IntakeCard() {
             </div>
             <div>
                 {intakeRows}
+            </div>
+            <div className='flex jc-sb pl-2 pr-2'>
+                <div>
+                    Nutrient Totals Footer
+                </div>
+                <div className='flex'>
+                    <div className='mr-1'>
+                        {nutrientTotals?.calories}
+                    </div>
+                    <div className='mr-1'>
+                        {nutrientTotals?.protein}
+                    </div>
+                    <div className='mr-1'>
+                        {nutrientTotals?.carbs}
+                    </div>
+                    <div className='mr-1'>
+                        {nutrientTotals?.fat}
+                    </div>
+                </div>
             </div>
         </div>
     )
