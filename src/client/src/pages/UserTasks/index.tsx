@@ -23,11 +23,6 @@ export default function UserTasks() {
 	const currentUser = useSelector((state: any) => state.user?.data ?? [])
 
 
-	useEffect(() => {
-		console.log('selectedCategory', selectedCategory)
-	}, [selectedCategory])
-
-
 	useEffect(() => { // get tasks on mount
 		store.dispatch(taskActions.setToDos(currentUser._id))
 	}, [])
@@ -40,9 +35,6 @@ export default function UserTasks() {
 
 	useEffect(() => {
 		if (selectedCategory) {
-			console.log('selectedCategory', selectedCategory)
-			console.log('sortedTasks?.[selectedCategory?.[0]]', sortedTasks?.[selectedCategory?.[0]])
-			console.log('selectedCategory?.[1]', selectedCategory?.[1])
 			resetTaskForm()
 			setSelectedTask(null)
 			setSelectedCategoryTasks(selectedCategory?.[1])
@@ -79,7 +71,6 @@ export default function UserTasks() {
 						overflowY: 'auto'
 					}}
 				>
-					{/* <TaskRenderer/> */}
 					<TaskRowRenderer
 						tasks={selectedCategoryTasks}
 						selectedTask={selectedTask}

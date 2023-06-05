@@ -22,7 +22,6 @@ export default function TasksByTimelineMenu(props: TasksByTimelineProps) {
 
     function isDateAfterWithinDays(date1: any, date2: any, numDays: any) {
         const timeDifference = date1.getTime() - date2.getTime();
-        console.log('timeDifference', timeDifference)
         const daysInMillis = numDays * 24 * 60 * 60 * 1000;
         return timeDifference > 0 && timeDifference <= daysInMillis;
     }
@@ -42,23 +41,16 @@ export default function TasksByTimelineMenu(props: TasksByTimelineProps) {
             const taskDueDate = new Date(tsk?.dueDate)
 
             if (todaysDate > taskDueDate) {
-                console.log('overdue@!')
                 overdue.push(tsk)
 
             } else if (isDateAfterWithinDays(taskDueDate, todaysDate, 7)) {
-                console.log('within 7 days')
                 dueWithinSeven.push(tsk)
 
             }  else if (isDateAfterWithinDays(taskDueDate, todaysDate, 30)) {
-                console.log('within 30 days')
                 dueWithinThirty.push(tsk)
 
             }   else if (isDateAfterWithinDays(taskDueDate, todaysDate, 1)) {
-                console.log('within 1 days')
                 dueToday.push(tsk)
-
-            } else {
-                console.log('not')
             }
 
             const sorted = {
@@ -67,7 +59,7 @@ export default function TasksByTimelineMenu(props: TasksByTimelineProps) {
                 dueWithinThirty,
                 dueToday
             }
-            
+
             setSortedTasks(sorted)
             
         })
