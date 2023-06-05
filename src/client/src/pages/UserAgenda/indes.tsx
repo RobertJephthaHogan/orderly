@@ -11,6 +11,7 @@ import agendaActions from '../../redux/actions/agenda'
 import { ObjectID } from 'bson'
 import ChecklistCard from '../../features/agenda/ChecklistCard'
 import intakeActions from '../../redux/actions/intake'
+import IntakeCard from '../../features/intakes/IntakeCard'
 
 
 
@@ -172,6 +173,9 @@ export default function UserAgenda() {
                     </div>
                 </div>
                 <div className='w-40 m-1'>
+                    <div className=' agenda-body-card mb-1'>
+                        <IntakeCard/>
+                    </div>
                     <div className=' agenda-body-card'>
                         Notes Card
                     </div>
