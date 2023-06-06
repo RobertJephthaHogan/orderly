@@ -165,6 +165,9 @@ export default function IntakeCard() {
                 <div className='flex jc-sb'>
                     <div className='flex'>
                         <div>
+                            {new Date(props?.intakeData?.time)?.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                        </div>
+                        <div>
                             {
                                 isRowCollapsed
                                 ? (

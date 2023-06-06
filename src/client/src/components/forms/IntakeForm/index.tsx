@@ -201,7 +201,7 @@ export default function IntakeForm() {
                     popupClassName='datepicker-pop-up'
                     placeholder='Date'
                     className='w-100'
-                    onChange={(value: any) => onChange(new Date(value).toJSON(), 'time')}
+                    onChange={(value: any) => onChange(value.format(), 'time')}
                 />
             </div>
             <div className='p-1'>
