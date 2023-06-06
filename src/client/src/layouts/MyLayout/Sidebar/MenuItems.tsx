@@ -71,13 +71,13 @@ export const newMenuItems: any = [
         route: '/nutrition',
         menuId: 'user-nutrition-menu-item',
     },
-    {
-        key: 'user-exercise',
-        icon: <RocketOutlined />,
-        label: 'User Exercise',
-        route: '/exercise',
-        menuId: 'user-exercise-menu-item',
-    },
+    // {
+    //     key: 'user-exercise',
+    //     icon: <RocketOutlined />,
+    //     label: 'User Exercise',
+    //     route: '/exercise',
+    //     menuId: 'user-exercise-menu-item',
+    // },
     {
         key: 'user-tables',
         icon: <TableOutlined />,

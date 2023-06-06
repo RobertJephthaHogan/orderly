@@ -19,9 +19,6 @@ import IntakeCard from '../../features/intakes/IntakeCard'
 
 export default function UserAgenda() {
 
-    const [selectedDay, setSelectedDay] = useState<any>(new Date())
-    const [selectedAgenda, setSelectedAgenda] = useState<any>([])
-    const [agendaChecklists, setAgendaChecklists] = useState<any>([])
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
@@ -32,6 +29,9 @@ export default function UserAgenda() {
     const userAgendas = useSelector((state: any) => state.agendas?.queryResult ?? [])
     const userIntakes = useSelector((state: any) => state.intakes?.queryResult ?? [])
 
+    const [selectedDay, setSelectedDay] = useState<any>(new Date())
+    const [selectedAgenda, setSelectedAgenda] = useState<any>([])
+    const [agendaChecklists, setAgendaChecklists] = useState<any>([])
     const [agendaCreated, setAgendaCreated] = useState<boolean>(false)
 
     const [tasksDueToday, setTasksDueToday] = useState<any>()
