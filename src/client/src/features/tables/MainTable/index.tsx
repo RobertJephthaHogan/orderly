@@ -1,5 +1,5 @@
 import { Table } from 'antd';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 
@@ -44,13 +44,33 @@ interface MainTableProps {
 
 export default function MainTable(props: MainTableProps) {
 
+    const [tableColumns, setTableColumns] = useState<any>()
+    const [tableData, setTableData] = useState<any>()
+
     useEffect(() => {
         console.log('props?.tableData', props?.tableData)
+
+        const cols = props?.tableData?.schema?.required?.map((property: any) => {
+            return {
+                title: property,
+                dataIndex: property,
+                key: property,
+            }
+        }) || []
+        setTableColumns(cols)
+
+        const tData = props?.tableData?.queryResult?.map((entry: any, i: any) => {
+            return {
+                ...entry,
+                key: i
+            }
+        }) || []
+        setTableData(tData)
     }, [props?.tableData])
 
     return (
         <div>
-            <Table dataSource={dataSource} columns={columns} />
+            <Table dataSource={tableData} columns={tableColumns} />
         </div>
     )
 }

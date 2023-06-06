@@ -94,13 +94,13 @@ export default function UserTasks() {
 			</div>
 			<div className='flex task-body-wrapper'>
 				<div className='w-30'>
-					<div className='p-1'>
+					<div className='mb-1'>
 						<TaskMenuRender
 							sortedTasks={sortedTasks}
 							setSelectedCategory={setSelectedCategory}
 						/>
 					</div>
-					<div className='p-1'>
+					<div className=''>
 						<TasksByTimelineMenu
 							setSelectedCategory={setSelectedCategory}
 						/>
