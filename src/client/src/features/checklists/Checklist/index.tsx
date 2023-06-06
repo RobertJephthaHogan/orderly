@@ -36,7 +36,8 @@ export default function Checklist(props: ChecklistProps) {
     useMemo(() => {
         const completeItems = activeChecklist?.items?.filter((itm: any) => itm.state === 'complete')
         const pctComp = (completeItems?.length / activeChecklist?.items?.length) * 100
-        setPctComplete(pctComp)
+
+        setPctComplete(Math.round(pctComp))
     }, [activeChecklist?.items])
 
     const enterNewChecklistItem = () => {
