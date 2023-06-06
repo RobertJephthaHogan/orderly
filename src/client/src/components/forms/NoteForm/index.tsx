@@ -28,13 +28,15 @@ export const NoteForm : React.FC<Props> = ({
     const onFinish = () => {
         let dto = {...editingSubject}
         dto['id'] = new ObjectID().toString()
-        dto['category'] = noteParent?.category
-        dto['parent'] = noteParent?._id
-        dto['createdByUserId'] = noteParent?.createdByUserId
+        dto['category'] = noteParent?.category ? noteParent?.category : ''
+        dto['parent'] = noteParent?._id ? noteParent?._id : ''
+        dto['createdByUserId'] = currentUser?._id
         dto['noteCreationTime'] = new Date().toJSON()
         dto['dailyNoteForDate'] = new Date().toJSON()
         store.dispatch(noteActions.add(dto))
-        onFinishAction()
+        if (onFinishAction) {
+            onFinishAction()
+        }
     }
 
     return (

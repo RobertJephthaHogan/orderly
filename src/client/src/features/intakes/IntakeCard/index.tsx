@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import './styles.css'
-import { Button } from 'antd'
-import { DownOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons'
+import { Button, Dropdown } from 'antd'
+import type {MenuProps} from 'antd'
+import { CloseCircleOutlined, DownOutlined, EditOutlined, EllipsisOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import intakeActions from '../../../redux/actions/intake'
 import { store } from '../../../redux/store'
@@ -61,9 +62,6 @@ export default function IntakeCard() {
 
     }, [intakesForSelectedDate])
 
-    useMemo(() => {
-        console.log('nutrientTotals', nutrientTotals)
-    }, [nutrientTotals])
 
     const triggerNewIntake = () => {
         store.dispatch(widgetActions.showIntakeWidget())
@@ -88,16 +86,22 @@ export default function IntakeCard() {
         const [ingredientRows, setIngredientRows] = useState<any>()
         const [intakeInformation, setIntakeInformation] = useState<any>()
 
+
+        const editIntake = (intakeID: any) => {
+            console.log('editing:', intakeID)
+        }
+        
+        const deleteIntake = (intakeID: any) => {
+            console.log('deleting:', intakeID)
+            store.dispatch(intakeActions.delete(intakeID))
+        }
+
         useMemo(() => {
 
             const intakeCalories = sumArrayElements(props?.intakeData?.ingredients?.map((intake: any) => intake?.calories))
             const intakeProtein = sumArrayElements(props?.intakeData?.ingredients?.map((intake: any) => intake?.protein))
             const intakeCarbs = sumArrayElements(props?.intakeData?.ingredients?.map((intake: any) => intake?.carbs))
             const intakeFat = sumArrayElements(props?.intakeData?.ingredients?.map((intake: any) => intake?.fat))
-            console.log('intakeCalories', intakeCalories)
-            console.log('intakeProtein', intakeProtein)
-            console.log('intakeCarbs', intakeCarbs)
-            console.log('intakeFat', intakeFat)
 
             setIntakeInformation({
                 intakeCalories,
@@ -135,6 +139,27 @@ export default function IntakeCard() {
 
         }, [props?.intakeData])
 
+        const items: MenuProps['items'] = [
+            {
+                key: '4',
+                label: (
+                    <a onClick={() => editIntake(props?.intakeData?.id)}>
+                        Edit item
+                    </a>
+                ),
+                icon: <EditOutlined />
+            },
+            {
+                key: '5',
+                label: (
+                    <a onClick={() => deleteIntake(props?.intakeData?.id)}>
+                        Delete item
+                    </a>
+                ),
+                icon: <CloseCircleOutlined />
+            },
+        ];
+
         return (
             <div key={`${props?.intakeData?.id}`} className='brdr-b pl-2 pr-2 '>
                 <div className='flex jc-sb'>
@@ -167,6 +192,13 @@ export default function IntakeCard() {
                         <div className='mr-1'>
                             {intakeInformation?.intakeFat}
                         </div>
+                        <div className='ml-3'>
+                            <Dropdown menu={{ items }} placement="bottomLeft">
+                                <Button size='small'>
+                                    <DownOutlined/>
+                                </Button>
+                            </Dropdown>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -188,10 +220,7 @@ export default function IntakeCard() {
 
 
     useMemo(() => {
-        console.log('intakesForSelectedDate', intakesForSelectedDate)
-
         const rows = intakesForSelectedDate?.map((intake: any) => {
-
             return (
                 <IntakeRow intakeData={intake} key={`${intake?.id}`}/>
             )
