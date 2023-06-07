@@ -16,17 +16,19 @@ export default function NoteEditor(props: NoteEditorProps) {
 
     const { TextArea } = Input;
 
-
-    // ToDo: Title Input
-    // ToDo Conditional Save button
-    // ToDo Conditional Category Select
-    // ToDo Text Area
-
     const onFormChange = (value: any, field: string) => {
         console.log(value, field)
         const workingObj = {...editingSubject}
         workingObj[field] = value
         setEditingSubject(editingSubject)
+    }
+
+    const onSubmit = () => {
+        //TODO: Handling for when user submits new note
+    }
+
+    const onSave = () => {
+        //TODO: Handling for when user saves existing note
     }
 
     return (
@@ -44,6 +46,7 @@ export default function NoteEditor(props: NoteEditorProps) {
                         placeholder='Category'
                         size='small'
                         className='w-100'
+                        onChange={(e) => onFormChange(e?.target?.value, 'category')}
                     />
                 </div>
                 <div className='w-10  p-1'>
@@ -53,7 +56,10 @@ export default function NoteEditor(props: NoteEditorProps) {
                 </div>
             </div>
             <div className='p-1'>
-                <TextArea rows={4} />
+                <TextArea 
+                    rows={4} 
+                    onChange={(e) => onFormChange(e?.target?.value, 'body')}
+                />
             </div>
         </div>
     )
