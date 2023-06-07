@@ -367,7 +367,7 @@ export default function IntakeCard() {
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.calories/nutrientTotals?.calories) * 100)} 
-                        status="active" 
+                        status={Math.round((consumedTotals?.calories/nutrientTotals?.calories) * 100) !== 100 ? "active" : undefined }
                     />
                 </div>
             </div>
@@ -379,7 +379,7 @@ export default function IntakeCard() {
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.protein/nutrientTotals?.protein) * 100)} 
-                        status="active" 
+                        status={Math.round((consumedTotals?.protein/nutrientTotals?.protein) * 100) !== 100 ? "active" : undefined }
                     />
                 </div>
             </div>
@@ -391,7 +391,7 @@ export default function IntakeCard() {
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.carbs/nutrientTotals?.carbs) * 100)} 
-                        status="active" 
+                        status={Math.round((consumedTotals?.carbs/nutrientTotals?.carbs) * 100) !== 100 ? "active" : undefined }
                     />
                 </div>
             </div>
@@ -403,7 +403,7 @@ export default function IntakeCard() {
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.fat/nutrientTotals?.fat) * 100)} 
-                        status="active" 
+                        status={Math.round((consumedTotals?.fat/nutrientTotals?.fat) * 100) !== 100 ? "active" : undefined }
                     />
                 </div>
             </div>
