@@ -68,14 +68,7 @@ export const Calendar : React.FC<Props> = ({
     }
 
     const onTimeframeSelect = (timeframe: any) => {
-        const atf = document?.getElementById(activeTimeframe);
-        atf?.style.removeProperty('border')
-        atf?.style.removeProperty('background-color')
         setActiveTimeframe(timeframe)
-        const natf : any = document?.getElementById(timeframe);
-        natf.style.border = '1px solid #91ebff'
-        natf.style.backgroundColor = '#e4faff'
-        natf.className += 'active'
     }
 
     const onDateSelect = (data: any) => {

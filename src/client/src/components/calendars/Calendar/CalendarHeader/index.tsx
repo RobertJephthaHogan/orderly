@@ -1,4 +1,4 @@
-import { Select } from 'antd'
+import { Radio, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { indexMonthMap, monthIndexMap } from '../../../../data/monthIndexMap'
 import './styles.css'
@@ -166,34 +166,11 @@ export const CalendarHeader : React.FC<Props> = ({
                             )
                         }
                     </div>
-
-                    <div className='timeframe-radio'>
-                        <div 
-                            className='timeframe-week tf-btn' 
-                            data-timeframe-select="week"
-                            onClick={() => onTimeframeSelect('tf-week')}
-                            id='tf-week'
-                        >
-                            <span className='timeframe-text'>Week</span>
-                        </div>
-                        <div 
-                            className='timeframe-month tf-btn' 
-                            data-timeframe-select="month"
-                            onClick={() => onTimeframeSelect('tf-month')}
-                            id='tf-month'
-                        >
-                            <span className='timeframe-text'>Month</span>
-                        </div>
-                        <div 
-                            className='timeframe-year tf-btn' 
-                            data-timeframe-select="year"
-                            onClick={() => onTimeframeSelect('tf-year')}
-                            id='tf-year'
-                        >
-                            <span className='timeframe-text'>Year</span>
-                        </div>
-                    </div>
-
+                    <Radio.Group onChange={(e) => onTimeframeSelect(e?.target?.value)} defaultValue="tf-month">
+                        <Radio.Button value="tf-week">Week</Radio.Button>
+                        <Radio.Button value="tf-month">Month</Radio.Button>
+                        <Radio.Button value="tf-year">Year</Radio.Button>
+                    </Radio.Group>
                 </div>
 
             </div>
