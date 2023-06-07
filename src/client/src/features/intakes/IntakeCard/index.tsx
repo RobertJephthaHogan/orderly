@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import './styles.css'
-import { Button, Dropdown } from 'antd'
+import { Button, Dropdown, Progress, Tag } from 'antd'
 import type {MenuProps} from 'antd'
-import { CloseCircleOutlined, DownOutlined, EditOutlined, EllipsisOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons'
+import { CheckOutlined, CloseCircleOutlined, DownOutlined, EditOutlined, EllipsisOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import intakeActions from '../../../redux/actions/intake'
 import { store } from '../../../redux/store'
@@ -18,6 +18,7 @@ export default function IntakeCard() {
     const [intakesForSelectedDate, setIntakesForSelectedDate] = useState<any>()
     const [intakeRows, setIntakeRows] = useState<any>()
     const [nutrientTotals, setNutrientTotals] = useState<any>()
+    const [consumedTotals, setConsumedTotals] = useState<any>()
 
 
         
@@ -49,6 +50,7 @@ export default function IntakeCard() {
                     intakeProtein: sumArrayElements(intake?.ingredients?.map((intake: any) => intake?.protein)),
                     intakeCarbs: sumArrayElements(intake?.ingredients?.map((intake: any) => intake?.carbs)),
                     intakeFat: sumArrayElements(intake?.ingredients?.map((intake: any) => intake?.fat)),
+                    hasBeenConsumed: intake?.hasBeenConsumed,
                 }
             )
         }) || []
@@ -58,6 +60,15 @@ export default function IntakeCard() {
             protein: sumArrayElements(intakeNutrients?.map((intake: any) => intake?.intakeProtein)),
             carbs: sumArrayElements(intakeNutrients?.map((intake: any) => intake?.intakeCarbs)),
             fat: sumArrayElements(intakeNutrients?.map((intake: any) => intake?.intakeFat)),
+        })
+
+        const alreadyConsumed = intakeNutrients?.filter((intake: any) => intake?.hasBeenConsumed)
+
+        setConsumedTotals({
+            calories: sumArrayElements(alreadyConsumed?.map((intake: any) => intake?.intakeCalories)),
+            protein: sumArrayElements(alreadyConsumed?.map((intake: any) => intake?.intakeProtein)),
+            carbs: sumArrayElements(alreadyConsumed?.map((intake: any) => intake?.intakeCarbs)),
+            fat: sumArrayElements(alreadyConsumed?.map((intake: any) => intake?.intakeFat)),
         })
 
     }, [intakesForSelectedDate])
@@ -94,6 +105,16 @@ export default function IntakeCard() {
         const deleteIntake = (intakeID: any) => {
             console.log('deleting:', intakeID)
             store.dispatch(intakeActions.delete(intakeID))
+        }
+
+        const markIntakeConsumed = (intakeID: any) => {
+            console.log('marking completed:', intakeID)
+
+            const workingObj = {...props?.intakeData}
+            console.log(workingObj)
+
+            workingObj.hasBeenConsumed = true
+            store.dispatch(intakeActions.update(intakeID, workingObj))
         }
 
         useMemo(() => {
@@ -141,7 +162,7 @@ export default function IntakeCard() {
 
         const items: MenuProps['items'] = [
             {
-                key: '4',
+                key: '1',
                 label: (
                     <a onClick={() => editIntake(props?.intakeData?.id)}>
                         Edit item
@@ -150,7 +171,16 @@ export default function IntakeCard() {
                 icon: <EditOutlined />
             },
             {
-                key: '5',
+                key: '2',
+                label: (
+                    <a onClick={() => markIntakeConsumed(props?.intakeData?.id)}>
+                        Mark Intake Consumed
+                    </a>
+                ),
+                icon: <CheckOutlined />
+            },
+            {
+                key: '3',
                 label: (
                     <a onClick={() => deleteIntake(props?.intakeData?.id)}>
                         Delete item
@@ -163,7 +193,47 @@ export default function IntakeCard() {
         return (
             <div key={`${props?.intakeData?.id}`} className='brdr-b pl-2 pr-2 '>
                 <div className='flex jc-sb'>
-                    <div className='flex'>
+                    <div 
+                        className='flex'
+                        style={{
+                            display: 'flex',
+                            height: '30px',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <div>
+                            {
+                                props?.intakeData?.hasBeenConsumed
+                                ? (
+                                    <Tag 
+                                        color="green" 
+                                        className='complete-tag'
+                                        style={{
+                                            borderRadius: '10px',
+                                            height: '20px',
+                                            width: '20px',
+                                            display:'flex'
+                                        }}
+                                    > </Tag>
+                                )
+                                : null
+                            }
+                            {
+                                !props?.intakeData?.hasBeenConsumed
+                                ? (
+                                    <Tag 
+                                        className='incomplete-tag'
+                                        color="default" 
+                                        style={{
+                                            borderRadius: '10px',
+                                            height: '20px',
+                                            width: '20px',
+                                        }}
+                                    > </Tag>
+                                )
+                                : null
+                            }
+                        </div>
                         <div>
                             {new Date(props?.intakeData?.time)?.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                         </div>
@@ -247,12 +317,13 @@ export default function IntakeCard() {
                     </Button>
                 </div>
             </div>
+            <div className='divider mb-1'/>
             <div>
                 {intakeRows}
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
                 <div>
-                    Nutrient Totals Footer
+                    Total Planned Nutrients
                 </div>
                 <div className='flex'>
                     <div className='mr-1'>
@@ -267,6 +338,73 @@ export default function IntakeCard() {
                     <div className='mr-1'>
                         {nutrientTotals?.fat}
                     </div>
+                </div>
+            </div>
+            <div className='flex jc-sb pl-2 pr-2'>
+                <div>
+                    Total Consumed Nutrients
+                </div>
+                <div className='flex'>
+                    <div className='mr-1'>
+                        {consumedTotals?.calories}
+                    </div>
+                    <div className='mr-1'>
+                        {consumedTotals?.protein}
+                    </div>
+                    <div className='mr-1'>
+                        {consumedTotals?.carbs}
+                    </div>
+                    <div className='mr-1'>
+                        {consumedTotals?.fat}
+                    </div>
+                </div>
+            </div>
+            <div className='flex jc-sb pl-2 pr-2'>
+                <div>
+                    <h5>Planned Calories:</h5>
+                </div>
+                <div>
+                    <Progress 
+                        size="small" 
+                        percent={Math.round((consumedTotals?.calories/nutrientTotals?.calories) * 100)} 
+                        status="active" 
+                    />
+                </div>
+            </div>
+            <div className='flex jc-sb pl-2 pr-2'>
+                <div>
+                    <h5>Planned Protein:</h5>
+                </div>
+                <div>
+                    <Progress 
+                        size="small" 
+                        percent={Math.round((consumedTotals?.protein/nutrientTotals?.protein) * 100)} 
+                        status="active" 
+                    />
+                </div>
+            </div>
+            <div className='flex jc-sb pl-2 pr-2'>
+                <div>
+                    <h5>Planned Carbs:</h5>
+                </div>
+                <div>
+                    <Progress 
+                        size="small" 
+                        percent={Math.round((consumedTotals?.carbs/nutrientTotals?.carbs) * 100)} 
+                        status="active" 
+                    />
+                </div>
+            </div>
+            <div className='flex jc-sb pl-2 pr-2'>
+                <div>
+                    <h5>Planned Fat:</h5>
+                </div>
+                <div>
+                    <Progress 
+                        size="small" 
+                        percent={Math.round((consumedTotals?.fat/nutrientTotals?.fat) * 100)} 
+                        status="active" 
+                    />
                 </div>
             </div>
         </div>
