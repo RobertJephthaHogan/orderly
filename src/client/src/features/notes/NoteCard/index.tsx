@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
 import noteActions from '../../../redux/actions/notes'
+import NoteEditor from '../NoteEditor'
 
 
 
@@ -69,7 +70,7 @@ export default function NoteCard() {
                 />
             </div>
             <div>
-                Note Editor Area
+                <NoteEditor/>
             </div>
         </div>
     )
