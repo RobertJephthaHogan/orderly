@@ -24,8 +24,8 @@ export default function TaskCategoryMenu(props: Props) {
     
     return (
         <div className='task-category-menu'>
-            <div className='flex jc-c pt-1 pb-1'>
-                Task Categories
+            <div className='flex p-1'>
+                <h5>Task Categories</h5>
             </div>
             <div className='divider'/>
             <div>
@@ -94,7 +94,7 @@ function CategoryRow(props: RowProps) {
     return (
         <div onClick={() => onRowClick(props.rowData)}>
             <div 
-                className='pl-1 pt-1 category-row hcp'
+                className='pl-1 pt-1 category-row hcp flex'
                 key={`${props.rowData[0]}-task-row`}
             >
                 {
@@ -108,7 +108,9 @@ function CategoryRow(props: RowProps) {
                         />
                     )
                 }
-                <span className='ml-1'>{props.rowData[0]}</span>
+                <div className='ml-1'>
+                    <h5>{props.rowData[0]}</h5>
+                </div>
             </div>
             {
                 expanded

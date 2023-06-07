@@ -114,7 +114,7 @@ export const EventMenu : React.FC<Props> = ({
                             )
                         }
                         <div className='pl-1' >
-                            {categoryRowData[0]}
+                            <h5>{categoryRowData[0]}</h5>
                         </div>
                     </div>
                 </div>
@@ -160,8 +160,8 @@ export const EventMenu : React.FC<Props> = ({
                 backgroundColor: '#ffffff'
             }}
         >
-            <div className='w-100 flex content-center p-1'>
-                Event Categories
+            <div className='w-100 flex p-1'>
+                <h5>Event Categories</h5>
             </div>
             <div className='divider'/>
             <div>
