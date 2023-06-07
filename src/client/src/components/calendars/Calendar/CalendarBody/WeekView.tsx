@@ -58,7 +58,10 @@ const WeekView : React.FC<Props> = ({
 
         const weekViewColumns = thisWeeksDays?.map((date: any) => {
             return (
-                <div className='w-100 bordered'>
+                <div 
+                    className='w-100 bordered'
+                    key={`${date}-column`}
+                >
                     {date}
                 </div>
             )
