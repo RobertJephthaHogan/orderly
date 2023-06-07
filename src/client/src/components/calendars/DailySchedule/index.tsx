@@ -21,6 +21,7 @@ type Props = {
   deactivateTimeAfter?: any
   deactivateTimeBetween?: any
   isCollapsible?:any
+  showHeader?: any
 };
 
 const DailySchedule: React.FC<Props> = ({
@@ -31,7 +32,8 @@ const DailySchedule: React.FC<Props> = ({
     deactivateTimeBefore,
     deactivateTimeAfter,
     deactivateTimeBetween,
-    isCollapsible
+    isCollapsible,
+    showHeader
 
 }) => {
   
@@ -244,7 +246,9 @@ const DailySchedule: React.FC<Props> = ({
         }  else { // else return empty cell
             return (
                 <div className=' w-100 eventTileWrapper' style={{height: "60px"}}>
-                    <div className='w-100 ' style={{height: "60px"}}></div>
+                    <div className='w-100 ' style={{height: "60px"}}>
+                        {time}
+                    </div>
                 </div>
             )
         }        
@@ -260,47 +264,18 @@ const DailySchedule: React.FC<Props> = ({
                     const isOpenCourtHour = checkIfOpenCourtHours(time)
                     let hourBeginning = time.split(":")[1] == '00AM' ? time : false || time.split(":")[1] == '00PM' ? time : false
 
-                    if (!isOpenCourtHour) {
-                        return (
-                            <div className='w-100 flex' key={time}>
-                                <Row className='flex w-100 scheduleRow'>
-                                    <Col span={6} className='w-100'>
-                                        <div className='flex w-100 timeColumnHour'>
-                                            {hourBeginning} 
-                                        </div>
-                                    </Col>
-                                    <Col span={18} className='w-100 flex pr-4'>
-                                        <div className='w-100 '>
-                                            <TimeCellRenderer
-                                                time={time}
-                                                eventsOnSelectedDay={eventsOnSelectedDay}
-                                            />
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </div>
-                        )
-                    } else {
-                        return (
-                            <div className='w-100 flex ' key={time}>
-                                <Row className='flex w-100 scheduleRow'>
-                                    <Col span={6} className='w-100'>
-                                        <div className='flex w-100 timeColumnHour'>
-                                            {hourBeginning} 
-                                        </div>
-                                    </Col>
-                                    <Col span={18} className='w-100 flex pr-4 '>
-                                        <div className='w-100 inactiveCourtTime'>
-                                            <TimeCellRenderer
-                                                time={time}
-                                                eventsOnSelectedDay={eventsOnSelectedDay}
-                                            />
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </div>
-                        )
-                    }
+                    return (
+                        <div className='w-100 flex' key={time}>
+                            <Row className='flex w-100 scheduleRow'>
+                                <div className='w-100 '>
+                                    <TimeCellRenderer
+                                        time={time}
+                                        eventsOnSelectedDay={eventsOnSelectedDay}
+                                    />
+                                </div>
+                            </Row>
+                        </div>
+                    )
                 }
             )}
         </div>
@@ -338,41 +313,47 @@ const DailySchedule: React.FC<Props> = ({
 
     return(
         <div className='dailyScheduleDiv' id='dailyScheduleDiv' >
-            <div className='bordered ml-2 bg-white'>
-                <Row className='flex w-100 space-between'>
-                    <Col>
-                        <div className='pl-2 pt-2'>
-                            Daily Schedule <br />
-                            For Day Of: {date}
-                        </div>
-                    </Col>
-                    <Col className='pr-8'>
-                        <div className='vertical-center'>
-                            <ConditionalCollapseButton />
-                        </div>
-                    </Col>
-                </Row>
-                <div className=' w-100 mt-4 ml-2 mr-2' >
-                <Row className='w-100 flex'>
-                    <div className='w-100 flex'>
-                    <Row className='flex w-100 mr-1'>
-                        <Col span={6} className='w-100'>
-                        <div className='flex w-100 bordered'>
-                            Time
-                        </div>
-                        </Col>
-                        <Col span={18}>
-                            <div className='pr-4'>
-                                <div className='flex w-100 bordered '>
-                                    {date}
+            <div className='bordered bg-white'>
+                {
+                    showHeader
+                    ? <div>
+                        <Row className='flex w-100 space-between'>
+                            <Col>
+                                <div className='pl-2 pt-2'>
+                                    Daily Schedule <br />
+                                    For Day Of: {date}
                                 </div>
-                            </div>
-                        </Col>
-                    </Row>
+                            </Col>
+                            <Col className='pr-8'>
+                                <div className='vertical-center'>
+                                    <ConditionalCollapseButton />
+                                </div>
+                            </Col>
+                        </Row>
+                        <div className=' w-100 mt-4 ml-2 mr-2' >
+                            <Row className='w-100 flex'>
+                                <div className='w-100 flex'>
+                                <Row className='flex w-100 mr-1'>
+                                    <Col span={6} className='w-100'>
+                                    <div className='flex w-100 bordered'>
+                                        Time
+                                    </div>
+                                    </Col>
+                                    <Col span={18}>
+                                        <div className='pr-4'>
+                                            <div className='flex w-100 bordered '>
+                                                {date}
+                                            </div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                </div>
+                            </Row>
+                        </div>
                     </div>
-                </Row>
-                </div>
-                <div className=' w-100 ml-2 mr-1 ' >
+                    : null
+                }
+                <div className=' w-100' >
                     <Col span={24} className='scheduleContent' id='scheduleContent'>
                         <ScheduleRenderer />
                     </Col>

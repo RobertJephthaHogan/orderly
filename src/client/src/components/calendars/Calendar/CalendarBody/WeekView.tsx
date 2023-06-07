@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import DailySchedule from '../../DailySchedule'
 
 
 
@@ -63,6 +64,7 @@ const WeekView : React.FC<Props> = ({
                     key={`${date}-column`}
                 >
                     {date}
+                    <DailySchedule selectedCalendarDate={date}/>
                 </div>
             )
         }) || []
