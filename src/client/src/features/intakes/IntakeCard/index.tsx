@@ -361,9 +361,9 @@ export default function IntakeCard() {
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
                 <div>
-                    <h5>Planned Calories:</h5>
+                    <h5 className='whitespace-nw'>Planned Calories:</h5>
                 </div>
-                <div>
+                <div className='w-100'>
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.calories/nutrientTotals?.calories) * 100)} 
@@ -373,9 +373,9 @@ export default function IntakeCard() {
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
                 <div>
-                    <h5>Planned Protein:</h5>
+                    <h5 className='whitespace-nw'>Planned Protein:</h5>
                 </div>
-                <div>
+                <div className='w-100'>
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.protein/nutrientTotals?.protein) * 100)} 
@@ -385,9 +385,9 @@ export default function IntakeCard() {
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
                 <div>
-                    <h5>Planned Carbs:</h5>
+                    <h5 className='whitespace-nw'>Planned Carbs:</h5>
                 </div>
-                <div>
+                <div className='w-100'>
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.carbs/nutrientTotals?.carbs) * 100)} 
@@ -397,9 +397,9 @@ export default function IntakeCard() {
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
                 <div>
-                    <h5>Planned Fat:</h5>
+                    <h5 className='whitespace-nw'>Planned Fat:</h5>
                 </div>
-                <div>
+                <div className='w-100'>
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.fat/nutrientTotals?.fat) * 100)} 
