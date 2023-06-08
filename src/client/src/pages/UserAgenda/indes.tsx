@@ -13,6 +13,8 @@ import ChecklistCard from '../../features/agenda/ChecklistCard'
 import intakeActions from '../../redux/actions/intake'
 import IntakeCard from '../../features/intakes/IntakeCard'
 import NoteCard from '../../features/notes/NoteCard'
+import TasksCard from '../../features/agenda/TasksCard'
+import EventsCard from '../../features/agenda/EventsCard'
 
 
 
@@ -150,13 +152,13 @@ export default function UserAgenda() {
             <div className='flex w-100 '>
                 <div className='w-20 m-1'>
                     <div className='agenda-body-card  mb-1'>
+                        <TasksCard/>
+                    </div>
+                    <div className='agenda-body-card  mb-1'>
+                        <EventsCard/>
+                    </div>
+                    <div className='agenda-body-card  mb-1'>
                         Routine Card
-                    </div>
-                    <div className='agenda-body-card  mb-1'>
-                        Tasks Card
-                    </div>
-                    <div className='agenda-body-card  mb-1'>
-                        Events Card
                     </div>
                 </div>
                 <div className='w-40 m-1'>
