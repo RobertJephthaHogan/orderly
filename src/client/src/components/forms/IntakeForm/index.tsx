@@ -1,11 +1,12 @@
-import { PlusOutlined } from '@ant-design/icons'
-import { Button, DatePicker, Empty, Input } from 'antd'
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button, DatePicker, Empty, Input, Modal } from 'antd'
 import { ObjectID } from 'bson'
 import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './styles.css'
 import { store } from '../../../redux/store'
 import intakeActions from '../../../redux/actions/intake'
+import IntakeSearch from '../../../features/intakes/IntakeSearch'
 
 
 
@@ -14,6 +15,7 @@ export default function IntakeForm() {
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const [ingredients, setIngredients] = useState<any>([])
     const [editingIndex, setEditingIndex] = useState<any>(null)
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [formValues, setFormValues] = useState<any>(
             {
                 ingredients: []
@@ -44,6 +46,22 @@ export default function IntakeForm() {
         console.log('dto', dto)
 
         store.dispatch(intakeActions.add(dto))
+    }
+
+    const selectExistingIntake = (value: any) => {
+        console.log('existing Intake:', value)
+        console.log('formValues', formValues)
+
+        const dto = {
+            title: value?.title,
+            createdByUserId: currentUser?._id,
+            ingredients: value?.ingredients,
+            hasBeenConsumed: value?.hasBeenConsumed,
+            id: new ObjectID().toString(),
+        }
+
+        console.log('dto', dto)
+        setFormValues(dto)
     }
 
     useMemo(() => {
@@ -186,13 +204,24 @@ export default function IntakeForm() {
 
     return (
         <div>
-            <div className='p-1'>
-                <h3 className='brdr-b'>Intake Form</h3>
+            <div className='p-1 flex brdr-b jc-sb'>
+                <div>
+                    <h3 className=''>Intake Form</h3>
+                </div>
+                <div>
+                    <Button 
+                        size='small'
+                        onClick={() => setIsModalOpen(true)}
+                    >
+                        <SearchOutlined/>
+                    </Button>
+                </div>
             </div>
             <div className='p-1'>
                 <Input 
                     placeholder='Title'
                     onChange={(e) => onChange(e?.target?.value, 'title')}
+                    value={formValues?.title}
                 />
             </div>
             <div className='p-1'>
@@ -254,6 +283,18 @@ export default function IntakeForm() {
                     </Button>
                 </div>
             </div>
+            <Modal 
+                title="Intake Search" 
+                open={isModalOpen} 
+                //onOk={handleOk} 
+                onCancel={() => setIsModalOpen(false)}
+                footer={null}
+                zIndex={5000}
+            >
+                <IntakeSearch
+                    onOk={selectExistingIntake}
+                />
+            </Modal>
         </div>
     )
 }

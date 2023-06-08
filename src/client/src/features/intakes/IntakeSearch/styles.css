@@ -1,0 +1,21 @@
+
+
+
+
+
+
+
+
+
+.intake-option-row {
+
+}
+
+.intake-option-row:hover {
+    background-color: #f0f0f08d;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #f0f0f08d;
+}
