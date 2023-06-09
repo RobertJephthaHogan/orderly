@@ -12,6 +12,7 @@ interface NoteEditorProps {
 
 export default function NoteEditor(props: NoteEditorProps) {
 
+    const [editorMode, setEditorMode] = useState<any>(props?.mode === 'editing' ? 'edit': 'add')
     const [editingSubject, setEditingSubject] = useState<any>({})
 
     const { TextArea } = Input;
@@ -20,7 +21,7 @@ export default function NoteEditor(props: NoteEditorProps) {
         console.log(value, field)
         const workingObj = {...editingSubject}
         workingObj[field] = value
-        setEditingSubject(editingSubject)
+        setEditingSubject(workingObj)
     }
 
     const onSubmit = () => {
@@ -30,6 +31,24 @@ export default function NoteEditor(props: NoteEditorProps) {
     const onSave = () => {
         //TODO: Handling for when user saves existing note
     }
+
+    const onSelectCategory = (data: string) => {
+        console.log('data', data)
+        //TODO : Handling for when category is selected
+    }
+
+    const onChangeCategory = (data: string) => {
+        console.log('data', data)
+        //TODO : Handling for when category is changed
+    }
+
+    const onSearchCategory = (data: string) => {
+        console.log('data', data)
+        //TODO : Handling for when category is searched
+    }
+
+
+    console.log('editingSubject', editingSubject)
 
     return (
         <div>
@@ -61,6 +80,17 @@ export default function NoteEditor(props: NoteEditorProps) {
                     onChange={(e) => onFormChange(e?.target?.value, 'body')}
                 />
             </div>
+            {
+                editorMode === 'add'
+                ? (
+                    <div className='w-100 p-1'>
+                        <Button className='w-100'>
+                            Create New Note
+                        </Button>
+                    </div>
+                )
+                : null
+            }
         </div>
     )
 }

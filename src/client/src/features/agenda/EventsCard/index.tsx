@@ -1,19 +1,75 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { store } from '../../../redux/store'
+import eventActions from '../../../redux/actions/event'
 
 
 
 export default function EventsCard() {
+
+    const currentUser = useSelector((state: any) => state.user?.data ?? [])
+    const userEvents = useSelector((state: any) => state.events?.queryResult ?? [])
+    const [organizedEvents, setOrganizedEvents] = useState<any>()
+
+    useEffect(() => {
+        store.dispatch(eventActions.setEvents(currentUser?._id))
+    }, [])
+    
+    function isDateAfterWithinDays(date1: any, date2: any, numDays: any) {
+        const timeDifference = date1.getTime() - date2.getTime();
+        const daysInMillis = numDays * 24 * 60 * 60 * 1000;
+        return timeDifference > 0 && timeDifference <= daysInMillis;
+    }
+        
+    useEffect(() => {
+
+        let overdue: any = []
+        let eventsWithinSeven: any = []
+        let eventsWithinThirty: any = []
+        let eventsToday: any = []
+
+        let workingEvents = [...userEvents]
+
+        workingEvents?.forEach((evt: any) => {
+            const todaysDate = new Date()
+            const taskDueDate = new Date(evt?.startTime)
+
+            if (todaysDate > taskDueDate) {
+                overdue.push(evt)
+
+            } else if (isDateAfterWithinDays(taskDueDate, todaysDate, 7)) {
+                eventsWithinSeven.push(evt)
+
+            }  else if (isDateAfterWithinDays(taskDueDate, todaysDate, 30)) {
+                eventsWithinThirty.push(evt)
+
+            }   else if (isDateAfterWithinDays(taskDueDate, todaysDate, 1)) {
+                eventsToday.push(evt)
+            }
+
+            const sorted = {
+                overdue,
+                eventsWithinSeven,
+                eventsWithinThirty,
+                eventsToday
+            }
+
+            setOrganizedEvents(sorted)
+            
+        })
+
+    }, [userEvents])
+
     return (
-        <div>
-            Events Card
+        <div className='p-1'>
             <div>
-                Events Today
+                <h5>Events Today ({`${organizedEvents?.eventsToday?.length}`})</h5>
             </div>
             <div>
-                Events Within 7 Days
+                <h5>Events Within 7 Days ({`${organizedEvents?.eventsWithinSeven?.length}`})</h5>
             </div>
             <div>
-                Events Within 30 Days
+                <h5>Events Within 30 Days ({`${organizedEvents?.eventsWithinThirty?.length}`})</h5>
             </div>
             <div>
                 Upcoming Events render
