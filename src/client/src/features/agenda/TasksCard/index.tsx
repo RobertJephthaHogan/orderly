@@ -23,7 +23,7 @@ export default function TasksCard() {
     }
     
     useEffect(() => {
-
+        // Organize Tasks by duedate range 
         let overdue: any = []
         let dueWithinSeven: any = []
         let dueWithinThirty: any = []
@@ -62,6 +62,17 @@ export default function TasksCard() {
 
     }, [userTasks])
 
+    useEffect(() => {
+
+        const sortedByDate = [...userTasks].sort((a: any, b: any) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
+        //console.log('sortedByDate', sortedByDate)
+        //TODO: Create array for tasks due before today
+        //TODO: Create array for tasks due on or after today
+        //TODO: render tasks queue from array for tasks due on or after today
+
+
+    }, [userTasks])
+
     return (
         <div className='p-1'>
             <div>
@@ -73,9 +84,9 @@ export default function TasksCard() {
             <div>
                 <h5>Due Within 30 Days ({`${organizedTasks?.dueWithinThirty?.length}`})</h5>
             </div>
-            <div>
+            {/* <div>
                 Upcoming task deadlines render
-            </div>
+            </div> */}
         </div>
     )
 }

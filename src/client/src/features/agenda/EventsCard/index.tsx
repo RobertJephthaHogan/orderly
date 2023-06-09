@@ -22,7 +22,7 @@ export default function EventsCard() {
     }
         
     useEffect(() => {
-
+        // Organize Events by duedate range 
         let overdue: any = []
         let eventsWithinSeven: any = []
         let eventsWithinThirty: any = []
@@ -60,6 +60,8 @@ export default function EventsCard() {
 
     }, [userEvents])
 
+
+
     return (
         <div className='p-1'>
             <div>
@@ -71,9 +73,9 @@ export default function EventsCard() {
             <div>
                 <h5>Events Within 30 Days ({`${organizedEvents?.eventsWithinThirty?.length}`})</h5>
             </div>
-            <div>
+            {/* <div>
                 Upcoming Events render
-            </div>
+            </div> */}
         </div>
     )
 }
