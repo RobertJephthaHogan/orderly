@@ -321,9 +321,9 @@ export default function IntakeCard() {
             <div>
                 {intakeRows}
             </div>
-            <div className='flex jc-sb pl-2 pr-2'>
+            <div className='flex jc-sb pl-2 pr-2 mt-1'>
                 <div>
-                    Total Planned Nutrients
+                    <h5>Total Planned Nutrients:</h5>
                 </div>
                 <div className='flex'>
                     <div className='mr-1'>
@@ -342,7 +342,7 @@ export default function IntakeCard() {
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
                 <div>
-                    Total Consumed Nutrients
+                    <h5>Total Consumed Nutrients:</h5>
                 </div>
                 <div className='flex'>
                     <div className='mr-1'>
@@ -360,10 +360,10 @@ export default function IntakeCard() {
                 </div>
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
-                <div>
+                <div className='w-30'>
                     <h5 className='whitespace-nw'>Planned Calories:</h5>
                 </div>
-                <div className='w-100'>
+                <div className='w-70'>
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.calories/nutrientTotals?.calories) * 100)} 
@@ -372,10 +372,10 @@ export default function IntakeCard() {
                 </div>
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
-                <div>
+                <div className='w-30'>
                     <h5 className='whitespace-nw'>Planned Protein:</h5>
                 </div>
-                <div className='w-100'>
+                <div className='w-70'>
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.protein/nutrientTotals?.protein) * 100)} 
@@ -384,10 +384,10 @@ export default function IntakeCard() {
                 </div>
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
-                <div>
+                <div className='w-30'>
                     <h5 className='whitespace-nw'>Planned Carbs:</h5>
                 </div>
-                <div className='w-100'>
+                <div className='w-70'>
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.carbs/nutrientTotals?.carbs) * 100)} 
@@ -396,10 +396,10 @@ export default function IntakeCard() {
                 </div>
             </div>
             <div className='flex jc-sb pl-2 pr-2'>
-                <div>
+                <div className='w-30'>
                     <h5 className='whitespace-nw'>Planned Fat:</h5>
                 </div>
-                <div className='w-100'>
+                <div className='w-70'>
                     <Progress 
                         size="small" 
                         percent={Math.round((consumedTotals?.fat/nutrientTotals?.fat) * 100)} 
