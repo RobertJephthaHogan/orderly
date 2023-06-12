@@ -6,6 +6,7 @@ import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
 import './styles.css'
 import { NoteForm } from '../../../components/forms/NoteForm'
+import NoteEditor from '../../notes/NoteEditor'
 
 
 
@@ -21,7 +22,7 @@ export default function NoteWidget() {
             key: 'Note Form',
             children: (
                 <div>
-                    <NoteForm />
+                    <NoteEditor />
                 </div>
             )
         },

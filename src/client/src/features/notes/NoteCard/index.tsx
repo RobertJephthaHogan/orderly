@@ -70,7 +70,10 @@ export default function NoteCard() {
                 />
             </div>
             <div>
-                <NoteEditor/>
+                <NoteEditor
+                    mode={'edit'}
+                    defaultSubject={selectedNote}
+                />
             </div>
         </div>
     )
