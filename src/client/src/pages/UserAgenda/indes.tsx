@@ -168,9 +168,6 @@ export default function UserAgenda() {
                             parent={selectedAgenda}
                         />
                     </div>
-                    <div className='agenda-body-card'>
-                        Nutrition Card
-                    </div>
                 </div>
                 <div className='w-40 m-1'>
                     <div className=' agenda-body-card mb-1'>
