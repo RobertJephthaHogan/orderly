@@ -1,6 +1,10 @@
 
 import { useEffect, useState } from 'react'
 import DailySchedule from '../../DailySchedule'
+import { useSelector } from 'react-redux'
+import { store } from '../../../../redux/store'
+import eventActions from '../../../../redux/actions/event'
+import { datesMatch } from '../../../../helpers'
 
 
 
@@ -17,9 +21,15 @@ const WeekView : React.FC<Props> = ({
     selectedDay,
     events
 }) => {
-
+    
+    const currentUser = useSelector((state: any) => state.user?.data ?? [])
+    const userEvents = useSelector((state: any) => state.events?.queryResult ?? [])
     const [wv, setWv] = useState<any>([]) 
 
+    
+    useEffect(() => {
+        store.dispatch(eventActions.setEvents(currentUser?._id))
+    }, [])
     
     useEffect(() => {
         if (!wv?.length) {
@@ -58,13 +68,22 @@ const WeekView : React.FC<Props> = ({
         ]
 
         const weekViewColumns = thisWeeksDays?.map((date: any) => {
+            console.log('date', date)
+            
+            const eventsForThisDay = userEvents?.filter((event: any) => datesMatch(new Date(event?.startTime), new Date(date) ))
+
+            console.log('eventsForThisDay', eventsForThisDay)
+
             return (
                 <div 
                     className='w-100 bordered'
                     key={`${date}-column`}
                 >
                     {date}
-                    <DailySchedule selectedCalendarDate={date}/>
+                    <DailySchedule 
+                        selectedCalendarDate={date}
+                        eventsOnSelectedDay={eventsForThisDay}
+                    />
                 </div>
             )
         }) || []

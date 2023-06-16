@@ -31,3 +31,11 @@ export function arrayRemove(arr: any, value: any) {
       return ele != value; 
   });
 }
+
+
+        
+export function datesMatch(date1: any, date2: any) {
+  return date1.getFullYear() === date2.getFullYear() 
+    && date1.getMonth() === date2.getMonth() 
+    && date1.getDate() === date2.getDate();
+}

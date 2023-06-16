@@ -113,9 +113,9 @@ const DailySchedule: React.FC<Props> = ({
             let entriesOnSelectedDay =
                 eventsOnSelectedDay?.map((entry: any) => (
                     {
-                        startDateTime: entry.startDateTime,
-                        endDateTime: entry.endDateTime,
-                        isValidDailyTimeRange:  Date.parse(entry.startDateTime) < Date.parse(entry.endDateTime) && entry.startDateTime.split("T")[0] === entry.endDateTime.split("T")[0],
+                        startDateTime: entry.startTime,
+                        endDateTime: entry.endTime,
+                        isValidDailyTimeRange:  Date.parse(entry.startTime) < Date.parse(entry.endTime) && entry.startTime.split("T")[0] === entry.endTime.split("T")[0],
                         eventLengthInMinutes : timeDifferenceInMinutes(entry.startDateTime, entry.endDateTime),
                         event: entry
                     }
