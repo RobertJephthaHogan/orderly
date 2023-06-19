@@ -15,6 +15,8 @@ import IntakeCard from '../../features/intakes/IntakeCard'
 import NoteCard from '../../features/notes/NoteCard'
 import TasksCard from '../../features/agenda/TasksCard'
 import EventsCard from '../../features/agenda/EventsCard'
+import { Button } from 'antd'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 
 
 
@@ -142,11 +144,21 @@ export default function UserAgenda() {
 
     return (
         <div className='user-agenda-component'>
-            <div className='p-1'>
-                <div className='user-agenda-top-bar'>
+            <div className='flex p-1'>
+                <div className='agenda-back-date'>
+                    <Button className='h-100'>
+                        <LeftOutlined/>
+                    </Button>
+                </div>
+                <div className='user-agenda-top-bar w-100 ml-1 mr-1'>
                     <h3 id="welcome-back-title">Welcome back, {currentUser?.firstName}!</h3>
                     <h4>{new Date().toLocaleDateString("en-US", dateFormatOptions)}</h4>
                     {selectedAgenda?.[0]?.id}
+                </div>
+                <div className='agenda-forward-date'>
+                    <Button className='h-100'>
+                        <RightOutlined/>
+                    </Button>
                 </div>
             </div>
             <div className='flex w-100 '>
