@@ -10,7 +10,11 @@ import widgetActions from '../../../redux/actions/widget'
 
 
 
-export default function IntakeCard() {
+interface IntakeCardProps {
+    selectedDate?: any 
+}
+
+export default function IntakeCard(props: IntakeCardProps) {
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const userIntakes = useSelector((state: any) => state.intakes?.queryResult ?? [])
@@ -21,6 +25,11 @@ export default function IntakeCard() {
     const [consumedTotals, setConsumedTotals] = useState<any>()
 
 
+    useEffect(() => {
+        if (props.selectedDate) {
+            setSelectedDay(props.selectedDate)
+        }
+    }, [props?.selectedDate])
         
     function datesMatch(date1: any, date2: any) {
         return date1.getFullYear() === date2.getFullYear() 
@@ -38,7 +47,7 @@ export default function IntakeCard() {
             return datesMatch(new Date(intake?.time), selectedDay)
         })
         setIntakesForSelectedDate(currentIntakes)
-    }, [userIntakes])
+    }, [userIntakes, props?.selectedDate, selectedDay])
 
     useMemo(() => {
         // When intakesForSelectedDate updates, recalculate the nutrient totals
