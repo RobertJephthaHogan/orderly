@@ -5,7 +5,13 @@ import eventActions from '../../../redux/actions/event'
 
 
 
-export default function EventsCard() {
+
+
+interface EventCardProps {
+    selectedDate?: any 
+}
+
+export default function EventsCard(props: EventCardProps) {
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const userEvents = useSelector((state: any) => state.events?.queryResult ?? [])
@@ -31,7 +37,7 @@ export default function EventsCard() {
         let workingEvents = [...userEvents]
 
         workingEvents?.forEach((evt: any) => {
-            const todaysDate = new Date()
+            const todaysDate =  props.selectedDate ? new Date(props.selectedDate) : new Date()
             const taskDueDate = new Date(evt?.startTime)
 
             if (todaysDate > taskDueDate) {
@@ -58,7 +64,7 @@ export default function EventsCard() {
             
         })
 
-    }, [userEvents])
+    }, [userEvents, props.selectedDate])
 
 
 

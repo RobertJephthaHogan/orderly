@@ -98,7 +98,19 @@ export default function UserAgenda() {
     }, [selectedAgenda, userChecklists])
 
 
+    function goToPreviousDate() {
+        const date = new Date(selectedDay)
+        console.log('date', date)
+        date.setDate(date.getDate() - 1);
+        console.log('date', date)
+        setSelectedDay(date)
+    }
 
+    function goToNextDate() {
+        const date = new Date(selectedDay)
+        date.setDate(date.getDate() + 1);
+        setSelectedDay(date)
+    }
 
     function createUserAgenda() {
 
@@ -115,17 +127,6 @@ export default function UserAgenda() {
         store.dispatch(agendaActions.add(agenda_dto))
         
 
-        // const checklist_dto = {
-        //     parent: newAgendaID,
-        //     id: new ObjectID().toString(),
-        //     title: `Daily Checklist for ${new Date().toLocaleDateString("en-US", dateFormatOptions)}`,
-        //     category: 'daily',
-        //     items: [],
-        //     createdByUserId : currentUser._id,
-        //     checklistCreationTime: new Date().toJSON()
-        // }
-        // store.dispatch(checklistActions.add(checklist_dto))
-        // setAgendaChecklists(checklist_dto)
     }
 
     // function createUserChecklist() {
@@ -146,17 +147,17 @@ export default function UserAgenda() {
         <div className='user-agenda-component'>
             <div className='flex p-1'>
                 <div className='agenda-back-date'>
-                    <Button className='h-100'>
+                    <Button className='h-100' onClick={() => goToPreviousDate()}>
                         <LeftOutlined/>
                     </Button>
                 </div>
                 <div className='user-agenda-top-bar w-100 ml-1 mr-1'>
                     <h3 id="welcome-back-title">Welcome back, {currentUser?.firstName}!</h3>
-                    <h4>{new Date().toLocaleDateString("en-US", dateFormatOptions)}</h4>
+                    <h4>{selectedDay.toLocaleDateString("en-US", dateFormatOptions)}</h4>
                     {selectedAgenda?.[0]?.id}
                 </div>
                 <div className='agenda-forward-date'>
-                    <Button className='h-100'>
+                    <Button className='h-100' onClick={() => goToNextDate()}>
                         <RightOutlined/>
                     </Button>
                 </div>
@@ -164,10 +165,14 @@ export default function UserAgenda() {
             <div className='flex w-100 '>
                 <div className='w-20 m-1'>
                     <div className='agenda-body-card  mb-1'>
-                        <TasksCard/>
+                        <TasksCard
+                            selectedDate={selectedDay}
+                        />
                     </div>
                     <div className='agenda-body-card  mb-1'>
-                        <EventsCard/>
+                        <EventsCard
+                            selectedDate={selectedDay}
+                        />
                     </div>
                     <div className='agenda-body-card  mb-1'>
                         Routine Card

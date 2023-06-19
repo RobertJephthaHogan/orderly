@@ -5,7 +5,12 @@ import taskActions from '../../../redux/actions/tasks'
 
 
 
-export default function TasksCard() {
+interface TaskCardProps {
+    selectedDate?: any 
+}
+
+
+export default function TasksCard(props: TaskCardProps) {
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
     const userTasks = useSelector((state: any) => state.tasks?.queryResult ?? [])
@@ -33,7 +38,7 @@ export default function TasksCard() {
         workingTasks = workingTasks.filter((tsk: any) => !tsk.isCompleted)
 
         workingTasks?.forEach((tsk: any) => {
-            const todaysDate = new Date()
+            const todaysDate = props.selectedDate ? new Date(props.selectedDate) : new Date()
             const taskDueDate = new Date(tsk?.dueDate)
 
             if (todaysDate > taskDueDate) {
@@ -60,7 +65,7 @@ export default function TasksCard() {
             
         })
 
-    }, [userTasks])
+    }, [userTasks, props.selectedDate])
 
     useEffect(() => {
 
