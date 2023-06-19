@@ -100,8 +100,6 @@ interface DailyChecklistsProps {
 
 function DailyChecklistsMenu(props: DailyChecklistsProps) {
 
-    console.log(props.filtered)
-
     return (
         <div>
             {

@@ -21,10 +21,6 @@ export default function UserChecklists() {
         store.dispatch(checklistActions.setChecklists(currentUser?._id))
     }, [currentUser])
 
-    console.log('userChecklists', userChecklists)
-    console.log('activeChecklist', activeChecklist)
-
-    
 
     return (
         <div className='user-checklists-component'>
