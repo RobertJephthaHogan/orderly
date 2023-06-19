@@ -67,7 +67,7 @@ export default function NoteEditor(props: NoteEditorProps) {
     }
 
     const onSearchCategory = (data: string) => {
-        console.log('onSearchCategory', data)
+
         onFormChange(data, 'category')
 
         const options : any= []
@@ -94,12 +94,9 @@ export default function NoteEditor(props: NoteEditorProps) {
             label: data,
             value: data,
         })
-        console.log('options', options)
         setCategoryOptions(options)
     }
 
-
-    console.log('editingSubject', editingSubject)
 
     return (
         <div>

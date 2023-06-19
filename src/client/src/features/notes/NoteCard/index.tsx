@@ -29,16 +29,12 @@ export default function NoteCard() {
     }
     
     useEffect(() => {
-        console.log('userNotes', userNotes)
         const currentNotes = userNotes?.filter((note: any) => {
             return datesMatch(new Date(note?.noteCreationTime), selectedDay)
         })
         setNotesForSelectedDate(currentNotes)
     }, [userNotes])
 
-    useEffect(() => {
-        console.log('notesForSelectedDate', notesForSelectedDate)
-    }, [notesForSelectedDate])
 
     useEffect(() => {
         const options = notesForSelectedDate?.map((note: any) => {

@@ -78,9 +78,9 @@ export default function UserAgenda() {
             return datesMatch(new Date(agenda?.agendaDate), selectedDay)
         })
         setSelectedAgenda(agendaForSelectedDay)
-        console.log('agendaForSelectedDay', agendaForSelectedDay)
 
-        if (agendaForSelectedDay?.length === 0) { // if there is no agenda for the active day create an agenda for the active day
+        // if there is no agenda for the active day create an agenda for the active day
+        if (agendaForSelectedDay?.length === 0) { 
             createUserAgenda() 
         }
 
@@ -93,16 +93,13 @@ export default function UserAgenda() {
         const checklistsForAgenda = userChecklists?.filter((checklist: any) => {
             return checklist.parent === parentID
         })
-        console.log('checklistsForAgenda', checklistsForAgenda)
         setAgendaChecklists(checklistsForAgenda)
     }, [selectedAgenda, userChecklists])
 
 
     function goToPreviousDate() {
         const date = new Date(selectedDay)
-        console.log('date', date)
         date.setDate(date.getDate() - 1);
-        console.log('date', date)
         setSelectedDay(date)
     }
 

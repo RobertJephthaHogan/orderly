@@ -42,7 +42,6 @@ export default function IntakeCard(props: IntakeCardProps) {
     }, [currentUser])
 
     useEffect(() => {
-        console.log('userIntakes', userIntakes)
         const currentIntakes = userIntakes?.filter((intake: any) => {
             return datesMatch(new Date(intake?.time), selectedDay)
         })
