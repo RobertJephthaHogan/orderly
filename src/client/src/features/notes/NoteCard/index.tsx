@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { Button, Select } from 'antd'
+import { Button, Empty, Select } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import widgetActions from '../../../redux/actions/widget'
@@ -76,20 +76,40 @@ export default function NoteCard(props: NoteCardProps) {
                     </Button>
                 </div>
             </div>
-            <div className='pl-2'>
-                <Select
-                    value={selectedNote}
-                    options={noteOptions}
-                    dropdownMatchSelectWidth={false}
-                    onChange={(value) => selectNote(value)}
-                />
-            </div>
-            <div>
-                <NoteEditor
-                    mode={'edit'}
-                    defaultSubject={selectedNote}
-                />
-            </div>
+            <div className='divider mb-2'/>
+            {
+                !noteOptions?.length
+                ? (
+                    <div className='mb-3'>
+                        <Empty
+                            description={
+                                <span>
+                                  You do not have any notes for this day, create one?
+                                </span>
+                              }
+                        />
+                    </div>
+                )
+                :  (
+                    <div>
+                        <div className='pl-2'>
+                            <Select
+                                value={selectedNote}
+                                options={noteOptions}
+                                dropdownMatchSelectWidth={false}
+                                onChange={(value) => selectNote(value)}
+                            />
+                        </div>
+                        <div>
+                            <NoteEditor
+                                mode={'edit'}
+                                defaultSubject={selectedNote}
+                            />
+                        </div>
+                    </div>
+                )
+            }
+            
         </div>
     )
 }
