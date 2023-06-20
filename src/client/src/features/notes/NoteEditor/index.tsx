@@ -28,6 +28,16 @@ export default function NoteEditor(props: NoteEditorProps) {
         store.dispatch(noteActions.setNotes(currentUser?._id))
     }, [currentUser])
 
+    useEffect(() => {
+        if (props.defaultSubject) {
+            // find props.defaultSubject id in userNotes
+            const found = userNotes.find((note: any) => note?.id === props.defaultSubject)
+            console.log('found', found)
+            // set it as editingSubject?
+            setEditingSubject(found)
+        }
+    }, [props.defaultSubject])
+
     const onFormChange = (value: any, field: string) => {
         console.log(value, field)
         const workingObj = {...editingSubject}
@@ -164,6 +174,7 @@ export default function NoteEditor(props: NoteEditorProps) {
                 <TextArea 
                     rows={4} 
                     onChange={(e) => onFormChange(e?.target?.value, 'body')}
+                    value={editingSubject?.body}
                 />
             </div>
             {

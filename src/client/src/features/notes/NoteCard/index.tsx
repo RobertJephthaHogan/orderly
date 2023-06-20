@@ -58,6 +58,12 @@ export default function NoteCard(props: NoteCardProps) {
         setSelectedNote(options?.[0]?.value)
     }, [notesForSelectedDate])
 
+    console.log('selectedNote', selectedNote)
+
+    const selectNote = (value: any) => {
+        setSelectedNote(value)
+    }
+
     return (
         <div>
             <div className='flex jc-sb p-2'>
@@ -74,6 +80,8 @@ export default function NoteCard(props: NoteCardProps) {
                 <Select
                     value={selectedNote}
                     options={noteOptions}
+                    dropdownMatchSelectWidth={false}
+                    onChange={(value) => selectNote(value)}
                 />
             </div>
             <div>
