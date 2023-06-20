@@ -9,7 +9,12 @@ import NoteEditor from '../NoteEditor'
 
 
 
-export default function NoteCard() {
+
+interface NoteCardProps {
+    selectedDate?: any 
+}
+
+export default function NoteCard(props: NoteCardProps) {
 
     const currentUser = useSelector((state: any) => state.user?.data ?? [])
 	const userNotes = useSelector((state: any) => state.notes?.queryResult ?? [])
@@ -17,6 +22,12 @@ export default function NoteCard() {
     const [notesForSelectedDate, setNotesForSelectedDate] = useState<any>()
     const [noteOptions, setNoteOptions] = useState<any>()
     const [selectedNote, setSelectedNote] = useState<any>()
+
+    useEffect(() => {
+        if (props.selectedDate) {
+            setSelectedDay(props.selectedDate)
+        }
+    }, [props?.selectedDate])
 
     useEffect(() => {
         store.dispatch(noteActions.setNotes(currentUser?._id))
@@ -33,7 +44,7 @@ export default function NoteCard() {
             return datesMatch(new Date(note?.noteCreationTime), selectedDay)
         })
         setNotesForSelectedDate(currentNotes)
-    }, [userNotes])
+    }, [userNotes, props?.selectedDate, selectedDay])
 
 
     useEffect(() => {

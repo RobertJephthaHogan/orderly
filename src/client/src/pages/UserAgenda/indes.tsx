@@ -189,7 +189,9 @@ export default function UserAgenda() {
                         />
                     </div>
                     <div className=' agenda-body-card'>
-                        <NoteCard/>
+                        <NoteCard
+                            selectedDate={selectedDay}
+                        />
                     </div>
                 </div>
             </div>
