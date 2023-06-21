@@ -8,6 +8,7 @@ import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import widgetActions from '../../redux/actions/widget'
 import Checklist from '../../features/checklists/Checklist'
+import { datesMatch } from '../../helpers'
 
 
 
@@ -19,8 +20,20 @@ export default function UserChecklists() {
     
     useEffect(() => {
         store.dispatch(checklistActions.setChecklists(currentUser?._id))
-    }, [currentUser])
+        const checklistForToday = userChecklists?.filter((checklist: any) => {
+            return datesMatch(new Date(checklist?.checklistCreationTime), new Date())
+        })
+        console.log('checklistForToday',checklistForToday)
+        if (checklistForToday?.length) {
+            setActiveChecklist(checklistForToday?.[0])
+        }
+        if (!checklistForToday?.length) {
+            setActiveChecklist(userChecklists?.[0])
+        }
+        
+    }, [])
 
+    console.log('activeChecklist', activeChecklist)
 
     return (
         <div className='user-checklists-component'>
