@@ -2,6 +2,7 @@ import { Radio, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { indexMonthMap, monthIndexMap } from '../../../../data/monthIndexMap'
 import './styles.css'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 
 type Props = {
     activeTimeframe?: any
@@ -110,8 +111,14 @@ export const CalendarHeader : React.FC<Props> = ({
                     <div className='date-selector-area'>
                         {
                             activeTimeframe === "tf-week" ? (
-                                <div className='week-date-select-wrapper'>
-                                    <div className='month-select'>
+                                <div 
+                                    className='week-date-select-wrapper'
+                                    style={{
+                                        position: 'relative',
+                                         
+                                    }}
+                                >
+                                    {/* <div className='month-select'>
                                         <Select 
                                             onChange={onSelectedMonthChange}
                                             value={selectedMonth}
@@ -124,6 +131,31 @@ export const CalendarHeader : React.FC<Props> = ({
                                             value={selectedYear}
                                             options={yearOptions}
                                         />
+                                    </div> */}
+                                    <div className='flex mr-4' >
+                                        <div className='mr-1'>
+                                            <LeftOutlined/>
+                                        </div>
+                                        <div>
+                                            {`${
+                                                new Date(
+                                                    selectedDay?.getFullYear(), 
+                                                    selectedDay?.getMonth(), 
+                                                    selectedDay?.getDate()-selectedDay?.getDay()
+                                                ).toLocaleDateString()
+                                            }`} 
+                                            - 
+                                            {`${
+                                                new Date(
+                                                    selectedDay?.getFullYear(), 
+                                                    selectedDay?.getMonth(), 
+                                                    selectedDay?.getDate()+(6-selectedDay?.getDay())
+                                                ).toLocaleDateString()
+                                            }`} 
+                                        </div>
+                                        <div  className='ml-1'>
+                                            <RightOutlined/>
+                                        </div>
                                     </div>
                                 </div>
                             ) : (
