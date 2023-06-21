@@ -44,6 +44,18 @@ export const CalendarHeader : React.FC<Props> = ({
         onDateSelect(newDate)
     }
 
+    const decrementWeek = () => {
+        var newDate = new Date(selectedDay);
+        newDate.setDate(selectedDay.getDate() - 7);
+        onDateSelect(newDate)
+    }
+
+    const incrementWeek = () => {
+        var newDate = new Date(selectedDay);
+        newDate.setDate(selectedDay.getDate() + 7);
+        onDateSelect(newDate)
+    }
+
     const generateMonthOptions = () => {
         if (!monthOptions?.length) {
             const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'November', 'December']
@@ -118,23 +130,11 @@ export const CalendarHeader : React.FC<Props> = ({
                                          
                                     }}
                                 >
-                                    {/* <div className='month-select'>
-                                        <Select 
-                                            onChange={onSelectedMonthChange}
-                                            value={selectedMonth}
-                                            options={monthOptions}
-                                        />
-                                    </div>
-                                    <div className='year-select ml-1'>
-                                        <Select 
-                                            onChange={onSelectedYearChange}
-                                            value={selectedYear}
-                                            options={yearOptions}
-                                        />
-                                    </div> */}
                                     <div className='flex mr-4' >
                                         <div className='mr-1'>
-                                            <LeftOutlined/>
+                                            <LeftOutlined
+                                                onClick={() => decrementWeek()}
+                                            />
                                         </div>
                                         <div>
                                             {`${
@@ -154,7 +154,9 @@ export const CalendarHeader : React.FC<Props> = ({
                                             }`} 
                                         </div>
                                         <div  className='ml-1'>
-                                            <RightOutlined/>
+                                            <RightOutlined
+                                                onClick={() => incrementWeek()}
+                                            />
                                         </div>
                                     </div>
                                 </div>

@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import DailySchedule from '../../DailySchedule'
 import { useSelector } from 'react-redux'
 import { store } from '../../../../redux/store'
@@ -37,9 +37,13 @@ const WeekView : React.FC<Props> = ({
         }
     })
 
+    useMemo(() => {
+        generateWeekViewData()
+    }, [selectedDay])
 
-    const generateWeekViewData = () => {
-        const dayOfWeek = selectedDay.getDay()
+
+    function generateWeekViewData() {
+        const dayOfWeek = new Date(selectedDay).getDay()
 
         let thisWeeksDays = []
         let precedingDates = []
@@ -47,14 +51,14 @@ const WeekView : React.FC<Props> = ({
 
         // Loop four times to get the preceding days in the week
         for (var i = 0; i < dayOfWeek; i++) {
-            var date = new Date();
+            const date = new Date();
             date.setDate(date.getDate() - i - 1);
             precedingDates.push(date.toISOString().split('T')[0]);
         }
 
         // Loop four times to get the following days in the week
         for (var i = 0; i < (6 - dayOfWeek); i++) {
-            var date = new Date();
+            const date = new Date();
             date.setDate(date.getDate() + i + 1);
             followingDates.push(date.toISOString().split('T')[0]);
         }
@@ -66,6 +70,9 @@ const WeekView : React.FC<Props> = ({
             new Date(selectedDay).toISOString().split('T')[0], 
             ...followingDates
         ]
+
+        console.log('thisWeeksDays', thisWeeksDays)
+
 
         const weekViewColumns = thisWeeksDays?.map((date: any) => {
             console.log('date', date)
