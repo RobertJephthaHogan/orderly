@@ -165,14 +165,14 @@ export default function UserSettings() {
                     </div>
 
                 </div>
-                <div className='user-info-card  mb-1'>
+                {/* <div className='user-info-card  mb-1'>
                     morning routine card
                     
                 </div>
                 <div className='user-info-card  mb-1'>
                     evening routine card
                     
-                </div>
+                </div> */}
             </div>
         </div>
     )

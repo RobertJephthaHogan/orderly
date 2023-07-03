@@ -64,13 +64,13 @@ export const newMenuItems: any = [
         route: '/checklists',
         menuId: 'user-checklists-menu-item',
     },
-    {
-        key: 'user-nutrition',
-        icon: <ReconciliationOutlined />,
-        label: 'User Nutrition',
-        route: '/nutrition',
-        menuId: 'user-nutrition-menu-item',
-    },
+    // {
+    //     key: 'user-nutrition',
+    //     icon: <ReconciliationOutlined />,
+    //     label: 'User Nutrition',
+    //     route: '/nutrition',
+    //     menuId: 'user-nutrition-menu-item',
+    // },
     // {
     //     key: 'user-exercise',
     //     icon: <RocketOutlined />,
@@ -78,13 +78,13 @@ export const newMenuItems: any = [
     //     route: '/exercise',
     //     menuId: 'user-exercise-menu-item',
     // },
-    {
-        key: 'user-tables',
-        icon: <TableOutlined />,
-        label: 'User Tables',
-        route: '/tables',
-        menuId: 'user-tables-menu-item',
-    },
+    // {
+    //     key: 'user-tables',
+    //     icon: <TableOutlined />,
+    //     label: 'User Tables',
+    //     route: '/tables',
+    //     menuId: 'user-tables-menu-item',
+    // },
     {
         key: 'user-settings',
         icon: <SettingOutlined />,

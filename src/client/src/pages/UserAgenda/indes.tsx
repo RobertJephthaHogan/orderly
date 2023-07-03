@@ -170,9 +170,9 @@ export default function UserAgenda() {
                             selectedDate={selectedDay}
                         />
                     </div>
-                    <div className='agenda-body-card  mb-1'>
+                    {/* <div className='agenda-body-card  mb-1'>
                         Routine Card
-                    </div>
+                    </div> */}
                 </div>
                 <div className='w-40 m-1'>
                     <div className='agenda-body-card mb-1'>
