@@ -64,6 +64,14 @@ export default function NoteEditor(props: NoteEditorProps) {
 
     const onSave = () => {
         //TODO: Handling for when user saves existing note
+        console.log('onSave', editingSubject)
+        store.dispatch(noteActions.update(editingSubject?.id, editingSubject))
+
+                
+        setTimeout(function() {
+            store.dispatch(noteActions.setNotes(currentUser?._id))
+        }, 25)
+
     }
 
     const onSelectCategory = (data: string) => {
@@ -143,7 +151,10 @@ export default function NoteEditor(props: NoteEditorProps) {
                             />
                         </div>
                         <div className='w-30  p-1'>
-                            <Button size='small'>
+                            <Button 
+                                size='small'
+                                onClick={onSave}
+                            >
                                 <SaveOutlined/>
                             </Button>
                         </div>

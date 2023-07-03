@@ -77,6 +77,10 @@ export default function Checklist(props: ChecklistProps) {
         setActiveChecklist(cList)
 
         store.dispatch(checklistActions.update(cList?.id , cList))
+                
+        setTimeout(function() {
+            store.dispatch(checklistActions.setChecklists(currentUser?._id))
+        }, 25)
     }
 
 
@@ -89,6 +93,10 @@ export default function Checklist(props: ChecklistProps) {
         setActiveChecklist(cList)
 
         store.dispatch(checklistActions.update(cList?.id , cList))
+                
+        setTimeout(function() {
+            store.dispatch(checklistActions.setChecklists(currentUser?._id))
+        }, 25)
     }
 
     const markItemAsCompleted = (key: any) => {
@@ -100,6 +108,10 @@ export default function Checklist(props: ChecklistProps) {
         setActiveChecklist(cList)
 
         store.dispatch(checklistActions.update(cList?.id , cList))
+        
+        setTimeout(function() {
+            store.dispatch(checklistActions.setChecklists(currentUser?._id))
+        }, 25)
     }
 
     const markItemAsIncomplete = (key: any) => {
@@ -111,6 +123,10 @@ export default function Checklist(props: ChecklistProps) {
         setActiveChecklist(cList)
 
         store.dispatch(checklistActions.update(cList?.id , cList))
+
+        setTimeout(function() {
+            store.dispatch(checklistActions.setChecklists(currentUser?._id))
+        }, 25)
     }
 
     const markItemInProgress = (key: any) => {
@@ -122,6 +138,10 @@ export default function Checklist(props: ChecklistProps) {
         setActiveChecklist(cList)
 
         store.dispatch(checklistActions.update(cList?.id , cList))
+                
+        setTimeout(function() {
+            store.dispatch(checklistActions.setChecklists(currentUser?._id))
+        }, 25)
     }
 
     const editChecklistItem = (key: any) => {
