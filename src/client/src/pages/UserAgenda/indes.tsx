@@ -179,6 +179,7 @@ export default function UserAgenda() {
                         <ChecklistCard
                             agendaChecklists={agendaChecklists}
                             parent={selectedAgenda}
+                            selectedDate={selectedDay}
                         />
                     </div>
                 </div>

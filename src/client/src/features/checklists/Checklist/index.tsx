@@ -80,7 +80,7 @@ export default function Checklist(props: ChecklistProps) {
                 
         setTimeout(function() {
             store.dispatch(checklistActions.setChecklists(currentUser?._id))
-        }, 25)
+        }, 250)
     }
 
 

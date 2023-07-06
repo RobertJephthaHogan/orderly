@@ -1,5 +1,5 @@
 import { EllipsisOutlined, MoreOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Select } from 'antd'
+import { Button, Empty, Select } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
 import { store } from '../../../redux/store'
 import widgetActions from '../../../redux/actions/widget'
@@ -13,6 +13,8 @@ import Checklist from '../../checklists/Checklist'
 interface CardProps {
     agendaChecklists?: any
     parent?: any
+    selectedDate?: any 
+
 }
 
 export default function ChecklistCard(props: CardProps) {
@@ -32,12 +34,12 @@ export default function ChecklistCard(props: CardProps) {
 
         const dto = {
             id: new ObjectID().toString(),
-            title: `Daily Checklist for ${new Date().toJSON().split('T')[0]}`,
+            title: `Daily Checklist for ${props.selectedDate?.toJSON().split('T')[0]}`,
             category: 'Daily',
             parent: props.parent?.[0]?.id,
             items: [],
             createdByUserId: currentUser?._id,
-            checklistCreationTime: new Date().toJSON()
+            checklistCreationTime: props.selectedDate?.toJSON()
         }
 
         console.log('dto', dto)
@@ -61,36 +63,66 @@ export default function ChecklistCard(props: CardProps) {
 
     return (
         <div>
-            <div className='pl-1 pr-1'>
-                <h5>Checklist Card ({props.agendaChecklists?.length})</h5>
-            </div>
-            <div className='flex'>
-                <div className='w-100'>
-                    <Select
-                        className='w-100 pl-1 pr-1'
-                        options={checklistOptions}
-                        onChange={onChecklistChange}
-                        value={activeChecklist}
-                    />
+            <div className='flex jc-sb p-2'>
+                <div>
+                    <h5>Checklists:</h5>
                 </div>
-                <div className='pl-1 pr-1 flex'>
-                    <Button
-                        onClick={() => createDailyChecklist()}
-                    >
+                <div>
+                    <Button onClick={() => createDailyChecklist()} size='small'>
                         <PlusOutlined/>
                     </Button>
-                    <Button
-                        onClick={() => store.dispatch(widgetActions.showChecklistWidget())}
-                    >
-                        <MoreOutlined/>
-                    </Button>
                 </div>
             </div>
-            <div className='pl-1 pr-1'>
-                <Checklist
-                    checklistData={activeChecklist}
-                />
-            </div>
+            <div className='divider'/>
+            {
+                props.agendaChecklists?.length
+                ? (
+                    <div>
+                        <div className='pl-1 pr-1'>
+                            <h5>Checklist Card ({props.agendaChecklists?.length})</h5>
+                        </div>
+                        <div className='flex'>
+                            <div className='w-100'>
+                                <Select
+                                    className='w-100 pl-1 pr-1'
+                                    options={checklistOptions}
+                                    onChange={onChecklistChange}
+                                    value={activeChecklist}
+                                />
+                            </div>
+                            <div className='pl-1 pr-1 flex'>
+                                <Button
+                                    onClick={() => createDailyChecklist()}
+                                >
+                                    <PlusOutlined/>
+                                </Button>
+                                <Button
+                                    onClick={() => store.dispatch(widgetActions.showChecklistWidget())}
+                                >
+                                    <MoreOutlined/>
+                                </Button>
+                            </div>
+                        </div>
+                        <div className='pl-1 pr-1'>
+                            <Checklist
+                                checklistData={activeChecklist}
+                            />
+                        </div>
+                    </div>
+                )
+                : (
+                    <div className='mb-3 mt-3'>
+                        <Empty
+                            description={
+                                <span>
+                                  You do not have any Checklists for this day, create one?
+                                </span>
+                              }
+                        />
+                    </div>
+                )
+            }
+            
         </div>
     )
 }
