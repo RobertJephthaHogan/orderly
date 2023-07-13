@@ -6,6 +6,7 @@ import { store } from '../../redux/store';
 import './styles.css'
 import { Button, Empty } from 'antd';
 import NotesMenu from './NotesMenu';
+import widgetActions from '../../redux/actions/widget';
 
 type Props = {
 }
@@ -97,7 +98,7 @@ export const UserNotes: React.FC = () => {
 					<div className="w-100 flex pb-1">
 						<Button 
 							className="w-100"
-							onClick={createNewNote}
+							onClick={() => store.dispatch(widgetActions.showNoteWidget())}
 						>
 							+
 						</Button>

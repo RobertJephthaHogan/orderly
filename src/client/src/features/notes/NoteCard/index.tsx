@@ -6,6 +6,7 @@ import widgetActions from '../../../redux/actions/widget'
 import { store } from '../../../redux/store'
 import noteActions from '../../../redux/actions/notes'
 import NoteEditor from '../NoteEditor'
+import { ObjectID } from 'bson'
 
 
 
@@ -41,7 +42,7 @@ export default function NoteCard(props: NoteCardProps) {
     
     useEffect(() => {
         const currentNotes = userNotes?.filter((note: any) => {
-            return datesMatch(new Date(note?.noteCreationTime), selectedDay)
+            return datesMatch(new Date(note?.dailyNoteForDate), selectedDay)
         })
         setNotesForSelectedDate(currentNotes)
     }, [userNotes, props?.selectedDate, selectedDay])
@@ -64,6 +65,22 @@ export default function NoteCard(props: NoteCardProps) {
         setSelectedNote(value)
     }
 
+    const createNewNote = () => {
+        const jsonDate = selectedDay.toJSON()
+
+        const dto = {
+            id: new ObjectID().toString(),
+            title: `Note for ${jsonDate.split('T')[0]}`,
+            category: 'General',
+            body: `Note for ${jsonDate.split('T')[0]}`,
+            parent: '',
+            createdByUserId : currentUser._id,
+            noteCreationTime: new Date().toJSON(),
+            dailyNoteForDate: selectedDay,
+        }
+        store.dispatch(noteActions.add(dto))
+	}
+
     return (
         <div>
             <div className='flex jc-sb p-2'>
@@ -71,7 +88,7 @@ export default function NoteCard(props: NoteCardProps) {
                     <h5>Notes:</h5>
                 </div>
                 <div>
-                    <Button onClick={() => store.dispatch(widgetActions.showNoteWidget())} size='small'>
+                    <Button onClick={() => createNewNote()} size='small'>
                         <PlusOutlined/>
                     </Button>
                 </div>
