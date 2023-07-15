@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import './styles.css'
 import { useSelector } from 'react-redux'
 import { EditOutlined, SaveOutlined } from '@ant-design/icons'
 import { Button, Input } from 'antd'
+import { userService } from '../../services'
+import { openNotification } from '../../helpers/notifications'
+import { store } from '../../redux/store'
+import userActions from '../../redux/actions/user'
 
 
 
@@ -12,8 +16,35 @@ export default function UserSettings() {
     const [activeField, setActiveField] = useState<any>('')
 
 
-    const handleSaveField = () => {
+    const handleSaveField = (value: any, fieldName: any) => {
         setActiveField('')
+        console.log('handleSaveField value', value)
+
+        const dto = {...currentUser}
+
+        console.log(currentUser)
+
+        dto[fieldName] = value
+
+        console.log('dto', dto)
+
+        userService.updateUser(dto?._id, dto)
+            .then((resp: any) => {
+                console.log('resp', resp)
+                if (resp) {
+                    openNotification(
+                        resp?.data?.response_type,
+                        `User ${resp?.data?.data?._id} Updated Successfully`
+                    )
+
+                    store.dispatch(userActions.login(resp?.data))
+
+                }
+            })
+            .catch((er: any) => {
+                console.error('er', er)
+            })
+
     }
 
     
@@ -208,6 +239,19 @@ interface EditableSettingRowProps {
 
 function EditableSettingRow(props: EditableSettingRowProps) {
 
+    const [editableFieldValue, setEditableFieldValue] = useState<any>()
+
+    useMemo(() => {
+        setEditableFieldValue(props?.currentUser?.firstName)
+    }, [props?.currentUser?.firstName])
+
+
+    const handleFieldChange = (value: string) => {
+        console.log('handleFieldChange', value)
+        setEditableFieldValue(value)
+    }
+
+
     if (props.activeField === props.fieldName) {
         console.log('field Match')
         return (
@@ -216,12 +260,16 @@ function EditableSettingRow(props: EditableSettingRowProps) {
                     <h5 className='vm-auto'>First Name : </h5>
                 </div>
                 <div className='pl-2'> 
-                    <Input/>
+                    <Input
+                        defaultValue={editableFieldValue}
+                        value={editableFieldValue}
+                        onChange={(e) => handleFieldChange(e?.target?.value)}
+                    />
                 </div>
                 <div className='pl-4'>
                     <Button 
                         size='small'
-                        onClick={() => props.handleSaveField()}
+                        onClick={() => props.handleSaveField(editableFieldValue, props.fieldName)}
                     >
                         <SaveOutlined/>
                     </Button>
