@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { store } from '../../../../redux/store'
+import eventActions from '../../../../redux/actions/event'
 
 
 interface Props {
@@ -93,6 +96,14 @@ interface MonthCellRenderProps {
 }
 
 function MonthCellRender(props: MonthCellRenderProps) {
+    const userEvents = useSelector((state: any) => state.events?.queryResult ?? [])
+
+    
+    useEffect(() => {
+        store.dispatch(eventActions.setEvents(store.getState()?.user?.data?._id))
+    }, [])
+
+    console.log('userEvents', userEvents)
 
     const arr = Array.from({ length: 12 }, (_, index) => index);
 
@@ -105,9 +116,17 @@ function MonthCellRender(props: MonthCellRenderProps) {
 
         console.log('date', date)
 
+        const thisYearsEvents = userEvents?.filter((event: any) => new Date(event?.startTime)?.getFullYear() == year)
+        const thisMonthsEvents = thisYearsEvents?.filter((event: any) => new Date(event?.startTime)?.getMonth() == month)
+        console.log('thisYearsEvents', thisYearsEvents)
+        console.log('thisMonthsEvents', thisMonthsEvents)
+
         return (
-            <div  className='month-cell'>
+            <div className='month-cell'>
                 {monthNames[entry]}
+                <div>
+                    <CellChipRender cellEvents={thisMonthsEvents}/>
+                </div>
             </div>
         )
     }) || []
@@ -120,6 +139,30 @@ function MonthCellRender(props: MonthCellRenderProps) {
             }}
         >
             {cells}
+        </div>
+    )
+}
+
+
+
+interface CellProps {
+    cellEvents?: any
+}
+
+function CellChipRender(props: CellProps) {
+
+    const cellEvents = props?.cellEvents?.map((event: any) => {
+
+        return (
+            <div>
+                {event?.title}
+            </div>
+        )
+    }) || []
+
+    return (
+        <div>
+            {cellEvents}
         </div>
     )
 }
