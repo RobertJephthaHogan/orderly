@@ -68,7 +68,25 @@ export default function UserSettings() {
                         setActiveField={setActiveField}
                         handleSaveField={handleSaveField}
                     />
-                    <div className=' info-row flex p-1 pl-3'>
+                    <EditableSettingRow
+                        rowLabel={'Last Name :'}
+                        rowValue={currentUser?.lastName}
+                        fieldName={'lastName'}
+                        activeField={activeField}
+                        currentUser={currentUser}
+                        setActiveField={setActiveField}
+                        handleSaveField={handleSaveField}
+                    />
+                    <EditableSettingRow
+                        rowLabel={'Email :'}
+                        rowValue={currentUser?.email}
+                        fieldName={'email'}
+                        activeField={activeField}
+                        currentUser={currentUser}
+                        setActiveField={setActiveField}
+                        handleSaveField={handleSaveField}
+                    />
+                    {/* <div className=' info-row flex p-1 pl-3'>
                         <div>
                             <h5 className='vm-auto'>First Name : </h5>
                         </div>
@@ -78,8 +96,8 @@ export default function UserSettings() {
                         <div className='pl-4 edit-icon'>
                             <h5 className='vm-auto'><EditOutlined onClick={() => setActiveField('firstName')} className='hcp'/> </h5>
                         </div>
-                    </div>
-                    <div className='info-row flex p-1 pl-3'>
+                    </div> */}
+                    {/* <div className='info-row flex p-1 pl-3'>
                         <div>
                             <h5 className='vm-auto'>Last Name : </h5>
                         </div>
@@ -89,8 +107,8 @@ export default function UserSettings() {
                         <div className='pl-4 edit-icon'>
                             <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
                         </div>
-                    </div>
-                    <div className='info-row flex p-1 pl-3'>
+                    </div> */}
+                    {/* <div className='info-row flex p-1 pl-3'>
                         <div>
                             <h5 className='vm-auto'> Email : </h5>
                         </div>
@@ -100,7 +118,7 @@ export default function UserSettings() {
                         <div className='pl-4 edit-icon'>
                             <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='info-row flex p-1 pl-3'>
                         <div>
                             <h5 className='vm-auto'> Password : </h5>
@@ -242,8 +260,8 @@ function EditableSettingRow(props: EditableSettingRowProps) {
     const [editableFieldValue, setEditableFieldValue] = useState<any>()
 
     useMemo(() => {
-        setEditableFieldValue(props?.currentUser?.firstName)
-    }, [props?.currentUser?.firstName])
+        setEditableFieldValue(props?.rowValue)
+    }, [props?.rowValue])
 
 
     const handleFieldChange = (value: string) => {
@@ -257,7 +275,7 @@ function EditableSettingRow(props: EditableSettingRowProps) {
         return (
             <div className=' info-row flex p-1 pl-3'>
                 <div>
-                    <h5 className='vm-auto'>First Name : </h5>
+                    <h5 className='vm-auto'>{props.rowLabel}</h5>
                 </div>
                 <div className='pl-2'> 
                     <Input
@@ -283,13 +301,13 @@ function EditableSettingRow(props: EditableSettingRowProps) {
         return (
             <div className=' info-row flex p-1 pl-3'>
                 <div>
-                    <h5 className='vm-auto'>First Name : </h5>
+                    <h5 className='vm-auto'>{props.rowLabel}</h5>
                 </div>
                 <div className='pl-2'> 
-                    <h5 className='vm-auto'> {props.currentUser?.firstName} </h5>
+                    <h5 className='vm-auto'> {props.rowValue} </h5>
                 </div>
                 <div className='pl-4 edit-icon'>
-                    <h5 className='vm-auto'><EditOutlined onClick={() => props.setActiveField('firstName')} className='hcp'/> </h5>
+                    <h5 className='vm-auto'><EditOutlined onClick={() => props.setActiveField(props.fieldName)} className='hcp'/> </h5>
                 </div>
             </div>
         )
