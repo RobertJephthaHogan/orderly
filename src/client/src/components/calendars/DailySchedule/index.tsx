@@ -210,7 +210,7 @@ const DailySchedule: React.FC<Props> = ({
                             <div className='w-100 eventTile' style={{height:eventDuration + "px", position: "relative"}}> 
                             <Row className='flex w-100 space-between pl-2 pr-2'>
                                 <div>
-                                    <h5>{thisBlocksEvent?.event.eventTypeDescription}</h5>
+                                    <h5>{thisBlocksEvent?.event?.title}</h5>
                                 </div>
                                 <div>
                                     <Popconfirm
