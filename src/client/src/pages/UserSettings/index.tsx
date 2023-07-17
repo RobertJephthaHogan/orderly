@@ -50,9 +50,6 @@ export default function UserSettings() {
     
     return (
         <div className='user-settings-component p-1'>
-            <div className='user-settings-top-bar mb-1'>
-                top bar
-            </div>
             <div>
                 <div className='user-info-card  mb-1'>
                     <div className='p-2'>
@@ -86,39 +83,15 @@ export default function UserSettings() {
                         setActiveField={setActiveField}
                         handleSaveField={handleSaveField}
                     />
-                    {/* <div className=' info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'>First Name : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> {currentUser?.firstName} </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined onClick={() => setActiveField('firstName')} className='hcp'/> </h5>
-                        </div>
-                    </div> */}
-                    {/* <div className='info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'>Last Name : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> {currentUser?.lastName} </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
-                        </div>
-                    </div> */}
-                    {/* <div className='info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'> Email : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> {currentUser?.email} </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
-                        </div>
-                    </div> */}
+                    <EditableSettingRow
+                        rowLabel={'Phone Number :'}
+                        rowValue={currentUser?.phoneNumber}
+                        fieldName={'phoneNumber'}
+                        activeField={activeField}
+                        currentUser={currentUser}
+                        setActiveField={setActiveField}
+                        handleSaveField={handleSaveField}
+                    />
                     <div className='info-row flex p-1 pl-3'>
                         <div>
                             <h5 className='vm-auto'> Password : </h5>
@@ -130,75 +103,8 @@ export default function UserSettings() {
                             <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
                         </div>
                     </div>
-                    <div className='info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'> Phone Number : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> {currentUser?.phoneNumber} </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
-                        </div>
-                    </div>
-                    <div className='info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'> Height : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> 5' 10'' </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
-                        </div>
-                    </div>
-                    <div className='info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'> Weight : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> 170 </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
-                        </div>
-                    </div>
-                    <div className='info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'> Body Fat Percentage : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> 12 </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
-                        </div>
-                    </div>
-                    <div className='info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'> Target Weight : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> 215 </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
-                        </div>
-                    </div>
-                    <div className='info-row flex p-1 pl-3'>
-                        <div>
-                            <h5 className='vm-auto'> Target BFP : </h5>
-                        </div>
-                        <div className='pl-2'> 
-                            <h5 className='vm-auto'> 7 </h5>
-                        </div>
-                        <div className='pl-4 edit-icon'>
-                            <h5 className='vm-auto'><EditOutlined className='hcp' /> </h5>
-                        </div>
-                    </div>
-                    
                 </div>
-                <div className='user-info-card  mb-1'>
+                {/* <div className='user-info-card  mb-1'>
                     <div className='p-2'>
                         <h4>User nutrition settings card</h4>
                     </div>
@@ -228,7 +134,7 @@ export default function UserSettings() {
                         </div>
                     </div>
 
-                </div>
+                </div> */}
                 {/* <div className='user-info-card  mb-1'>
                     morning routine card
                     
