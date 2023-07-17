@@ -10,12 +10,30 @@ interface Props {
 }
 
 
+
+const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
 export default function YearView(props : Props) {
+
+    console.log('props.selectedDay', props.selectedDay)
 
     return (
         <div className="year-view-wrapper">
             <div className="year-view" >
-                <div className='year-view-row'>
+                {/* <div className='year-view-row'>
                     <div className='month-cell'>
                         January
                     </div>
@@ -58,8 +76,50 @@ export default function YearView(props : Props) {
                     <div className='month-cell'>
                         December
                     </div>
+                </div> */}
+                <div>
+                    <MonthCellRender
+                        selectedDay={props.selectedDay}
+                    />
                 </div>
             </div>
+        </div>
+    )
+}
+
+
+interface MonthCellRenderProps {
+    selectedDay?: any
+}
+
+function MonthCellRender(props: MonthCellRenderProps) {
+
+    const arr = Array.from({ length: 12 }, (_, index) => index);
+
+    const cells = arr?.map((entry: any) => {
+
+        const year = props.selectedDay?.getFullYear()
+        const month = entry 
+
+        const date = new Date(year, month)
+
+        console.log('date', date)
+
+        return (
+            <div  className='month-cell'>
+                {monthNames[entry]}
+            </div>
+        )
+    }) || []
+
+    return (
+        <div
+            style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)'
+            }}
+        >
+            {cells}
         </div>
     )
 }

@@ -56,7 +56,13 @@ export default function ChecklistMenu (props: ChecklistProps) {
                 </div>
             </div>
             <div className='divider'/>
-            <div className='pl-2 pt-2'>
+            <div 
+                className='pl-2 pt-2'
+                style={{
+                    maxHeight: '700px',
+                    overflowY: 'scroll'
+                }}
+            >
                 {
                     menuView == 'daily'
                     ? (
