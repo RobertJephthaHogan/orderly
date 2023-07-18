@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { store } from '../../../../redux/store'
 import eventActions from '../../../../redux/actions/event'
+import { Dropdown } from 'antd'
+import { CloseOutlined } from '@ant-design/icons'
 
 
 interface Props {
@@ -123,7 +125,9 @@ function MonthCellRender(props: MonthCellRenderProps) {
 
         return (
             <div className='month-cell'>
-                {monthNames[entry]}
+                <div className='pl-1 flex jc-e pr-1'>
+                    <h5>{monthNames[entry]}</h5>
+                </div>
                 <div>
                     <CellChipRender cellEvents={thisMonthsEvents}/>
                 </div>
@@ -151,6 +155,14 @@ interface CellProps {
 
 function CellChipRender(props: CellProps) {
 
+    
+    const onDeleteEvent = (e: any, event: any) => {
+        e.stopPropagation()
+        console.log('event', event)
+        store.dispatch(eventActions.delete(event?.id))
+    }
+
+
     const cellEvents = props?.cellEvents?.map((event: any) => {
 
         return (
@@ -160,9 +172,87 @@ function CellChipRender(props: CellProps) {
         )
     }) || []
 
+
+    const eventsToRender = props?.cellEvents?.map((evt: any) => {
+
+
+        let chipType
+
+        if (evt?.category == 'Meeting') {
+            chipType = 'meeting-chip'
+
+        } else if (evt?.category == 'Birthday') {
+            chipType = 'birthday-chip'
+
+        } else if (evt?.category == 'Work') {
+            chipType = 'work-chip'
+            
+        } else {
+            chipType = 'event-chip'
+        }
+
+
+
+        return (
+            <Dropdown dropdownRender={menu => (
+                <div
+                    style={{
+                        background: '#ffffff',
+                        border: '1px solid #dfdfdf',
+                    }}
+                    className='flex pb-2'
+                >
+                    <div className='mt-2 ml-3 mr-1'>
+                        <h5 >{`${evt?.title}`}</h5>
+                        {
+                            Object.entries(evt)?.map((atr: any) => {
+                                return (
+                                    <div className='flex'>
+                                        <div>
+                                            {atr[0]}:
+                                        </div>
+                                        <div className='ml-2'>
+                                            {atr[1]}
+                                        </div>
+                                    </div>
+                                )
+                            }) || []
+                        }
+                    </div>
+                    <div className='v-divider'/>
+                    <div className='mt-2 ml-1 mr-1'>
+                        {/* <button 
+                            className='btn-task-complete'
+                            onClick={() => console.log('checked')}
+                        >
+                            <CheckOutlined/>
+                        </button> */}
+                        <button 
+                            className='btn-task-delete'
+                            onClick={(e) => onDeleteEvent(e, evt)}
+                        >
+                            <CloseOutlined/>
+                        </button>
+                    </div>
+                </div>
+            )}>
+                <div 
+                    key={evt?.id}
+                    className='event-chip-wrapper'
+                >
+                    <div className={`${chipType}`}>
+                        {evt?.title}
+                    </div>
+                </div>
+            </Dropdown>
+        )
+        
+    }) || []
+
     return (
         <div>
-            {cellEvents}
+            {/* {cellEvents} */}
+            {eventsToRender}
         </div>
     )
 }

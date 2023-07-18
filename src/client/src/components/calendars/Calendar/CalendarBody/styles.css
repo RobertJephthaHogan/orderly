@@ -78,7 +78,7 @@
 
 .event-chip {
     border: 1px solid #f1f1f1;
-    max-width: 75px;
+    max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -89,7 +89,7 @@
 .birthday-chip {
     border: 1px solid #fadf55;
     border-radius: 3px;
-    max-width: 75px;
+    max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -104,7 +104,7 @@
 .meeting-chip {
     border: 1px solid #ff5252a2;
     border-radius: 3px;
-    max-width: 75px;
+    max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -118,7 +118,7 @@
 .work-chip {
     border: 1px solid #5289ffa2;
     border-radius: 3px;
-    max-width: 75px;
+    max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -132,7 +132,7 @@
 .general-chip {
     border: 1px solid #5289ffa2;
     border-radius: 3px;
-    max-width: 75px;
+    max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -147,7 +147,7 @@
 .project-chip {
     border: 1px solid #939afba2;
     border-radius: 3px;
-    max-width: 75px;
+    max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
