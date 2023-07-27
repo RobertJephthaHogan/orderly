@@ -19,6 +19,8 @@ origins = [
         'http://localhost:3001',
         'http://localhost:3002',
         'http://orderly.roberthogan.io',
+        'https://orderly.roberthogan.io',
+        'https://www.orderly.roberthogan.io',
         'orderly.roberthogan.io',
         ]
 
