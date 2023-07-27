@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://orderlyapi.roberthogan.io'
+const API_BASE_URL = 'https://orderlyapi.roberthogan.io'
 //const API_BASE_URL = 'http://localhost:8001'
 
 
