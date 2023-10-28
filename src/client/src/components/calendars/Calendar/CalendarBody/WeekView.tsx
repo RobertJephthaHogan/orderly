@@ -49,14 +49,14 @@ const WeekView : React.FC<Props> = ({
         let precedingDates = []
         let followingDates = []
 
-        // Loop four times to get the preceding days in the week
+        // Loop to get the preceding days in the week
         for (var i = 0; i < dayOfWeek; i++) {
             const date = new Date(selectedDay);
             date.setDate(date.getDate() - i - 1);
             precedingDates.push(date.toISOString().split('T')[0]);
         }
 
-        // Loop four times to get the following days in the week
+        // Loop to get the following days in the week
         for (var i = 0; i < (6 - dayOfWeek); i++) {
             const date = new Date(selectedDay);
             date.setDate(date.getDate() + i + 1);
